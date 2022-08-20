@@ -93,6 +93,31 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
         //214000010-0743-0251-sg4KLs84_1940
         //214000010-0743-0251-ic0352-kar0283
 
+        let archiveCodeTxb = deserializeDG.archiveCodeTxb
+        let archiveCodeCkbx = deserializeDG.archiveCodeCkbx
+        let nadTxb = deserializeDG.nadTxb 
+        let nadCkbx = deserializeDG.nadCkbx 
+        let pomTxb = deserializeDG.pomTxb 
+        let pomCkbx = deserializeDG.pomCkbx 
+        let invTxb1 = deserializeDG.invTxb1 
+        let invTxb2 = deserializeDG.invTxb2 
+        let invCkbxLeft = deserializeDG.invCkbxLeft 
+        let invCkbxRight = deserializeDG.invCkbxRight 
+        let sgTxb1 = deserializeDG.sgTxb1 
+        let sgTxb2 = deserializeDG.sgTxb2 
+        let sgTxb3 = deserializeDG.sgTxb3
+        let sgCkbx = deserializeDG.sgCkbx 
+        let karTxb1 = deserializeDG.karTxb1 
+        let karTxb2 = deserializeDG.karTxb2 
+        let karCkbxLeft = deserializeDG.karCkbxLeft 
+        let karCkbxRight = deserializeDG.karCkbxRight 
+
+        let prefix = deserializeCS.prefix
+        let exampleString = deserializeCS.exampleString
+        let columnEnd = deserializeCS.columnEnd //columnEnd musi byt 13 nebo mene vzhledem k poctu columns 
+
+        let myRegex = new Regex(@"\s+")//detekuje vsechny spaces v retezci
+
         let checkBoxFn x chkbx = 
             match chkbx with 
             | true  -> x
@@ -102,32 +127,7 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
             [| 0 .. abs (rowEnd - rowStart) |] 
             |> Array.mapi (fun i item ->                 //Array.parallel tady tusim nefungovalo s DataTable
                                         Thread.Sleep(15) //aby to krasne vypadalo :-)
-                                        reportProgress(i)
-
-                                        let archiveCodeTxb = deserializeDG.archiveCodeTxb
-                                        let archiveCodeCkbx = deserializeDG.archiveCodeCkbx
-                                        let nadTxb = deserializeDG.nadTxb 
-                                        let nadCkbx = deserializeDG.nadCkbx 
-                                        let pomTxb = deserializeDG.pomTxb 
-                                        let pomCkbx = deserializeDG.pomCkbx 
-                                        let invTxb1 = deserializeDG.invTxb1 
-                                        let invTxb2 = deserializeDG.invTxb2 
-                                        let invCkbxLeft = deserializeDG.invCkbxLeft 
-                                        let invCkbxRight = deserializeDG.invCkbxRight 
-                                        let sgTxb1 = deserializeDG.sgTxb1 
-                                        let sgTxb2 = deserializeDG.sgTxb2 
-                                        let sgTxb3 = deserializeDG.sgTxb3
-                                        let sgCkbx = deserializeDG.sgCkbx 
-                                        let karTxb1 = deserializeDG.karTxb1 
-                                        let karTxb2 = deserializeDG.karTxb2 
-                                        let karCkbxLeft = deserializeDG.karCkbxLeft 
-                                        let karCkbxRight = deserializeDG.karCkbxRight 
-
-                                        let prefix = deserializeCS.prefix
-                                        let exampleString = deserializeCS.exampleString
-                                        let columnEnd = deserializeCS.columnEnd //columnEnd musi byt 13 nebo mene vzhledem k poctu columns 
-                                        
-                                        let myRegex = new Regex(@"\s+")//detekuje vsechny spaces v retezci
+                                        reportProgress(i)                                        
 
                                         [ 0 .. columnEnd - 1 ] |> List.iteri (fun j item -> dtGoogle.Rows.[i].[j] <- (string dtGoogle.Rows.[i].[j])
                                                                                                                      .Replace("–", "-").Replace(@"//", @"/").Replace(@"\\", @"\")  
