@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ampacolitomerice",
+  "private_key_id": "bca0f962c6f988baa78115186f807699f26d0b82",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDWLVCPBCuan8xM\ndyR+lrCgaruD1ZTegggl2D0eBqezU0/EyzPpqwNBdKeQc7pzpLwXpJTWYzUbgMip\nKutXLttDF7U8Bd/KFoVq3cv0lOpXNlKeMmZe7bgXuA2zxRmx2RX3yyJQKH18i4a9\ne2ukZ2x6prhihV+pGJhLyvqSoVYFXbX+joYRvuDE2XlJiTVfGBYsujxD81+AmC3y\nfkyYA3DnJ7VeOOXOxws1LAvN85jIJkjNeMIvYfk5UeoSND/Z/PUhXT0Jlm8DAt56\nLC0q326u2xJD1SoXvLk7THaK1V7iL7qT9MBcVrHqDLM7jlQCp9HEwVNMjONOPGXh\nX1uQkurFAgMBAAECggEAFY3m6xW027FUSqe85P5+VQ6Yw3pFqqT0c/aQpApwayQp\nxXjbxxreT4KRcICtFYFRKqH2FqNST2vFBf1bROFi0Jw8sYc3z+s3Txt2MK2h7df6\nNZCF6+zJl51+x4ZBATyDMPZhBCcnBdc23q/ik9+Ss78+lC+vAmIGxa3uTL5u3Ugz\nVIWq+Iu6G3dNxZDgw4rJQJIfALA1pI1UbvaG1ktUBd3mLAH31cFXB+C4WsQUyOCU\nNPK7nHFWdJ/ADzCcoUJnP1zBHgHo0Dqp0PDk0cnoBQfyyXi7As4khgyiz3boJrz/\nPsuUsNPH16RzzhJhIHsAwl/zwmelF7NURuqxsF88CwKBgQD5cuI2xa93YAai1ylk\ncAe0r730Y3+3mCKx3rtooTvGegDQ8zdRt20LtpjFLohqL1txn0cqiHi1JSzF5Hh+\nOcTIPUsLZsPTgoVvi7nvwVDZwC73CS9m6/XYoRdWLmdx5VKO7B8LULJdm1jClOiq\nFSGX0zB3MUbDAGLQX2BlJdv9CwKBgQDbzUnvYOpMmwMJLqMvX0sxSU8gi7sygQAX\nXKzy4CoHQ0E+5dke4fSkhkokADlhmbqrzerF+Fh+DKVbfcz/NbYqnCXkmUrwWD2L\nDGIkKBGCjmAJjWEtmTozj4IK35gS2HNJH65Ksp9Q0S9uDyXIP00VEyHOhu3hwsMD\nrDohhIJ5bwKBgGFsmSVDODCrdGwNFMGBb8EGEm5snekaphJKJ2/J6Qqvg7oYA7cK\nqLA2dJwufGDcdh5+UtEt09cL2dzASr8h2NVL+w9M55aoF21laQ1WtzkUckNRdw3/\ngllFMVQbc5NsOT5Qwh8tOTyN+7Cjb+tdrW0asoca28Q1VmKDnaZjjvPZAoGAC0u5\niPvKDrXIqigjasPS8W17C4kiza2je4/fs3uhrU3fhIP7bILgN7RPCxqX2FQ2K64h\napsgsRmlRdZpOpRgEECGEgFuwHtIbmTshj8o5zS56sPBQr6lJxEw9a4X+p/1DMT8\nCAq19UlKzrUok+ns5DBfhGWaxAdmTkIDmsVcjzECgYAwloiAIqI8h9Ol09bZxyQl\n2wdo4nuKxJ0c49mpxv1EYZJ6MeUO8ePvG0a5UnqXg+q9Cs4EwPf1FZxD8wmTGeHY\nJLHAXr42kheIFGLqcsjr9mn2XoMWwfy2Nk2IVmCWW3cAlB8JIvaP2b9Pd40E9y4m\nPl+GoIvjk9ktVOO9rOLcrA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "ampacolitomerice@ampacolitomerice.iam.gserviceaccount.com",
+  "client_id": "111367306939167307951",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ampacolitomerice%40ampacolitomerice.iam.gserviceaccount.com"
+}

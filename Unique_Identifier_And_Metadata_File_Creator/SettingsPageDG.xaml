@@ -1,0 +1,255 @@
+﻿<UserControl x:Class="Unique_Identifier_And_Metadata_File_Creator.SettingsDG"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:Unique_Identifier_And_Metadata_File_Creator"
+             xmlns:models="clr-namespace:Unique_Identifier_And_Metadata_File_Creator.Models;assembly=Unique_Identifier_And_Metadata_File_Creator.Models"             
+             mc:Ignorable="d" 
+             Padding="25"
+             Background="DarkViolet" d:DesignWidth="840" d:DesignHeight="700">
+
+    <!--
+   ikonku.ico dat do adresare Resource, potom pravym na soubor -> Properties -> Advanced -> Build Action -> nastavit na Resource 
+   Nezapomenout upravit pri zmene aji Icon="c:\Users\Martina\source\repos\ElmishWPF\ElmishWPF\Resources\ikonka.ico"      
+    -->
+    <StackPanel>
+        <Grid>
+            <!-- toto nepomohlo...:-(
+            <Grid.Resources>
+                <Style x:Key="sg" TargetType="CheckBox">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=sgCheckBox, Path=IsEnabled}" Value="False">
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+                <Style x:Key="invkar" TargetType="CheckBox">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=invCheckBoxLeft, Path=IsEnabled}" Value="False">
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=karCheckBoxLeft, Path=IsEnabled}" Value="False">
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Resources>
+            -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="170" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="180" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" x:Name="archiveCodeLabelLeft" HorizontalAlignment="Center" Foreground="white" FontWeight="Bold" Content="Kód archivu" Padding="-5"/>
+            <Label Grid.Column="2" Grid.Row="0" x:Name="archiveCodeLabelRight" Foreground="white" FontWeight="Bold" Content="Kód archivu" Padding="-5"/>
+            <CheckBox Grid.Column="0" Grid.Row="0" x:Name="archiveCodeCheckBox" IsChecked="{Binding ArchiveCodeCheckBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      Content="" Foreground="white" FontWeight ="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </CheckBox>
+            <TextBox Grid.Column="2" Grid.Row="0" x:Name="archiveCodeTextBox" Text="{Binding ArchiveCodeTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                     Background="white" Height="24" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="1" x:Name="nadLabelLeft" HorizontalAlignment="Center" Foreground="white" FontWeight="Bold" Content="Číslo NAD" Padding="-5"/>
+            <Label Grid.Column="2" Grid.Row="1" x:Name="nadLabelRight" Foreground="white" FontWeight="Bold" Content="Počet znaků čísla NAD" Padding="-5"/>
+            <CheckBox Grid.Column="0" Grid.Row="1" x:Name="nadCheckBox" IsChecked="{Binding NADCheckBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      Content="" Foreground="white" FontWeight ="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </CheckBox>
+            <TextBox Grid.Column="2" Grid.Row="1" x:Name="nadTextBox" Text="{Binding NADTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" 
+                      Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>                   
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="2" x:Name="pomLabelLeft" HorizontalAlignment="Center" Foreground="white" FontWeight="Bold" Content="Číslo pomůcky" Padding="-5"/>
+            <Label Grid.Column="2" Grid.Row="2" x:Name="pomLabelRight" Foreground="white" FontWeight="Bold" Content="Počet znaků čísla pomůcky" Padding="-5"/>
+            <CheckBox Grid.Column="0" Grid.Row="2" x:Name="pomCheckBox" IsChecked="{Binding POMCheckBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      Content="" Foreground="white" FontWeight ="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </CheckBox>
+            <TextBox Grid.Column="2" Grid.Row="2" x:Name="pomTextBox" Text="{Binding POMTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" 
+                      Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="3" x:Name="invLabelLeft" HorizontalAlignment="Center" Foreground="white" FontWeight="Bold" Content="Inventární číslo" Padding="-5"/>
+            <Label Grid.Column="2" Grid.Row="3" x:Name="invLabelRight1" Foreground="white" FontWeight="Bold" Content="Předpona inventárního čísla" Padding="-5"/>
+            <Label Grid.Column="4" Grid.Row="3" x:Name="invLabelRight2" Foreground="white" FontWeight="Bold" Content="Počet znaků inventárního čísla" Padding="-5"/>
+            <Label Grid.Column="6" Grid.Row="3" x:Name="invLabelRight3" Foreground="white" FontWeight="Bold" Content="Aplikovat počet znaků (vč. nul)" HorizontalAlignment="Left" Padding="-5"/>
+            <CheckBox Grid.Column="0" Grid.Row="3" x:Name="invCheckBoxLeft" IsChecked="{Binding INVCheckBoxLeft, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      Content="" Foreground="white" FontWeight ="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                      IsEnabled = "{Binding INVCheckBoxLeftE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </CheckBox>
+            <TextBox Grid.Column="2" Grid.Row="3" x:Name="invTextBox1" Text="{Binding INVTextBox1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" 
+                      Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <TextBox Grid.Column="4" Grid.Row="3" x:Name="invTextBox2" Text="{Binding INVTextBox2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" 
+                      Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <CheckBox Grid.Column="6" Grid.Row="3" x:Name="invCheckBoxRight" IsChecked="{Binding INVCheckBoxRight, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      Content="" Foreground="white" FontWeight ="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </CheckBox>
+            <Label Grid.Column="0" Grid.Row="4" x:Name="sgLabelLeft" HorizontalAlignment="Center" 
+                   Foreground="white" FontWeight="Bold" Content="Signatura" Padding="-5"/>
+            <Label Grid.Column="2" Grid.Row="4" x:Name="sgLabelRight1" Foreground="white" FontWeight="Bold" Content="Předpona signatury" Padding="-5"/>
+            <Label Grid.Column="4" Grid.Row="4" x:Name="sgLabelRight2" Foreground="white" FontWeight="Bold" Content="Znaky k záměně" Padding="-5"/>
+            <Label Grid.Column="6" Grid.Row="4" x:Name="sgLabelRight3" Foreground="white" FontWeight="Bold" Content="Záměna" Padding="-5"/>
+            <CheckBox Grid.Column="0" Grid.Row="4" x:Name="sgCheckBox" IsChecked="{Binding SGCheckBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      Content="" Foreground="white" FontWeight ="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                      IsEnabled = "{Binding SGCheckBoxE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </CheckBox>
+            <TextBox Grid.Column="2" Grid.Row="4" x:Name="sgTextBox1" Text="{Binding SGTextBox1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                     Background="white" Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <TextBox Grid.Column="4" Grid.Row="4" x:Name="sgTextBox2" Text="{Binding SGTextBox2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                     Background="white" Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <TextBox Grid.Column="6" Grid.Row="4" x:Name="sgTextBox3" Text="{Binding SGTextBox3, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                     Background="white" Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="5" x:Name="karLabelLeft" HorizontalAlignment="Center" Foreground="white" 
+                   FontWeight="Bold" Content="Číslo kartonu" Padding="-5"/>
+            <Label Grid.Column="2" Grid.Row="5" x:Name="karLabelRight1" Foreground="white" FontWeight="Bold" 
+                   Content="Předpona čísla kartonu" Padding="-5"/>
+            <Label Grid.Column="4" Grid.Row="5" x:Name="karLabelRight2" Foreground="white" FontWeight="Bold" 
+                   Content="Počet znaků čísla kartonu" Padding="-5"/>
+            <Label Grid.Column="6" Grid.Row="5" x:Name="karLabelRight3" Foreground="white" FontWeight="Bold" 
+                   Content="Aplikovat počet znaků (vč. nul)" HorizontalAlignment="Left" Padding="-5"/>
+            <CheckBox Grid.Column="0" Grid.Row="5" x:Name="karCheckBoxLeft" IsChecked="{Binding KARCheckBoxLeft, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      Content="" Foreground="white" FontWeight ="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                      IsEnabled = "{Binding KARCheckBoxLeftE, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </CheckBox>
+            <TextBox Grid.Column="2" Grid.Row="5" x:Name="karTextBox1" Text="{Binding KARTextBox1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" 
+                      Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <TextBox Grid.Column="4" Grid.Row="5" x:Name="karTextBox2" Text="{Binding KARTextBox2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" 
+                      Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <CheckBox Grid.Column="6" Grid.Row="5" x:Name="karCheckBoxRight" IsChecked="{Binding KARCheckBoxRight, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      Content="" Foreground="white" FontWeight ="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </CheckBox>
+            <Label Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="2" x:Name="infoLabel" Foreground="LightGreen" FontWeight="Bold" 
+                   Content="Nějaké to povídání ..." Margin="10,0,0,0" Padding="-5" HorizontalAlignment="Left"/>
+            <TextBox Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="4" Grid.RowSpan="2" x:Name="infoTextBox" 
+                     Text="{Binding InfoTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                     Foreground ="{Binding InfoTextBoxForeground, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                     Background="White" Height="85" TextWrapping="Wrap" Width="380" HorizontalAlignment="Left" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Button Grid.Column="2" Grid.Row="9" x:Name="DefaultButton" Command="{Binding DefaultButton}" Foreground="black" FontWeight="Bold"
+                Content="Default" HorizontalContentAlignment="Center" Width="140" Height="30">
+            </Button>
+            <Button Grid.Column="4" Grid.Row="9" x:Name="CancelButton" Command="{Binding CancelButton}" Foreground="black" FontWeight="Bold"
+                Content="Zrušit změny" HorizontalContentAlignment="Center" Width="140" Height="30">
+            </Button>
+        </Grid>
+    </StackPanel>
+</UserControl>
+
+   

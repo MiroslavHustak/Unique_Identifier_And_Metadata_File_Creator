@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Graphicloads-Food-Drink-Teapot.ico" />
+    <None Remove="Resources\sunny_sun_cloud.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\BouncyCastle.Crypto.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\Common.Logging.Core.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\Common.Logging.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\ExcelDataReader.DataSet.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\ExcelDataReader.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\FSharp.Core.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\FSharpLibrary.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\Microsoft.mshtml.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\PdfFileWriter.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\Spire.License.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\Spire.Pdf.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\System.Runtime.CompilerServices.Unsafe.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\System.Threading.Tasks.Extensions.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\Unity.Abstractions.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\Unity.Container.dll" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\XLSX_To_PDF.exe" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\XLSX_To_PDF.exe.config" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\XLSX_To_PDF_JPG_forWPF.exe" />
+    <None Include="bin\Release\net5.0-windows\Xlsx_To_Jpg_PDF\XLSX_To_PDF_JPG_forWPF.exe.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Elmish" Version="3.1.0" />
+    <PackageReference Include="Elmish.WPF" Version="4.0.0-beta-42" />
+    <PackageReference Include="FSharp.Core" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="Serilog" Version="2.11.0-dev-01377" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.2-dev-00890" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Unique_Identifier_And_Metadata_File_Creator.Models\Unique_Identifier_And_Metadata_File_Creator.Models.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Graphicloads-Food-Drink-Teapot.ico" />
+    <Resource Include="Resources\sunny_sun_cloud.ico" />
+  </ItemGroup>
+
+</Project>

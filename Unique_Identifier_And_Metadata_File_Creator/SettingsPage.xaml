@@ -1,0 +1,199 @@
+﻿<UserControl x:Class="Unique_Identifier_And_Metadata_File_Creator.Settings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:Unique_Identifier_And_Metadata_File_Creator"
+             xmlns:models="clr-namespace:Unique_Identifier_And_Metadata_File_Creator.Models;assembly=Unique_Identifier_And_Metadata_File_Creator.Models"             
+             mc:Ignorable="d" 
+             Padding="25"
+             Background="DarkGreen" d:DesignWidth="840" d:DesignHeight="700">
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="330" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="220" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" x:Name="fontTypeLabel" Foreground="white" FontWeight="Bold" Content="{Binding FontTypeLabel}" Padding="-5"/>
+            <TextBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" x:Name="fontTypeTextBox" Text="{Binding FontTypeTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" Height="24" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" x:Name="jsonFileName1Label" Foreground="white" FontWeight="Bold" Content="{Binding JsonFileName1Label}" Padding="-5">
+            </Label>
+            <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" x:Name="jsonFileName1TextBox" Text="{Binding JsonFileName1TextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" 
+                      Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                    <!--
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction PassEventArgsToCommand="False" Command="{Binding TextBoxChanged}" />
+                    </i:EventTrigger>
+                    -->
+                </i:Interaction.Triggers>                    
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" x:Name="csvPathLabel" Foreground="white" FontWeight="Bold" Content="{Binding CsvPathLabel}" Padding="-5"/>
+            <TextBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" x:Name="csvPathTextBox" Text="{Binding CsvPathTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" 
+                     Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>                   
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" x:Name="xlsxPathLabel" Foreground="white" FontWeight="Bold" Content="{Binding XlsxPathLabel}" Padding="-5"/>
+            <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" x:Name="xlsxPathTextBox" Text="{Binding XlsxPathTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" 
+                     Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="4" x:Name="idLabel" Foreground="white" FontWeight="Bold" Content="{Binding IdLabel}" Padding="-5"/>
+            <TextBox Grid.Column="0" Grid.Row="4" x:Name="idTextBox" Text="{Binding IdTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>                    
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="5" x:Name="prefixLabel" Foreground="white" FontWeight="Bold" Content="{Binding PrefixLabel}" Padding="-5"/>
+            <TextBox Grid.Column="0" Grid.Row="5" x:Name="prefixTextBox" Text="{Binding PrefixTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>                  
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="6" x:Name="exampleStringLabel" Foreground="white" FontWeight="Bold" Content="{Binding ExampleStringLabel}" Padding="-5"/>
+            <TextBox Grid.Column="0" Grid.Row="6" x:Name="exampleStringTextBox" Text="{Binding ExampleStringTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>                    
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="7" x:Name="numOfRowsGoogleLabel" Foreground="white" FontWeight="Bold" Content="{Binding NumOfRowsGoogleLabel}" Padding="-5"/>
+            <TextBox Grid.Column="0" Grid.Row="7" x:Name="numOfRowsGoogleTextBox" Text="{Binding NumOfRowsGoogleTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" Height="23" 
+                     TextWrapping="Wrap" Margin="0,0,0,0" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>                    
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="8" x:Name="columnStartLabel" Foreground="white" FontWeight="Bold" Content="{Binding ColumnStartLabel}" Padding="-5"/>
+            <TextBox Grid.Column="0" Grid.Row="8" x:Name="columnStartTextBox" Text="{Binding ColumnStartTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" Height="23" 
+                     TextWrapping="Wrap" Margin="0,0,0,0" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>                  
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="9" x:Name="columnEndLabel" Foreground="white" FontWeight="Bold" Content="{Binding ColumnEndLabel}" Padding="-5"/>
+            <TextBox Grid.Column="0" Grid.Row="9" x:Name="columnEndTextBox" Text="{Binding ColumnEndTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" Height="22" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>                   
+                </i:Interaction.Triggers>
+            </TextBox>   
+            <Label Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="3" x:Name="jpgPathLabel" Foreground="white" FontWeight="Bold" Content="{Binding JpgPathLabel}" Padding="-5"/>
+            <TextBox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="3" x:Name="jpgPathTextBox" Text="{Binding JpgPathTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" 
+                     Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="3" x:Name="pdfPathLabel" Foreground="white" FontWeight="Bold" Content="{Binding PdfPathLabel}" Padding="-5"/>
+            <TextBox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="3" x:Name="pdfPathTextBox" Text="{Binding PdfPathTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" 
+                     Height="23" TextWrapping="Wrap" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" x:Name="sheetNameLabel" Foreground="white" FontWeight="Bold" Content="{Binding SheetNameLabel}" Padding="-5" Margin="45,0,0,0"/>
+            <TextBox Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" x:Name="sheetNameTextBox" Text="{Binding SheetNameTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="white" 
+                     Height="23" TextWrapping="Wrap" Margin="45,0,45,0" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>                  
+                </i:Interaction.Triggers>
+            </TextBox>
+            <Label Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="2" x:Name="sheetName6Label" Foreground="white" FontWeight="Bold" Content="{Binding SheetName6Label}" 
+                   Margin="45,0,0,0" Padding="-5" VerticalAlignment="Top"/>
+            <TextBox Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="2" x:Name="sheetName6TextBox" Text="{Binding SheetName6TextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                     Background="white" Height="23" TextWrapping="Wrap" Margin="45,0,45,0" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>     
+                </i:Interaction.Triggers>
+            </TextBox>
+            <CheckBox Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" x:Name="firstRowIsHeadersCheckBox" IsChecked="{Binding FirstRowIsHeadersCheckBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      Content="{Binding FirstRowIsHeadersCheckBoxContent}" Foreground="white" FontWeight ="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,0,0,0">
+                <i:Interaction.Triggers>
+                    <!--
+                    <i:EventTrigger EventName="Checked">
+                        <i:InvokeCommandAction Command="{Binding CheckBoxChanged}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="Unchecked">
+                        <i:InvokeCommandAction Command="{Binding CheckBoxChanged}"/>
+                    </i:EventTrigger>
+                    -->
+                    <i:EventTrigger EventName="MouseEnter">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </CheckBox>
+            <Label Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" x:Name="infoLabel" Foreground="LightGreen" FontWeight="Bold" Content="Nějaké to povídání ..." Margin="50,0,0,0" Padding="-5"/>
+            <TextBox Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="infoTextBox" Text="{Binding InfoTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                     Foreground ="{Binding InfoTextBoxForeground, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="White" Height="85" TextWrapping="Wrap" Width="350" PreviewMouseLeftButtonDown="SelectAllText">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter">
+                        <i:InvokeCommandAction PassEventArgsToCommand="True" Command="{Binding TriggerEvent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>           
+            <Button Grid.Column="1" Grid.Row="9" x:Name="DefaultButton3" Command="{Binding DefaultButton3}" Foreground="black" FontWeight="Bold"
+                Content="Default" HorizontalContentAlignment="Center" Width="140" Height="30">
+            </Button>
+            <Button Grid.Column="2" Grid.Row="9" x:Name="CancelButton2" Command="{Binding CancelButton2}" Foreground="black" FontWeight="Bold"
+                Content="Zrušit změny" HorizontalContentAlignment="Center" Width="140" Height="30">
+            </Button>
+        </Grid>
+    </StackPanel>
+</UserControl>
+
+<!--
+   Graphicloads-Food-Drink-Teapot.ico dat do adresare Resource, potom pravym na soubor -> Properties -> Advanced -> Build Action -> nastavit na Resource 
+   Nezapomenout upravot pri zmene aji Icon="c:\Users\Martina\source\repos\ElmishWPF\ElmishWPF\Resources\Graphicloads-Food-Drink-Teapot.ico"      
+-->    
