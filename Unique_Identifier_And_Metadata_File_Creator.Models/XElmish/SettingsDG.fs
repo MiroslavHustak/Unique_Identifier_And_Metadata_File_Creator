@@ -177,17 +177,16 @@ module SettingsDG =
                         return x
                     }   
            
-           let condInt x y =   
-               let result =            
-                   match Parsing.parseMeOption (string x) with
-                   | Some value -> 
-                                  let result = 
-                                      match value <= limitNumberOfCharacters && value > 0 with 
-                                      | true  -> value                                           
-                                      | false -> limitNumberOfCharacters  //limitni hodnota v prislusnem textboxu
-                                  result                              
-                   | None      -> y
-               result 
+           let condInt x y =                             
+                match Parsing.parseMeOption (string x) with
+                | Some value -> 
+                                let result = 
+                                    match value <= limitNumberOfCharacters && value > 0 with 
+                                    | true  -> value                                           
+                                    | false -> limitNumberOfCharacters  //limitni hodnota v prislusnem textboxu
+                                result                              
+                | None      -> y
+                
            
            let myCopyOfSettings() =  //to je, co se ulozi
                {
@@ -330,17 +329,16 @@ module SettingsDG =
             | InfoTextBoxForeground         -> { m with InfoTextBoxForeground = Brushes.Black }, Cmd.none //tohle je barva, na kterou se to po pohybu mysi nebo po zvednuti klavesy zmeni
       
    
-    let condInt y x =   //musim x a y prehodit, nebot hodnota pres piping je dosazena az nakonec vpravo     
-        let result =            
-            match Parsing.parseMeOption (string x) with
-            | Some value -> 
-                           let result = 
-                               match value <= limitNumberOfCharacters && value > 0 with 
-                               | true  -> value                                           
-                               | false -> limitNumberOfCharacters  //limitni hodnota v prislusnem textboxu
-                           string result                              
-            | None      -> string y
-        result 
+    let condInt y x =   //musim x a y prehodit, nebot hodnota pres piping je dosazena az nakonec vpravo   
+        match Parsing.parseMeOption (string x) with
+        | Some value -> 
+                        let result = 
+                            match value <= limitNumberOfCharacters && value > 0 with 
+                            | true  -> value                                           
+                            | false -> limitNumberOfCharacters  //limitni hodnota v prislusnem textboxu
+                        string result                              
+        | None      -> string y
+         
 
     let condition x y = (cond x y) |> condInt y 
 

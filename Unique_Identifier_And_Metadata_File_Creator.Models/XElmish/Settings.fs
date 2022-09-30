@@ -225,17 +225,13 @@ module Settings =
                 | true  -> x  
                 | false -> y  
              
-           let condInt x y limit =   
-               let result =            
-                   match Parsing.parseMeOption (string x) with
-                   | Some value -> 
-                                  let result = 
-                                      match value <= limit && value > 0 with 
-                                      | true  -> value                                           
-                                      | false -> limit 
-                                  result                              
-                   | None      -> y
-               result 
+           let condInt x y limit = 
+                match Parsing.parseMeOption (string x) with
+                | Some value ->                                  
+                                match value <= limit && value > 0 with 
+                                | true  -> value                                           
+                                | false -> limit                                                              
+                | None      -> y                
 
            let myCopyOfSettings() =  //to je, co se ulozi
                {
@@ -346,11 +342,10 @@ module Settings =
                                      let title = "Rozmysli si to !!!"
                                      let buttons = MessageBoxButton.YesNo  
                                      let message = "Kliknutím na \"Ano\" nebo \"Yes\" bude proveden návrat k defaultním hodnotám a navždy ztratíš nastavené hodnoty. Je to opravdu to, co chceš?"
-                                     let result = MessageBox.Show(message, title, buttons, MessageBoxImage.Warning, MessageBoxResult.No)
-                
-                                     match result with
-                                     | MessageBoxResult.Yes -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none 
-                                     | _                    -> m, Cmd.none    
+                                     MessageBox.Show(message, title, buttons, MessageBoxImage.Warning, MessageBoxResult.No)                
+                                     |> function
+                                         | MessageBoxResult.Yes -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none 
+                                         | _                    -> m, Cmd.none    
 
             | FontTypeTextBox fontType   -> { m with FontTypeTextBoxText = fontType; InfoTextBoxText = str m.FontTypeLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
             | PrefixTextBox prefix       -> { m with PrefixTextBoxText = prefix; InfoTextBoxText = str m.PrefixLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
@@ -377,17 +372,15 @@ module Settings =
         | true  -> x  
         | false -> y  
     
-    let condInt y x =   //musim x a y prehodit, nebot hodnota pres piping je dosazena az nakonec vpravo     
-        let result =            
-            match Parsing.parseMeOption (string x) with
-            | Some value -> 
-                           let result = 
-                               match value <= limitGoogle && value > 0 with 
-                               | true  -> value                                           
-                               | false -> limitGoogle 
-                           string result                              
-            | None      -> string y
-        result 
+    let condInt y x =   //musim x a y prehodit, nebot hodnota pres piping je dosazena az nakonec vpravo    
+        match Parsing.parseMeOption (string x) with
+        | Some value -> 
+                        let result = 
+                            match value <= limitGoogle && value > 0 with 
+                            | true  -> value                                           
+                            | false -> limitGoogle 
+                        string result                              
+        | None      -> string y       
 
     let condition x y = (cond x y) |> condInt y 
 
