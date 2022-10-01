@@ -14,15 +14,13 @@ open System.Windows vyzaduje doplneni nize uvedeneho do fsproj
 
 let private restartApp title message f = 
     
-    let buttons = MessageBoxButton.OK                     
-    let result = MessageBox.Show(message, title, buttons, MessageBoxImage.Warning)
-    
-    match result with
-    | MessageBoxResult.OK ->  let currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName
-                              Process.Start(currentExecutablePath) |> ignore //restart
-                              Environment.Exit(1)  
-                              f
-    | _                    -> f
+    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning)
+    |> function  
+       | MessageBoxResult.OK ->  let currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName
+                                 Process.Start(currentExecutablePath) |> ignore //restart
+                                 Environment.Exit(1)  
+                                 f
+       | _                    -> f
 
 //************************** main error functions ******************
 
@@ -34,12 +32,10 @@ let error0 ex =
 
 let error1 message title = 
         
-    let buttons = MessageBoxButton.OK                     
-    let result = MessageBox.Show(message, title, buttons, MessageBoxImage.Warning)   
-    
-    match result with
-    | MessageBoxResult.OK -> ()                    
-    | _                   -> ()
+    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning)   
+    |> function   
+       | MessageBoxResult.OK -> ()                    
+       | _                   -> ()
 
 let error3 str1 str2 = 
 
@@ -51,13 +47,12 @@ let error4 str  =
 
     let message = sprintf "Vyskytla se chyba (%s). Klikni na \"OK\" pro ukončení této aplikace a sežeň programátora, anebo oprav problém sám."
                   <| str
-    let title = "Závažná chyba"
-    let buttons = MessageBoxButton.OK                     
-    let result = MessageBox.Show(message, title, buttons, MessageBoxImage.Warning)   
+    let title = "Závažná chyba"      
     
-    match result with
-    | MessageBoxResult.OK -> Environment.Exit(1)                     
-    | _                   -> ()
+    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning)   
+    |> function  
+       | MessageBoxResult.OK -> Environment.Exit(1)                     
+       | _                   -> ()
 
 let error5 ex  = 
 

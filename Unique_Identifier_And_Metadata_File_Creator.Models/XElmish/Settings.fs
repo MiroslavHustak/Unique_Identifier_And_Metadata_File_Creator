@@ -340,9 +340,8 @@ module Settings =
             | CancelButton2Event  -> initialModel "jsonBackUp.xml" "Načteny hodnoty ze záložního souboru (hodnoty uložené před spuštěním programu). \n" |> updateSettings, Cmd.none                                   
             | DefaultButton3Event -> 
                                      let title = "Rozmysli si to !!!"
-                                     let buttons = MessageBoxButton.YesNo  
                                      let message = "Kliknutím na \"Ano\" nebo \"Yes\" bude proveden návrat k defaultním hodnotám a navždy ztratíš nastavené hodnoty. Je to opravdu to, co chceš?"
-                                     MessageBox.Show(message, title, buttons, MessageBoxImage.Warning, MessageBoxResult.No)                
+                                     MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No)                
                                      |> function
                                         | MessageBoxResult.Yes -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none 
                                         | _                    -> m, Cmd.none    
