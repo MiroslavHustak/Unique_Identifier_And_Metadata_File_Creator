@@ -292,11 +292,10 @@ module SettingsDG =
                                      let title = "Rozmysli si to !!!"
                                      let buttons = MessageBoxButton.YesNo  
                                      let message = "Kliknutím na \"Ano\" nebo \"Yes\" bude proveden návrat k defaultním hodnotám a navždy ztratíš nastavené hodnoty. Je to opravdu to, co chceš?"
-                                     let result = MessageBox.Show(message, title, buttons, MessageBoxImage.Warning, MessageBoxResult.No)
-                                     
-                                     match result with
-                                     | MessageBoxResult.Yes -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none 
-                                     | _                    -> m, Cmd.none                
+                                     MessageBox.Show(message, title, buttons, MessageBoxImage.Warning, MessageBoxResult.No)                                     
+                                     |> function
+                                        | MessageBoxResult.Yes -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none 
+                                        | _                    -> m, Cmd.none                
                                       
             | ArchiveCodeTextBox archiveCodeTxb   -> { m with ArchiveCodeTextBoxText = archiveCodeTxb; InfoTextBoxText = str "archivního kódu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
             | ArchiveCodeCheckBox archiveCodeCkbx -> { m with ArchiveCodeCheckBoxIsChecked = archiveCodeCkbx; InfoTextBoxText = strCbx "archivního kódu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none 
