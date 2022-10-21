@@ -38,7 +38,7 @@ let deconstructor4 y =
                     y
     
 let optionToArraySort str1 str2 x = 
-    match x with
+    function
     | Some value -> Array.sort (Array.ofSeq (value)) 
     | None       -> error3 str1 str2      
 
