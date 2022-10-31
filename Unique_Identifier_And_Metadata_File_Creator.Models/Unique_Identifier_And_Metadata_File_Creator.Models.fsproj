@@ -12,11 +12,11 @@
     <Compile Include="Settings\Settings.fs" />
     <Compile Include="MyTypes\PatternBuilders.fs" />
     <Compile Include="MyTypes\DiscriminatedUnions.fs" />
-    <Compile Include="Auxiliaries\GoogleAPI.fs" />
     <Compile Include="Auxiliaries\Errors.fs" />
     <Compile Include="Auxiliaries\ROP_Functions.fs" />
-    <Compile Include="Auxiliaries\CreatingCSV.fs" />
     <Compile Include="Auxiliaries\Helpers.fs" />
+    <Compile Include="Auxiliaries\GoogleAPI.fs" />
+    <Compile Include="Auxiliaries\CreatingCSV.fs" />
     <Compile Include="MainLogic\MainLogicMetaData.fs" />
     <Compile Include="MainLogic\MainLogicDG.fs" />
     <Compile Include="XElmish\ElmishSupport.fs" />

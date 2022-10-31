@@ -5,11 +5,36 @@ open System.IO;
 open Newtonsoft.Json
 open System.Diagnostics
 open System.Runtime.Serialization
+open System.Net.NetworkInformation
 
 open Errors
 open Settings
 open ROP_Functions
 
+    module NetConn = 
+       
+        let checkForNetConn() = 
+            try 
+                try
+                    use myPing = new Ping()                          
+                    let host: String = "google.com"
+                    let buffer: byte[] = Array.zeroCreate <| 32
+                    let timeout = 1000
+                    let pingOptions: PingOptions = new PingOptions() //|> Option.ofObj 
+                                                       
+                    //asi nevadi, ze parametr pingOptions by mohl byt null
+                    myPing.Send(host, timeout, buffer, pingOptions)
+                    |> Option.ofObj  
+                    |> function 
+                        | Some value -> value.Status = IPStatus.Success
+                        | None       -> false
+                    //myPing.Dispose()        
+                finally
+                    ()
+            with           
+            | _ -> false      
+    
+    
     module Process =
          
         //ROP... 
