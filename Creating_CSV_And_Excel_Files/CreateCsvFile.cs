@@ -34,16 +34,13 @@ namespace Creating_CSV_And_Excel_Files
                         join1 += columnNames[c] + ";";
                     }
 
-                    sw1.WriteLine(join1.Remove(join1.Length - 1, 1));//odstraneni posledniho znaku, coz je ";"
+                    sw1.WriteLine(join1.Remove(join1.Length - 1, 1));//odstraneni posledniho znaku, coz je ";"                                        
 
-                    int dtXlsxRowsCount = dt.Rows.Count;
-                    int dtXlsxColumnsCount = dt.Columns.Count;
-
-                    for (int r = 0; r < dtXlsxRowsCount; r++)
+                    for (int r = 0; r < dt.Rows.Count; r++)
                     {
                         string join = String.Empty;
 
-                        for (int c = 0; c < dtXlsxColumnsCount; c++)
+                        for (int c = 0; c < dt.Columns.Count; c++)
                         {
                             if (dt.Rows[r][c] == null && c == 0)
                             {

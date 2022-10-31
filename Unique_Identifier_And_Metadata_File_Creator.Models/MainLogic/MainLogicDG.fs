@@ -235,7 +235,7 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                     let nameOfCVSFile = sprintf"%s az %s" auxLow auxHigh
 
                     //CREATING CSV
-                    let csv() =  //obe funkce a deserializace uz su uvnitr try with 
+                    let csv() =  //funkce resultStr C# a deserializace uz su uvnitr try with bloku
                         let pathCSV = deserializeCS.csvPath 
                         
                         deleteAllFilesInDir pathCSV |> ignore
@@ -245,10 +245,22 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                             match lastCharacter.Equals("\\") with
                             | true  -> pathCSV.Remove(pathCSV.Length - 1, 1)
                             | false -> pathCSV  
-                        CreateCsvFile.WriteIntoCSV(dtGoogle, pathCSV, nameOfCVSFile) //string vychazejici z impure prostredi C# ma return mj. aji null
-                        |> Option.ofObj
-                        |> optionToGenerics "csv souboru" "WriteIntoCSV()" //k tomu nedojde, neb v C#  pred return null je naprogramovana hlaska s restartem, ale z duvodu zobecneni nechavam
-                    
+                        
+                        //reseni s dll kodovanym v C#
+                        let resultStr = 
+                            CreateCsvFile.WriteIntoCSV(dtGoogle, pathCSV, nameOfCVSFile) //string vychazejici z impure prostredi C# ma return mj. aji null
+                            |> Option.ofObj
+                            |> optionToGenerics "csv souboru" "WriteIntoCSV()" //k tomu nedojde, neb v C#  pred return null je naprogramovana hlaska s restartem, ale z duvodu zobecneni nechavam
+                            |> ignore
+                        
+                        //F# reseni
+                        let resultStr = 
+                            let title = "Závažná chyba při převodu hodnot z Google tabulky do csv souboru"
+                            let message ex = sprintf "Vyskytla se následující chyba: %s. Klikni na \"OK\" pro restart této aplikace a oveř hodnoty pro csv soubor v nastavení." ex
+                            let perform x = CreatingCSV.writeIntoCSV dtGoogle pathCSV nameOfCVSFile //dtGoogle je v dane funkci osetreno na Option.ofObj                           
+                            tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor3 title message String.Empty         
+                        resultStr    
+
                     //CREATING EXCEL
                     let excel() =  //obe funkce a deserializace uz su uvnitr try with 
                         let nameOfXLSXFile = sprintf"%s DGSada %s.xlsx" nameOfCVSFile (DateTime.Now.ToString("dd-MM-yyyy"))       

@@ -52,6 +52,12 @@ let optionToDirectoryInfo str (x: DirectoryInfo option) =
     | Some value -> value
     | None       -> error4 str //ukonci program
                     new DirectoryInfo(String.Empty) //whatever of DirectoryInfo type
+
+let optionToGenerics2 str x = 
+    function
+    | Some value -> value
+    | None       -> error4 "při čtení dat z DataTable"                                   
+                    x //whatever    
                                       
                     
 
