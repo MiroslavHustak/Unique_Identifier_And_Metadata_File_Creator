@@ -14,6 +14,7 @@ open ROP_Functions
     module NetConn = 
        
         let checkForNetConn() = 
+
             try 
                 try
                     use myPing = new Ping()                          

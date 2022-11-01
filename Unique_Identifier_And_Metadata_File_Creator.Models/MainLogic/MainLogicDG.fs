@@ -281,7 +281,7 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                         let id = deserializeCS.id
                         let sheetName = deserializeCS.sheetName  
                         let endIndex = deserializeCS.numOfRowsGoogle + 999 // vyznam 999 je uveden v GoogleSheetsHelper 
-                        writingToGoogleSheets dtGoogle jsonFileName1 id sheetName endIndex // try catch je primo v GoogleSheets -> WritingToGoogleSheets (C#) 
+                        writingToGoogleSheets dtGoogle jsonFileName1 id sheetName endIndex // try catch je primo v GoogleSheets -> WriteToGoogleSheets (C#) 
 
                     //z duvodu pouziti return bool a string nelze tasks od .NET, ktere vyzaduji stejny typ vsude
                     (*                   

@@ -25,7 +25,11 @@ let writeIntoCSV (dt: DataTable) (pathCSV: string) (nameOfCVSFile: string) = //p
     //headers  
     //tady do in scope nelze dt, bo shadowing zpusobi vzani hodnoty z parametru
     let strHeaders = 
-        let columnNames = dt.Columns.Cast<System.Data.DataColumn>() |> Seq.map (fun item -> item.Caption)
+        let columnNames = 
+                          dt.Columns.Cast<System.Data.DataColumn>()
+                          |> Option.ofObj 
+                          |> optionToGenerics2 "při dt.Columns.Cast" (dt.Columns.Cast<System.Data.DataColumn>()) //whatever of the particular type  
+                          |> Seq.map (fun item -> item.Caption)
         columnNames |> Seq.fold (fun acc item -> (+) acc (sprintf "%s%s" item ";")) String.Empty  //| nebo take > Seq.map (fun item -> sprintf "%s%s" item ";") |> Seq.fold (+) String.Empty
     do sw1.WriteLine(strHeaders.Remove(strHeaders.Length - 1, 1)) //odstraneni posledniho znaku, coz je ";"                      
 
@@ -39,7 +43,7 @@ let writeIntoCSV (dt: DataTable) (pathCSV: string) (nameOfCVSFile: string) = //p
                                                         |> function
                                                             | None when c = 0 -> string dt.Rows.[r].[c]                                                                                        
                                                             | _               -> (string dt.Rows.[r].[c]).Replace(';', ',')
-                                                )  
+                                              )  
                             let str = sprintf "%s%s" (String.concat <| ";" <| str) ";" //join musi byt Array //flattening string[]
                             do sw1.WriteLine(str.Remove(str.Length - 1, 1)) //odstraneni posledniho znaku, coz je ";"     
                             do sw1.Flush()  

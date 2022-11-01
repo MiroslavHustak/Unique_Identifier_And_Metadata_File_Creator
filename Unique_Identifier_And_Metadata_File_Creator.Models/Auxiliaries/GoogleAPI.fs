@@ -7,7 +7,7 @@ open CheckingNetConn
 
 let private checkForNetConn() = 
 
-    //Seq.initInfinite (fun _ -> NetConn.CheckForNetConn()) //DLL C# 
+    //Seq.initInfinite (fun _ -> NetConn.CheckForNetConn()) //DLL C# //neni tam kontrola na null
     Seq.initInfinite (fun _ -> Helpers.NetConn.checkForNetConn()) //F#    
     |> Seq.takeWhile ((=) false) 
     |> Seq.iter      (fun _ -> ())  

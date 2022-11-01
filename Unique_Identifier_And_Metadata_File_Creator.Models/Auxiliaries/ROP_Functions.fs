@@ -56,8 +56,8 @@ let optionToDirectoryInfo str (x: DirectoryInfo option) =
 let optionToGenerics2 str x = 
     function
     | Some value -> value
-    | None       -> error4 "při čtení dat z DataTable"                                   
-                    x //whatever    
+    | None       -> error4 str                                   
+                    x //whatever of the particular type   
                                       
                     
 
