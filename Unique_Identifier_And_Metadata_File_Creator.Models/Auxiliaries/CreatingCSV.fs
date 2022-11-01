@@ -44,7 +44,7 @@ let writeIntoCSV (dt: DataTable) (pathCSV: string) (nameOfCVSFile: string) = //p
                                                             | None when c = 0 -> string dt.Rows.[r].[c]                                                                                        
                                                             | _               -> (string dt.Rows.[r].[c]).Replace(';', ',')
                                               )  
-                            let str = sprintf "%s%s" (String.concat <| ";" <| str) ";" //join musi byt Array //flattening string[]
+                            let str = sprintf "%s%s" (String.concat <| ";" <| str) ";" //str musi byt Array //flattening string[]
                             do sw1.WriteLine(str.Remove(str.Length - 1, 1)) //odstraneni posledniho znaku, coz je ";"     
                             do sw1.Flush()  
                  )    
