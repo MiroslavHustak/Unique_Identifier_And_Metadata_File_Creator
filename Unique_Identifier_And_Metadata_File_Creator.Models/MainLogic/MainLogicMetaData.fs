@@ -38,19 +38,13 @@ let createMetadataFiles() =
 
     let openFileDialog() = new OpenFileDialog() 
                            |> Option.ofObj
-                           |> function
-                              | Some value -> value
-                              | None       -> error4 <| "OpenFileDialog()"
-                                              new OpenFileDialog() 
+                           |> optionToGenerics2 "OpenFileDialog()" (new OpenFileDialog())                           
      
     let procFn (str1: string) (str2: seq<string>) =         
         System.Diagnostics.Process.Start(str1, str2)
         |> Option.ofObj  
-        |> function
-           | Some value -> value
-           | None       -> error4 <| "System.Diagnostics.Process.Start()"
-                           new System.Diagnostics.Process() 
-                                              
+        |> optionToGenerics2 "System.Diagnostics.Process.Start()" (new System.Diagnostics.Process()) 
+                                                    
     let procKill() =
         let proc = procFn String.Empty Seq.empty                              
         proc.Kill |> ignore   

@@ -94,7 +94,9 @@ module SettingsDG =
         
         let deserializeWhenLoaded message = 
             
-            let deserialize: SettingsDG.DG_Settings = deserialize xmlFile //nutno zadat explicitne typ quli generics <'a> v deserialisation v Helpers 
+            let deserialize: SettingsDG.DG_Settings = 
+                  
+                deserialize xmlFile //nutno zadat explicitne typ quli generics <'a> v deserialisation v Helpers                
 
             let myInitialModel = 
                 {  

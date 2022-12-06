@@ -43,7 +43,7 @@ let error3 str1 str2 =
                   <| str1 <| str2
     restartApp "Závažná chyba" message Array.empty                        
 
-let error4 str  = 
+let error4 str = 
 
     let message = sprintf "Vyskytla se chyba (%s). Klikni na \"OK\" pro ukončení této aplikace a sežeň programátora, anebo oprav problém sám."
                   <| str

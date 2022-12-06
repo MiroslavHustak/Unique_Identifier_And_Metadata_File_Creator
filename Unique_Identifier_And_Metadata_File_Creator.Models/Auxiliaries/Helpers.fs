@@ -41,18 +41,22 @@ open ROP_Functions
         //ROP... 
         let detectLockedFile (file: FileInfo) =       
             
-                let perform x =                                    
-                   use stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None) 
+                let perform x =  
+                   //zamerne nepouzivam use stream =  
+                   let stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None) 
                    stream.Close()
+                   stream.Dispose()
                    false             
                 tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor2 
          
         //... a pro porovnani normalni try with block (ale bez finaly, coz mam vyse)
         let detectLockedFileTryWith (file: FileInfo) = 
             
-            try          
-                use stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None) 
+            try      
+                //zamerne nepouzivam use stream = 
+                let stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None) 
                 stream.Close()
+                stream.Dispose()
                 false                                                      
             with  
             | ex -> true  
@@ -175,9 +179,10 @@ open ROP_Functions
                 | _ :: tail -> let finalString = (+) acc stringToAdd
                                loop <| tail <| finalString <| stringToAdd
             loop <| listRange <| initialString <| stringToAdd  
-                       
+    
+    //Vsechny serializace dat povinne do trywith bloku (a jeste overit Option.ofObj, kdyby nahodou tam byl nullable typ)
     module Serialisation = 
-
+         
          let serialize record xmlFile = 
             
              let filepath = Path.GetFullPath(xmlFile) 
@@ -190,6 +195,7 @@ open ROP_Functions
              use stream = File.Create(filepath)   
              xmlSerializer.WriteObject(stream, JsonConvert.SerializeObject(record))            
 
+    //Vsechny deserializace dat povinne do trywith bloku (a jeste overit Option.ofObj, kdyby nahodou tam byl nullable typ)          
     module Deserialisation =       
               
        let deserialize xmlFile = 
@@ -197,6 +203,7 @@ open ROP_Functions
            let filepath = Path.GetFullPath(xmlFile) 
                           |> Option.ofObj 
                           |> optionToGenerics (sprintf "čtení cesty k souboru souboru %s" xmlFile) "Path.GetFullPath()"
+                          //za timto je trywith, kere by asi zrobilo NullReference Exception, tra se rozhodnut, esli chybu resit jako tady vypnutim, anebo ji nechat projit s nactenim defaultnich hodnot  
           
            let jsonString() = 
 

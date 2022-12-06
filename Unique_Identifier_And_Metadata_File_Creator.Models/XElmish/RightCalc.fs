@@ -99,7 +99,7 @@ module RightCalc =
                                         let startWithNumber = result.Item 0                                               
 
                                         match (result |> List.contains 0) || String.length (string startWithNumber) > maxNumberOfCharacters with
-                                        | true  -> { m with ProgressIndicatorRight = Idle; MetaDataButtonIsEnabled = true;  UniqueIdentifierButtonIsEnabled = true; MainTextBoxText = "Chybný rozdíl limitních hodnot anebo pracovní značení či limity nebyly správně zadány." + "\n"; }, Cmd.none
+                                        | true  -> { m with ProgressIndicatorRight = Idle; MetaDataButtonIsEnabled = true; UniqueIdentifierButtonIsEnabled = true; MainTextBoxText = "Chybný rozdíl limitních hodnot anebo pracovní značení či limity nebyly správně zadány." + "\n"; }, Cmd.none
                                         | false ->                        
                                                    let tryWith =
                                                        let myMsgBox() = 
