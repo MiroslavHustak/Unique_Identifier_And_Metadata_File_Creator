@@ -1,6 +1,6 @@
 ﻿module PatternBuilders
 
-let (>>=) condition nextFunc =
+let private (>>=) condition nextFunc =
     match fst condition with
     | false -> snd condition
     | true  -> nextFunc()  
