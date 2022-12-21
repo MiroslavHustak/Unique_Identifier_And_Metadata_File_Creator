@@ -28,13 +28,13 @@ let createMetadataFiles() =
         do closeSingleProcess message title processName    
         //a pro jistotu jeste.... 
         do KillSingleProcess("XLSX_To_PDF", String.Empty, false) //"Excel" "AcroRd32" "FoxitPDFReader" "scalc"
-    tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor4 ()
+    tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor4 ()
              
     let deserialize =
         let message ex = sprintf "Vyskytla se chyba při deserializaci. Klikni na \"OK\" pro restart programu a odstraň problém. K tomu dopomáhej ti následující chybové hlášení: \n\n%s" ex
         let title = "Závažná chyba při deserializaci"                    
         let perform x = deserialize "json.xml" 
-        tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor3 title message Common_Settings.Default              
+        tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 title message Common_Settings.Default              
 
     let openFileDialog() = new OpenFileDialog() 
                            |> Option.ofObj
@@ -56,7 +56,7 @@ let createMetadataFiles() =
             let perform x = 
                 let openFileDialog = openFileDialog() 
                 openFileDialog                 
-            tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor4 (openFileDialog())              
+            tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor4 (openFileDialog())              
         
         openFileDialog.Filter <- @"Excel soubor (*.xlsx, *.xls)| *.xlsx; *.xls"         
            
@@ -92,6 +92,6 @@ let createMetadataFiles() =
    (*
     //pokud umistim rop try with blok s celou funkci tady na konec, tak to uz reaguje na neposkytnuti souboru pri aktivaci, coz je zbytecna hlaska navic
       let perform x = startMetadataFileCreation() 
-      tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor4 
+      tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor4 
     *)
 

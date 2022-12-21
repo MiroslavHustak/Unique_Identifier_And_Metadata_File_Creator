@@ -43,7 +43,7 @@ module RightCalc =
         let message ex = String.Empty 
         let title = "Závažná chyba při deserializaci"
         let perform x = deserialize xmlFile 
-        tryWith perform (fun x -> ()) (fun ex -> failwith)  |> deconstructor3 title message defaultRecord 
+        tryWith perform (fun x -> ()) (fun ex -> ())  |> deconstructor3 title message defaultRecord 
 
     let initialModel xmlFile = 
        

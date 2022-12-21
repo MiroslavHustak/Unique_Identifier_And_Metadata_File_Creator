@@ -59,11 +59,11 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
     
     let deserializeCS: Common_Settings =
         let perform x = deserialize "json.xml" 
-        tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor3 title message Common_Settings.Default         
+        tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 title message Common_Settings.Default         
     
     let deserializeDG: DG_Settings =
         let perform x = deserialize "jsonDG.xml" 
-        tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor3 title message DG_Settings.Default
+        tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 title message DG_Settings.Default
 
     let jsonFileName1 = deserializeCS.jsonFileName1 //u async workflows nebo tasks nesmi v jednom okamziku odkaz na stejny json //radeji jsem quli tomu porusil pravidla in scopingu
      //let jsonFileName2 = deserializeCS.jsonFileName2 //u async workflows nebo tasks nesmi v jednom okamziku odkaz na stejny json 
@@ -258,7 +258,7 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                             let title = "Závažná chyba při převodu hodnot z Google tabulky do csv souboru"
                             let message ex = sprintf "Vyskytla se následující chyba: %s. Klikni na \"OK\" pro restart této aplikace a oveř hodnoty pro csv soubor v nastavení." ex
                             let perform x = CreatingCSV.writeIntoCSV dtGoogle pathCSV nameOfCVSFile //dtGoogle je v dane funkci osetreno na Option.ofObj                           
-                            tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor3 title message String.Empty         
+                            tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 title message String.Empty         
                         resultStr    
 
                     //CREATING EXCEL

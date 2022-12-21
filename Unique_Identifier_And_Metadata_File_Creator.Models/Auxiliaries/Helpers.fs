@@ -47,7 +47,7 @@ open ROP_Functions
                    stream.Close()
                    stream.Dispose()
                    false             
-                tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor2 
+                tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor2 
          
         //... a pro porovnani normalni try with block (ale bez finaly, coz mam vyse)
         let detectLockedFileTryWith (file: FileInfo) = 
@@ -68,7 +68,7 @@ open ROP_Functions
                                    |> Option.ofObj                                
                                    |> optionToGenerics processName "GetProcessesByName()"   
                 getProcesses.Length > 0   
-            tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor2 
+            tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor2 
 
         let isFileLocked path =    
             
@@ -83,7 +83,7 @@ open ROP_Functions
                     | true   -> failwith (sprintf "Soubor %A je již používán jiným procesem." path)
                                 true // tohle true nevezme, proto viz nize                                                               
                     | false -> false                      
-                tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor3 title message true   
+                tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 title message true   
                         
 
         let deleteAllFilesInDir path =    //!!! AVG blokuje mazani souboru, nutno zadat vyjimku z blokace    
@@ -107,7 +107,7 @@ open ROP_Functions
                                                            true  //k tomuto true to nedojede, proto [| true; true |]                                                                                                                                
                                     ) 
                 
-            tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor3 title message [| true; true |] |> Array.contains true   
+            tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 title message [| true; true |] |> Array.contains true   
 
         let closeSingleProcess message title processName =        
 
@@ -244,7 +244,7 @@ open ROP_Functions
               match fInfodat.Exists with 
               | true  -> File.Copy(sourceFilepath, destinFilepath, true)             
               | false -> failwith (sprintf "Soubor %s nenalezen" source)
-          tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor4 ()
+          tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor4 ()
                       
     (*       
     System.IO.File provides static members related to working with files, whereas System.IO.FileInfo represents a specific file and contains non-static members for working with that file.          
