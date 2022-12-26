@@ -342,6 +342,7 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                         }        
                     myDG_Sada
     
+    //TODO tryWith pro jednotlive funkce
     readGoogleSheetsData() |> createUniqueIdentifier |> createCsvXlsxGoogle
 
  //******************************************** Main function ***************************************************
