@@ -13,13 +13,16 @@ open System.Windows vyzaduje doplneni nize uvedeneho do fsproj
 <UseWPF>true</UseWPF>
 *)
 
-module SettingsDG =
+module XElmishSettingsDG =
     
     open Elmish
     open Elmish.WPF
     
+    open Types
+    open Settings
+    open Auxiliaries
+
     open Helpers
-    open SettingsDG    
     open ROP_Functions
     open PatternBuilders
     open Helpers.Serialisation
@@ -94,7 +97,7 @@ module SettingsDG =
         
         let deserializeWhenLoaded message = 
             
-            let deserialize: SettingsDG.DG_Settings = 
+            let deserialize: DG_Settings = 
                   
                 deserialize xmlFile //nutno zadat explicitne typ quli generics <'a> v deserialisation v Helpers                
 

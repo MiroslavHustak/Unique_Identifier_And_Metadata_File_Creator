@@ -13,13 +13,16 @@ open System.Windows vyzaduje doplneni nize uvedeneho do fsproj
 <UseWPF>true</UseWPF>
 *)
 
-module Settings =
+module XElmishSettings =
     
     open Elmish
     open Elmish.WPF
-    
-    open Helpers
+
+    open Types
     open Settings
+    open Auxiliaries
+    
+    open Helpers 
     open ROP_Functions
     open PatternBuilders
     open Helpers.Serialisation

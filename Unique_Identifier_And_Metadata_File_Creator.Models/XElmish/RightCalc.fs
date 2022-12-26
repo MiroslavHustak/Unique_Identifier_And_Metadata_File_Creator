@@ -11,9 +11,11 @@ module RightCalc =
     open MainLogicDG
     open MainLogicMetaData
 
+    open Settings
+    open Auxiliaries
+
     open Errors
     open ROP_Functions
-    open Elmish.Support
     open Helpers.Parsing
     open Helpers.Process
     open Helpers.Deserialisation
@@ -47,7 +49,7 @@ module RightCalc =
 
     let initialModel xmlFile = 
        
-        let deserialize: Settings.Common_Settings = deserializeMe xmlFile Settings.Common_Settings.Default //nutno zadat explicitne typ quli generics <'a>  v deserialisation v Helpers 
+        let deserialize: Common_Settings = deserializeMe xmlFile Common_Settings.Default //nutno zadat explicitne typ quli generics <'a>  v deserialisation v Helpers 
 
         {
             MainTextBoxText = String.Empty
@@ -93,7 +95,7 @@ module RightCalc =
                                                                      )      
                                         
                                         let maxNumberOfCharacters = 
-                                            let deserialize: Settings.Common_Settings = deserializeMe <| "json.xml" <| Settings.Common_Settings.Default //nutno zadat explicitne typ quli generics <'a>  v deserialisation v Helpers 
+                                            let deserialize: Common_Settings = deserializeMe <| "json.xml" <| Common_Settings.Default //nutno zadat explicitne typ quli generics <'a>  v deserialisation v Helpers 
                                             String.length deserialize.exampleString - String.length deserialize.prefix 
                                         
                                         let startWithNumber = result.Item 0                                               

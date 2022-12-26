@@ -5,8 +5,11 @@ open System.IO
 open FSharp.Core
 open Microsoft.Win32
 
-open Errors
+open Types
 open Settings
+open Auxiliaries
+
+open Errors
 open ROP_Functions
 open PatternBuilders
 open Helpers.Process

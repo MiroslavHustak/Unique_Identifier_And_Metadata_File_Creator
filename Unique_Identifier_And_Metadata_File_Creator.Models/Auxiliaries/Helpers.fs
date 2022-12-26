@@ -1,4 +1,4 @@
-﻿module Helpers
+﻿namespace Auxiliaries
 
 open System
 open System.IO;
@@ -8,8 +8,9 @@ open System.Runtime.Serialization
 open System.Net.NetworkInformation
 
 open Errors
-open Settings
 open ROP_Functions
+
+module Helpers = 
 
     module NetConn = 
        

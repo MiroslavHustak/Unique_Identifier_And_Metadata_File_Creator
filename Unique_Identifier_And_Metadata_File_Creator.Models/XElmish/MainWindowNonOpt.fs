@@ -16,6 +16,9 @@ copies or substantial portions of the Software.
 
 namespace Unique_Identifier_And_Metadata_File_Creator.Models
 
+open Types
+open Auxiliaries
+
 open PatternBuilders
 
 //Non-optional variant
@@ -27,7 +30,6 @@ module MainWindowNonOpt =
 
     open Elmish
     open Elmish.WPF
-    open Unique_Identifier_And_Metadata_File_Creator.Models
 
     let private header1 = " Hlavní stránka "
     let private header2 = " Nastavení pro DG sadu " 
@@ -57,8 +59,8 @@ module MainWindowNonOpt =
         | ShowSettings
         | ShowLicences
         | RightCalcMsg of RightCalc.Msg
-        | SettingsDGMsg of SettingsDG.Msg
-        | SettingsMsg of Unique_Identifier_And_Metadata_File_Creator.Models.Settings.Msg
+        | SettingsDGMsg of XElmishSettingsDG.Msg
+        | SettingsMsg of XElmishSettings.Msg
         | LicencesMsg of Licences.Msg
         | SetSelectedTabHeader of tabHeader:string
 
@@ -67,8 +69,8 @@ module MainWindowNonOpt =
             Tabs: Tab list
             MarkedButton: Guid
             RightCalcPage: RightCalc.Model 
-            SettingsPageDG: SettingsDG.Model 
-            SettingsPage: Unique_Identifier_And_Metadata_File_Creator.Models.Settings.Model 
+            SettingsPageDG: XElmishSettingsDG.Model 
+            SettingsPage: XElmishSettings.Model 
             LicencesPage: Licences.Model 
             SelectedTabHeader: string
         }
@@ -85,8 +87,8 @@ module MainWindowNonOpt =
         [ tab header1 []; tab header2 []; tab header3 []; tab header4 []]
     
     let rightCalcPage, (rightCalcPageCmd: Cmd<RightCalc.Msg>) = RightCalc.init ()
-    let settingsPageDG, (settingsPageDGCmd: Cmd<SettingsDG.Msg>) = SettingsDG.init ()
-    let settingsPage, (settingsPageCmd: Cmd<Unique_Identifier_And_Metadata_File_Creator.Models.Settings.Msg>) = Unique_Identifier_And_Metadata_File_Creator.Models.Settings.init ()
+    let settingsPageDG, (settingsPageDGCmd: Cmd<XElmishSettingsDG.Msg>) = XElmishSettingsDG.init ()
+    let settingsPage, (settingsPageCmd: Cmd<XElmishSettings.Msg>) = XElmishSettings.init ()
     let licencesPage, (licencesPageCmd: Cmd<Licences.Msg>) = Licences.init () 
     
     let startModel =
@@ -126,18 +128,18 @@ module MainWindowNonOpt =
                                         }       
 
         | ShowRightCalc  -> { m with RightCalcPage = fst (RightCalc.init()) }, Cmd.none   
-        | ShowSettingsDG -> { m with SettingsPageDG = fst (SettingsDG.init()) }, Cmd.none 
-        | ShowSettings   -> { m with SettingsPage = fst (Unique_Identifier_And_Metadata_File_Creator.Models.Settings.init()) }, Cmd.none 
+        | ShowSettingsDG -> { m with SettingsPageDG = fst (XElmishSettingsDG.init()) }, Cmd.none 
+        | ShowSettings   -> { m with SettingsPage = fst (XElmishSettings.init()) }, Cmd.none 
         | ShowLicences   -> { m with LicencesPage = fst (Licences.init ()) }, Cmd.none          
     
         | RightCalcMsg msg' ->
                              let m', cmd' = RightCalc.update msg' m.RightCalcPage
                              { m with RightCalcPage = m' }, Cmd.map RightCalcMsg cmd'        
         | SettingsDGMsg msg'->
-                             let m', cmd' = SettingsDG.update msg' m.SettingsPageDG
+                             let m', cmd' = XElmishSettingsDG.update msg' m.SettingsPageDG
                              { m with SettingsPageDG = m' }, Cmd.map SettingsDGMsg cmd'
         | SettingsMsg msg'  ->
-                             let m', cmd' = Unique_Identifier_And_Metadata_File_Creator.Models.Settings.update msg' m.SettingsPage
+                             let m', cmd' = XElmishSettings.update msg' m.SettingsPage
                              { m with SettingsPage = m' }, Cmd.map SettingsMsg cmd'
         | LicencesMsg msg'  ->
                              let m', cmd' = Licences.update msg' m.LicencesPage
@@ -164,11 +166,11 @@ module MainWindowNonOpt =
             |> Binding.mapModel (fun m -> m.RightCalcPage)
             |> Binding.mapMsg RightCalcMsg
             "SettingsPageDG"
-            |> Binding.SubModel.required SettingsDG.bindings 
+            |> Binding.SubModel.required XElmishSettingsDG.bindings 
             |> Binding.mapModel (fun m -> m.SettingsPageDG)
             |> Binding.mapMsg SettingsDGMsg
             "SettingsPage"
-            |> Binding.SubModel.required Unique_Identifier_And_Metadata_File_Creator.Models.Settings.bindings 
+            |> Binding.SubModel.required XElmishSettings.bindings 
             |> Binding.mapModel (fun m -> m.SettingsPage)
             |> Binding.mapMsg SettingsMsg
             "LicencesPage"

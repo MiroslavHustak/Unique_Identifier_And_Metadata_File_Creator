@@ -1,4 +1,4 @@
-﻿namespace SettingsDG
+﻿namespace Settings
 
 [<Struct>]  //vhodne pro 16 bytes => 4096 characters
 type DG_Settings = 

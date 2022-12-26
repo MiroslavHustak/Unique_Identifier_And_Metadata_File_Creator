@@ -20,9 +20,10 @@ open Serilog
 open Serilog.Extensions.Logging
 
 open Elmish.WPF
-open Unique_Identifier_And_Metadata_File_Creator.Models
 
+open Auxiliaries
 open Helpers.CopyingFiles
+open Unique_Identifier_And_Metadata_File_Creator.Models
 
 let main window = 
      

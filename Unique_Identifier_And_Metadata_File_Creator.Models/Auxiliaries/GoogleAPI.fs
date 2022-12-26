@@ -1,36 +1,38 @@
-﻿module GoogleAPI
+﻿namespace Auxiliaries
 
 open GoogleSheets
 open CheckingNetConn
 
-//****************** auxiliary function definitions **********************
+module GoogleAPI =
 
-let private checkForNetConn() = 
+    //****************** auxiliary function definitions **********************
 
-    //Seq.initInfinite (fun _ -> NetConn.CheckForNetConn()) //DLL C# //neni tam kontrola na null
-    Seq.initInfinite (fun _ -> Helpers.NetConn.checkForNetConn()) //F#    
-    |> Seq.takeWhile ((=) false) 
-    |> Seq.iter      (fun _ -> ())  
+    let private checkForNetConn() = 
 
-//****************** main function definitions **********************
+        //Seq.initInfinite (fun _ -> NetConn.CheckForNetConn()) //DLL C# //neni tam kontrola na null
+        Seq.initInfinite (fun _ -> Helpers.NetConn.checkForNetConn()) //F#    
+        |> Seq.takeWhile ((=) false) 
+        |> Seq.iter      (fun _ -> ())  
 
-let readingFromGoogleSheets jsonFileName columnStart rowStart columnEnd rowEnd firstRowIsHeaders id sheetName6 =
+    //****************** main function definitions **********************
+
+    let readingFromGoogleSheets jsonFileName columnStart rowStart columnEnd rowEnd firstRowIsHeaders id sheetName6 =
    
-    do checkForNetConn()     
+        do checkForNetConn()     
 
-    ReadingFromGoogleSheets.ReadFromGoogleSheets(
-        jsonFileName, 
-        id, 
-        sheetName6,
-        columnStart, rowStart, columnEnd, rowEnd, firstRowIsHeaders
-    ) |> Option.ofObj //DLL C# 
+        ReadingFromGoogleSheets.ReadFromGoogleSheets(
+            jsonFileName, 
+            id, 
+            sheetName6,
+            columnStart, rowStart, columnEnd, rowEnd, firstRowIsHeaders
+        ) |> Option.ofObj //DLL C# 
 
-let writingToGoogleSheets dtGoogle jsonFileName1 id sheetName6 endIndex =
+    let writingToGoogleSheets dtGoogle jsonFileName1 id sheetName6 endIndex =
        
-    do checkForNetConn()     
+        do checkForNetConn()     
 
-    let writeToGoogleSheets = new WritingToGoogleSheets(dtGoogle);
-    do writeToGoogleSheets.WriteToGoogleSheets(jsonFileName1, id, sheetName6, endIndex) 
+        let writeToGoogleSheets = new WritingToGoogleSheets(dtGoogle);
+        do writeToGoogleSheets.WriteToGoogleSheets(jsonFileName1, id, sheetName6, endIndex) 
     
     
        

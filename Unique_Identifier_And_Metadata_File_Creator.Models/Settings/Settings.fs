@@ -41,14 +41,14 @@ type Common_Settings =
 
 type DG_Sada = 
     {        
-        errorDG: string[]  
+        errorDG: string list 
         msg1: string
         msg2: string
         msg3: string
     }
     static member Default = 
         {
-            errorDG = [||]
+            errorDG = []
             msg1 = ""
             msg2 = ""
             msg3 = ""

@@ -5,33 +5,35 @@ open FSharp.Core
 open System.Threading
 open System.Text.RegularExpressions
 
-open Errors
+open Types
 open Settings
+open Auxiliaries
+open Creating_CSV_And_Excel_Files
+
+open Errors
 open GoogleAPI
-open SettingsDG
 open ROP_Functions
-open Helpers.Process
 open PatternBuilders
+open Helpers.Process
 open Helpers.MyString
 open DiscriminatedUnions
 open Helpers.Deserialisation
-open Creating_CSV_And_Excel_Files
 
 //***************************** auxiliary function definitions ***********************************
 
 let private (++++++) a b c d e f g = a + b + c + d + e + f + g
 
 let private myTasks task1 task2 task3 =           
-    [| 
+    [ 
       task1 
       task2 
       task3 
-    |] 
+    ] 
     |> Async.Parallel //viz strana 433 Isaac Abraham
     |> Async.Catch
     |> Async.RunSynchronously
     |> function
-       | Choice1Of2 result    -> result
+       | Choice1Of2 result    -> result |> List.ofArray
        | Choice2Of2 (ex: exn) -> error0 ex.Message       
                                  
 let private whatIs(x: obj) =
@@ -123,9 +125,9 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
             | true  -> x
             | false -> String.Empty
         
-        let msg =  //potrebuji array quli naslednemu retezci
-            [| 0 .. abs (rowEnd - rowStart) |] 
-            |> Array.mapi (fun i item ->                 //Array.parallel tady tusim nefungovalo s DataTable
+        let msg =  
+            [ 0 .. abs (rowEnd - rowStart) ] 
+            |> List.mapi (fun i item ->                 //Array.parallel tady nefungovalo s DataTable
                                         Thread.Sleep(15) //aby to krasne vypadalo :-)
                                         reportProgress(i)                                        
 
@@ -214,7 +216,7 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
         dtGoogle, msg 
     
     // 3)
-    let createCsvXlsxGoogle (myTuple: Data.DataTable*string[]) =   
+    let createCsvXlsxGoogle (myTuple: Data.DataTable*string list) =   
         
         let dtGoogle = fst myTuple
         let msg = snd myTuple
@@ -223,7 +225,7 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
         | "error"->
                     let myDG_Sada = 
                         {
-                            errorDG = [||]
+                            errorDG = List.Empty
                             msg1 = "Nesprávně zadaný spodní nebo horní limit." + "\n"  
                             msg2 = "Řetězec DG sady, csv soubor a excel soubor nebyly vytvořeny :-( ." 
                             msg3 = String.Empty 
@@ -293,25 +295,25 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                     Task.WaitAll(ts |> Seq.cast<Task> |> Array.ofSeq)
                      *)
                                                         
-                    let du: TaskResults[] = myTasks 
+                    let du: TaskResults list = myTasks 
                                             <| async { return MyString (csv()) } 
                                             <| async { return MyBool (excel()) }
                                             <| async { return MyUnit (google()) }
        
-                    let myString = whatIs <| du.GetValue(0)                        
+                    let myString = du |> List.item 0 |> whatIs                        
                                    |> function 
                                       | MyString value -> value                                                  
                                       | _              -> error4 "error4 - MyString csv()"
                                                           String.Empty //whatever           
    
-                    let myBool = whatIs <| du.GetValue(1)                         
+                    let myBool = du |> List.item 1 |> whatIs                         
                                  |> function 
                                     | MyBool value -> value                                           
                                     | _            -> error4 "error4 - MyBool excel()"
                                                       false //whatever   
 
                     //jen quli error4, jinak nepotrebne
-                    let myUnit = whatIs <| du.GetValue(2)                         
+                    let myUnit = du |> List.item 2 |> whatIs                          
                                  |> function 
                                     | MyUnit value -> value                                           
                                     | _            -> error4 "error4 - MyUnit google()"
@@ -322,9 +324,9 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                         | true  -> "Převod hodnot z Google tabulky do Excelu se zdařil."
                         | false -> "Převod hodnot z Google tabulky do Excelu se pravděpodobně nezdařil :-( ." 
                         
-                    let msg2 = (String.concat <| "\n" <| [| myString; myBool |]) 
+                    let msg2 = (String.concat <| "\n" <| [ myString; myBool ]) 
                     
-                    let msg3 = (String.concat <| String.Empty <| msg)  //tohle zrobi prazdny string z pole, kere obsahuje polozky pouze s hodnotou String.Empty
+                    let msg3 = (String.concat <| String.Empty <| msg)  //tohle zrobi prazdny string z pole/listu/seq, kere obsahuje polozky pouze s hodnotou String.Empty
         
                     let msg3 = 
                         match msg3.Length with
@@ -351,7 +353,7 @@ let getUniqueIdentifier rowStart rowEnd startWithNumber reportProgress =
             | false ->     
                        let myDG_Sada = 
                            {
-                               errorDG = [||]
+                               errorDG = List.Empty
                                msg1 = "Chybný rozdíl limitních hodnot anebo pracovní značení či limity nebyly správně zadány." + "\n"  
                                msg2 = "Řetězec DG sady, csv soubor a excel soubor nebyly vytvořeny :-( ." 
                                msg3 = String.Empty 
