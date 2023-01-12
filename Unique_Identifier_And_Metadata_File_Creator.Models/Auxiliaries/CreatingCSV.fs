@@ -36,17 +36,17 @@ module CreatingCSV =
         do sw1.WriteLine(strHeaders.Remove(strHeaders.Length - 1, 1)) //odstraneni posledniho znaku, coz je ";"                      
 
         //rows
-        { 0 .. dt.Rows.Count - 1 } //mohl by byt list, atd.
-        |> Seq.iteri (fun r _ -> 
+        [ 0 .. dt.Rows.Count - 1 ] //mohl by byt seq, array, atd.
+        |> List.iteri (fun r _ -> 
                                 let str =  
-                                    [| 0 .. dt.Columns.Count - 1 |]
-                                    |> Array.mapi (fun c _ -> 
+                                    [ 0 .. dt.Columns.Count - 1 ]
+                                    |> List.mapi (fun c _ -> 
                                                             dt.Rows[r][c] |> Option.ofObj                                                             
                                                             |> function
                                                                 | None when c = 0 -> string dt.Rows.[r].[c]                                                                                        
                                                                 | _               -> (string dt.Rows.[r].[c]).Replace(';', ',')
                                                   )  
-                                let str = sprintf "%s%s" (String.concat <| ";" <| str) ";" //str musi byt Array //flattening string[]
+                                let str = sprintf "%s%s" (String.concat <| ";" <| str) ";" 
                                 do sw1.WriteLine(str.Remove(str.Length - 1, 1)) //odstraneni posledniho znaku, coz je ";"     
                                 do sw1.Flush()  
                      )    

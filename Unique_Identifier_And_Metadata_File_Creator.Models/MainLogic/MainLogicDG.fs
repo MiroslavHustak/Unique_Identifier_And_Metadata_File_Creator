@@ -10,6 +10,7 @@ open Settings
 open Auxiliaries
 open Creating_CSV_And_Excel_Files
 
+open Strings
 open Errors
 open GoogleAPI
 open ROP_Functions
@@ -20,6 +21,7 @@ open DiscriminatedUnions
 open Helpers.Deserialisation
 
 //***************************** auxiliary function definitions ***********************************
+let private myString (StringNonN s) = s 
 
 let private (++++++) a b c d e f g = a + b + c + d + e + f + g
 
@@ -33,8 +35,8 @@ let private myTasks task1 task2 task3 =
     |> Async.Catch
     |> Async.RunSynchronously
     |> function
-       | Choice1Of2 result    -> result |> List.ofArray
-       | Choice2Of2 (ex: exn) -> error0 ex.Message       
+        | Choice1Of2 result    -> result |> List.ofArray
+        | Choice2Of2 (ex: exn) -> error0 ex.Message       
                                  
 let private whatIs(x: obj) =
     match x with
@@ -131,31 +133,31 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                                         Thread.Sleep(15) //aby to krasne vypadalo :-)
                                         reportProgress(i)                                        
 
-                                        [ 0 .. columnEnd - 1 ] |> List.iteri (fun j item -> dtGoogle.Rows.[i].[j] <- (string dtGoogle.Rows.[i].[j])
+                                        [ 0 .. columnEnd - 1 ] |> List.iteri (fun j item -> dtGoogle.Rows.[i].[j] <- (myString dtGoogle.Rows.[i].[j])
                                                                                                                      .Replace("–", "-").Replace(@"//", @"/").Replace(@"\\", @"\")  
                                                                                                                      .Replace(",,", ",").Replace(";", ",")    
-                                                                                            dtGoogle.Rows.[i].[j] <- myRegex.Replace(string dtGoogle.Rows.[i].[j], " ")  //Regex.Replace(string dtGoogle.Rows.[i].[j], @"\s+", " ")                         
+                                                                                            dtGoogle.Rows.[i].[j] <- myRegex.Replace(myString dtGoogle.Rows.[i].[j], " ")  //Regex.Replace(myString dtGoogle.Rows.[i].[j], @"\s+", " ")                         
                                                                              )    
                                         
                                         let fnDGset = checkBoxFn archiveCodeTxb archiveCodeCkbx
                                         
                                         //0, 1, 3, . .. n odpovida sloupcum v Google Spreadsheets A, B, C, .... n
-                                        dtGoogle.Rows.[i].[4] <- (string dtGoogle.Rows.[i].[4]).Replace(" ", String.Empty)                                       
-                                        let str = string dtGoogle.Rows.[i].[4]
+                                        dtGoogle.Rows.[i].[4] <- (myString dtGoogle.Rows.[i].[4]).Replace(" ", String.Empty)                                       
+                                        let str = myString dtGoogle.Rows.[i].[4]
                                         let numberOfZeros = abs (nadTxb - String.length str)
                                         let fnNAD = checkBoxFn (sprintf "%s%s" <| GetString(numberOfZeros, "0") <| str) nadCkbx  
                                         
-                                        dtGoogle.Rows.[i].[5] <- (string dtGoogle.Rows.[i].[5]).Replace(" ", String.Empty)
-                                        let str = string dtGoogle.Rows.[i].[5]
+                                        dtGoogle.Rows.[i].[5] <- (myString dtGoogle.Rows.[i].[5]).Replace(" ", String.Empty)
+                                        let str = myString dtGoogle.Rows.[i].[5]
                                         let numberOfZeros = abs (pomTxb - String.length str)
                                         let fnCisloPomucky = checkBoxFn (sprintf "%s%s" <| GetString(numberOfZeros, "0") <| str) pomCkbx  
                                        
-                                        dtGoogle.Rows.[i].[6] <- (string dtGoogle.Rows.[i].[6]).Replace(" ", String.Empty)                                                                                
+                                        dtGoogle.Rows.[i].[6] <- (myString dtGoogle.Rows.[i].[6]).Replace(" ", String.Empty)                                                                                
                                         let fnInventarniCislo =                                      
                                             MyPatternBuilder    
                                                 {   
-                                                    let str = string dtGoogle.Rows.[i].[6]
-                                                    let bckgProcess = checkBoxFn (sprintf "%s%s" <| invTxb1 <| (string dtGoogle.Rows.[i].[6])) invCkbxLeft
+                                                    let str = myString dtGoogle.Rows.[i].[6]
+                                                    let bckgProcess = checkBoxFn (sprintf "%s%s" <| invTxb1 <| (myString dtGoogle.Rows.[i].[6])) invCkbxLeft
 
                                                     let! _ = invCkbxRight, bckgProcess                                                  
                                                     let! _ = ((String.length str) <= 4), bckgProcess //max. 4 znaky pro inventarni cislo
@@ -165,22 +167,24 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                                                     return result
                                                 }                                        
                                         
-                                        dtGoogle.Rows.[i].[7] <- (string dtGoogle.Rows.[i].[7]).Replace(" ", String.Empty)
-                                        let signatura = (string dtGoogle.Rows.[i].[7]).Replace(sgTxb2, sgTxb3)                                    
+                                        dtGoogle.Rows.[i].[7] <- (myString dtGoogle.Rows.[i].[7]).Replace(" ", String.Empty)
+                                        let signatura = (myString dtGoogle.Rows.[i].[7]).Replace(sgTxb2, sgTxb3)                                    
                                         let fnSignatura = checkBoxFn (sprintf "%s%s" sgTxb1 signatura) sgCkbx    
                                         
-                                        dtGoogle.Rows.[i].[8] <- (string dtGoogle.Rows.[i].[8]).Replace(" ", String.Empty)                                        
+                                        dtGoogle.Rows.[i].[8] <- (myString dtGoogle.Rows.[i].[8]).Replace(" ", String.Empty)                                        
                                         let fnCisloKartonu = 
                                             match karCkbxRight with
-                                            | false -> checkBoxFn (sprintf "%s%s" <| karTxb1 <| (string dtGoogle.Rows.[i].[8])) karCkbxLeft
-                                            | true  -> let str = string dtGoogle.Rows.[i].[8]
+                                            | false -> checkBoxFn (sprintf "%s%s" <| karTxb1 <| (myString dtGoogle.Rows.[i].[8])) karCkbxLeft
+                                            | true  -> let str = myString dtGoogle.Rows.[i].[8]
                                                        let numberOfZeros = abs (karTxb2 - String.length str)
                                                        checkBoxFn (sprintf "%s%s%s" <| karTxb1 <| GetString(numberOfZeros, "0") <| str) karCkbxLeft  
                                                                                                
-                                        dtGoogle.Rows.[i].[11] <- (string dtGoogle.Rows.[i].[11]).Replace(" ", String.Empty)
-
-                                        let numberOfZeros = (exampleString |> String.length) - (string (i + startWithNumber) |> String.length) - (prefix |> String.length)
-                                        dtGoogle.Rows.[i].[0] <- sprintf "%s%s%s" prefix (GetString(abs numberOfZeros, "0")) (string (i + startWithNumber))
+                                        dtGoogle.Rows.[i].[11] <- (myString dtGoogle.Rows.[i].[11]).Replace(" ", String.Empty)
+                                       
+                                        let sum = string (i + startWithNumber) //quli tomu, ze int neni nullable
+                                        
+                                        let numberOfZeros = (exampleString |> String.length) - (myString sum |> String.length) - (prefix |> String.length)
+                                        dtGoogle.Rows.[i].[0] <- sprintf "%s%s%s" prefix (GetString(abs numberOfZeros, "0")) (myString sum)
 
                                         let result = sprintf "%s-%s-%s-%s-%s-%s" 
                                                      <| fnDGset 
@@ -203,8 +207,8 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                                                                                
                                         MyPatternBuilder    
                                             {   
-                                                let str1 = string dtGoogle.Rows.[i].[7]
-                                                let str2 = string dtGoogle.Rows.[i].[11]
+                                                let str1 = myString dtGoogle.Rows.[i].[7]
+                                                let str2 = myString dtGoogle.Rows.[i].[11]
 
                                                 let! _ = sgCkbx, String.Empty                                                  
                                                 let! _ = (String.length str1) >= 2 && (String.length str2) >= 2, (sprintf "Počet znaků buď u signatury nebo u datace vzniku v Google tabulce na řádku %i je menší než 2" <| i+  rowStart) + "\n" 
@@ -221,7 +225,7 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
         let dtGoogle = fst myTuple
         let msg = snd myTuple
         
-        match string dtGoogle.Rows.[0].[0] with
+        match myString dtGoogle.Rows.[0].[0] with
         | "error"->
                     let myDG_Sada = 
                         {
@@ -232,8 +236,8 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                         }    
                     myDG_Sada
         | _      ->                     
-                    let auxLow = string dtGoogle.Rows.[0].[0]
-                    let auxHigh = string dtGoogle.Rows.[dtGoogle.Rows.Count - 1].[0]
+                    let auxLow = myString dtGoogle.Rows.[0].[0]
+                    let auxHigh = myString dtGoogle.Rows.[dtGoogle.Rows.Count - 1].[0]
                     let nameOfCVSFile = sprintf"%s az %s" auxLow auxHigh
 
                     //CREATING CSV

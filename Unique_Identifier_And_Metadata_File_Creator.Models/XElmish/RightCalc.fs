@@ -3,7 +3,7 @@
 module RightCalc =
 
     open System
-    open System.IO;
+    open System.IO
 
     open Elmish
     open Elmish.WPF
@@ -45,7 +45,7 @@ module RightCalc =
         let message ex = String.Empty 
         let title = "Závažná chyba při deserializaci"
         let perform x = deserialize xmlFile 
-        tryWith perform (fun x -> ()) (fun ex -> ())  |> deconstructor3 title message defaultRecord 
+        tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 title message defaultRecord 
 
     let initialModel xmlFile = 
        
@@ -141,20 +141,20 @@ module RightCalc =
                                                        with
                                                        | ex -> { m with ProgressIndicatorRight = Idle; MetaDataButtonIsEnabled = true; UniqueIdentifierButtonIsEnabled = true; MainTextBoxText = ex.Message; }, Cmd.none        
                                                    tryWith     
-        | CreateMetaDataFiles           -> 
-                                           let tryWith = //jen kvuli WorkIsCompleteRight, abych mohl ButtonIsEnabled opet uvest do stavu true 
-                                               try
-                                                  try  
-                                                     //failwith "Simulated exception2" 
-                                                     let explicitCmd (dispatch: Msg -> unit): unit =  
-                                                         createMetadataFiles() 
-                                                         dispatch (WorkIsCompleteRight "Průvodky jsou vytvářeny externím procesem, sleduj hlašení v okně konzolové aplikace.")
-                                                     { m with UniqueIdentifierButtonIsEnabled = false; MetaDataButtonIsEnabled = false; }, Cmd.ofSub explicitCmd                                                                                                                 
-                                                  finally
-                                                  ()
-                                               with
-                                               | ex -> { m with MetaDataButtonIsEnabled = true; UniqueIdentifierButtonIsEnabled = true; MainTextBoxText = ex.Message; }, Cmd.none        
-                                           tryWith    
+        | CreateMetaDataFiles        -> 
+                                        let tryWith = //jen kvuli WorkIsCompleteRight, abych mohl ButtonIsEnabled opet uvest do stavu true 
+                                            try
+                                                try  
+                                                    //failwith "Simulated exception2" 
+                                                    let explicitCmd (dispatch: Msg -> unit): unit =  
+                                                        createMetadataFiles() 
+                                                        dispatch (WorkIsCompleteRight "Průvodky jsou vytvářeny externím procesem, sleduj hlašení v okně konzolové aplikace.")
+                                                    { m with UniqueIdentifierButtonIsEnabled = false; MetaDataButtonIsEnabled = false; }, Cmd.ofSub explicitCmd                                                                                                                 
+                                                finally
+                                                ()
+                                            with
+                                            | ex -> { m with MetaDataButtonIsEnabled = true; UniqueIdentifierButtonIsEnabled = true; MainTextBoxText = ex.Message; }, Cmd.none        
+                                        tryWith    
                                        
     //cmdIf disables the relevant button, cmd does not
     let bindings(): Binding<Model,Msg> list =

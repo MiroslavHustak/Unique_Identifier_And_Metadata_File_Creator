@@ -272,48 +272,48 @@ module XElmishSettingsDG =
     // A command in Elmish is a function that can trigger events into the dispatch loop. // A command is essentially a function that takes a dispatch function as input and returns unit:
     let update (msg: Msg) (m: Model) : Model * Cmd<Msg> = 
                        
-            let str = sprintf "Pokud nebyla zadaná prázdná hodnota nebo chybná číselná či textová hodnota, hodnota %s byla změněna. V opačném případě byla dosazena defaultní nebo limitní hodnota."
-            let strCbx = sprintf "Status \"%s\" byl právě změněn."
+        let str = sprintf "Pokud nebyla zadaná prázdná hodnota nebo chybná číselná či textová hodnota, hodnota %s byla změněna. V opačném případě byla dosazena defaultní nebo limitní hodnota."
+        let strCbx = sprintf "Status \"%s\" byl právě změněn."
 
-            match msg with          
-            | CancelButtonEvent   -> initialModel "jsonDGBackUp.xml" "Načteny hodnoty ze záložního souboru (hodnoty uložené před spuštěním programu). \n" |> updateSettings, Cmd.none                                   
-            | DefaultButtonEvent  -> 
-                                     let title = "Rozmysli si to !!!"                                    
-                                     let message = "Kliknutím na \"Ano\" nebo \"Yes\" bude proveden návrat k defaultním hodnotám a navždy ztratíš nastavené hodnoty. Je to opravdu to, co chceš?"
-                                     MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No)                                     
-                                     |> function
-                                        | MessageBoxResult.Yes -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none 
-                                        | _                    -> m, Cmd.none                
+        match msg with          
+        | CancelButtonEvent   -> initialModel "jsonDGBackUp.xml" "Načteny hodnoty ze záložního souboru (hodnoty uložené před spuštěním programu). \n" |> updateSettings, Cmd.none                                   
+        | DefaultButtonEvent  -> 
+                                 let title = "Rozmysli si to !!!"                                    
+                                 let message = "Kliknutím na \"Ano\" nebo \"Yes\" bude proveden návrat k defaultním hodnotám a navždy ztratíš nastavené hodnoty. Je to opravdu to, co chceš?"
+                                 MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No)                                     
+                                 |> function
+                                     | MessageBoxResult.Yes -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none 
+                                     | _                    -> m, Cmd.none                
                                       
-            | ArchiveCodeTextBox archiveCodeTxb   -> { m with ArchiveCodeTextBoxText = archiveCodeTxb; InfoTextBoxText = str "archivního kódu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
-            | ArchiveCodeCheckBox archiveCodeCkbx -> { m with ArchiveCodeCheckBoxIsChecked = archiveCodeCkbx; InfoTextBoxText = strCbx "archivního kódu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none 
-            | NADTextBox nadTxb   -> { m with NADTextBoxTextText = nadTxb; InfoTextBoxText = str "počtu znaků čísla NAD"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
-            | NADCheckBox nadCkbx -> { m with NADCheckBoxIsChecked = nadCkbx; InfoTextBoxText = strCbx "čísla NAD"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none  
-            | POMTextBox pomTxb   -> { m with POMTextBoxTextText = pomTxb; InfoTextBoxText = str "počtu znaků čísla pomůcky"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
-            | POMCheckBox pomCkbx -> { m with POMCheckBoxIsChecked = pomCkbx; InfoTextBoxText = strCbx "čísla pomůcky"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none  
-            | INVTextBox1 invTxb1 -> { m with INVTextBox1TextText = invTxb1; InfoTextBoxText = str "předpony inventárního čísla"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
-            | INVTextBox2 invTxb2 -> { m with INVTextBox2TextText = invTxb2; InfoTextBoxText = str "počtu znaků inventárního čísla"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
-            | INVCheckBoxLeft invCkbxLeft    -> match invCkbxLeft with
-                                                | true  -> { m with INVCheckBoxLeftIsChecked = invCkbxLeft; SGCheckBoxIsEnabled = false; SGCheckBoxIsChecked = false; InfoTextBoxText = strCbx "inventárního čísla";  InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none   
-                                                | false -> { m with INVCheckBoxLeftIsChecked = invCkbxLeft; SGCheckBoxIsEnabled = true; InfoTextBoxText = strCbx "inventárního čísla"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
-            | INVCheckBoxLeftE  invCkbxLeftE -> { m with INVCheckBoxLeftIsEnabled = invCkbxLeftE; } |> updateSettings, Cmd.none  
-            | INVCheckBoxRight invCkbxRight  -> { m with INVCheckBoxRightIsChecked = invCkbxRight; InfoTextBoxText = strCbx "příslušného checkboxu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none 
-            | SGTextBox1 sgTxb1   -> { m with SGTextBox1TextText = sgTxb1; InfoTextBoxText = str "předpony signatury"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
-            | SGTextBox2 sgTxb2   -> { m with SGTextBox2TextText = sgTxb2; InfoTextBoxText = str "příslušného políčka"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
-            | SGTextBox3 sgTxb3   -> { m with SGTextBox3TextText = sgTxb3; InfoTextBoxText = str "příslušného políčka"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
-            | SGCheckBox sgCkbx   -> match sgCkbx with
-                                     | true  -> { m with SGCheckBoxIsChecked = sgCkbx; INVCheckBoxLeftIsChecked = false; KARCheckBoxLeftIsChecked = false; INVCheckBoxLeftIsEnabled = false; KARCheckBoxLeftIsEnabled = false; InfoTextBoxText = strCbx "signatury"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none  
-                                     | false -> { m with SGCheckBoxIsChecked = sgCkbx; INVCheckBoxLeftIsEnabled = true; KARCheckBoxLeftIsEnabled = true; InfoTextBoxText = strCbx "signatury"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none               
-            | SGCheckBoxE sgCkbxE -> { m with SGCheckBoxIsEnabled = sgCkbxE; } |> updateSettings, Cmd.none               
-            | KARTextBox1 karTxb1 -> { m with KARTextBox1TextText = karTxb1; InfoTextBoxText = str "předpony čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
-            | KARTextBox2 karTxb2 -> { m with KARTextBox2TextText = karTxb2; InfoTextBoxText = str "počtu znaků čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
-            | KARCheckBoxLeft karCkbxLeft   -> 
-                                              match karCkbxLeft with
-                                              | true  -> { m with KARCheckBoxLeftIsChecked = karCkbxLeft; SGCheckBoxIsEnabled = false; SGCheckBoxIsChecked = false; InfoTextBoxText = strCbx "čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none  
-                                              | false -> { m with KARCheckBoxLeftIsChecked = karCkbxLeft; SGCheckBoxIsEnabled = true; InfoTextBoxText = strCbx "čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none 
-            | KARCheckBoxRight karCkbxRight -> { m with KARCheckBoxRightIsChecked = karCkbxRight; InfoTextBoxText = strCbx "příslušného checkboxu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none                                              
-            | KARCheckBoxLeftE karCkbxLeftE -> { m with KARCheckBoxLeftIsEnabled = karCkbxLeftE; } |> updateSettings, Cmd.none   
-            | InfoTextBoxForeground         -> { m with InfoTextBoxForeground = Brushes.Black }, Cmd.none //tohle je barva, na kterou se to po pohybu mysi nebo po zvednuti klavesy zmeni
+        | ArchiveCodeTextBox archiveCodeTxb   -> { m with ArchiveCodeTextBoxText = archiveCodeTxb; InfoTextBoxText = str "archivního kódu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
+        | ArchiveCodeCheckBox archiveCodeCkbx -> { m with ArchiveCodeCheckBoxIsChecked = archiveCodeCkbx; InfoTextBoxText = strCbx "archivního kódu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none 
+        | NADTextBox nadTxb   -> { m with NADTextBoxTextText = nadTxb; InfoTextBoxText = str "počtu znaků čísla NAD"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
+        | NADCheckBox nadCkbx -> { m with NADCheckBoxIsChecked = nadCkbx; InfoTextBoxText = strCbx "čísla NAD"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none  
+        | POMTextBox pomTxb   -> { m with POMTextBoxTextText = pomTxb; InfoTextBoxText = str "počtu znaků čísla pomůcky"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
+        | POMCheckBox pomCkbx -> { m with POMCheckBoxIsChecked = pomCkbx; InfoTextBoxText = strCbx "čísla pomůcky"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none  
+        | INVTextBox1 invTxb1 -> { m with INVTextBox1TextText = invTxb1; InfoTextBoxText = str "předpony inventárního čísla"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
+        | INVTextBox2 invTxb2 -> { m with INVTextBox2TextText = invTxb2; InfoTextBoxText = str "počtu znaků inventárního čísla"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
+        | INVCheckBoxLeft invCkbxLeft    -> match invCkbxLeft with
+                                            | true  -> { m with INVCheckBoxLeftIsChecked = invCkbxLeft; SGCheckBoxIsEnabled = false; SGCheckBoxIsChecked = false; InfoTextBoxText = strCbx "inventárního čísla";  InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none   
+                                            | false -> { m with INVCheckBoxLeftIsChecked = invCkbxLeft; SGCheckBoxIsEnabled = true; InfoTextBoxText = strCbx "inventárního čísla"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
+        | INVCheckBoxLeftE  invCkbxLeftE -> { m with INVCheckBoxLeftIsEnabled = invCkbxLeftE; } |> updateSettings, Cmd.none  
+        | INVCheckBoxRight invCkbxRight  -> { m with INVCheckBoxRightIsChecked = invCkbxRight; InfoTextBoxText = strCbx "příslušného checkboxu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none 
+        | SGTextBox1 sgTxb1   -> { m with SGTextBox1TextText = sgTxb1; InfoTextBoxText = str "předpony signatury"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
+        | SGTextBox2 sgTxb2   -> { m with SGTextBox2TextText = sgTxb2; InfoTextBoxText = str "příslušného políčka"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
+        | SGTextBox3 sgTxb3   -> { m with SGTextBox3TextText = sgTxb3; InfoTextBoxText = str "příslušného políčka"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
+        | SGCheckBox sgCkbx   -> match sgCkbx with
+                                 | true  -> { m with SGCheckBoxIsChecked = sgCkbx; INVCheckBoxLeftIsChecked = false; KARCheckBoxLeftIsChecked = false; INVCheckBoxLeftIsEnabled = false; KARCheckBoxLeftIsEnabled = false; InfoTextBoxText = strCbx "signatury"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none  
+                                 | false -> { m with SGCheckBoxIsChecked = sgCkbx; INVCheckBoxLeftIsEnabled = true; KARCheckBoxLeftIsEnabled = true; InfoTextBoxText = strCbx "signatury"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none               
+        | SGCheckBoxE sgCkbxE -> { m with SGCheckBoxIsEnabled = sgCkbxE; } |> updateSettings, Cmd.none               
+        | KARTextBox1 karTxb1 -> { m with KARTextBox1TextText = karTxb1; InfoTextBoxText = str "předpony čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
+        | KARTextBox2 karTxb2 -> { m with KARTextBox2TextText = karTxb2; InfoTextBoxText = str "počtu znaků čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
+        | KARCheckBoxLeft karCkbxLeft   -> 
+                                           match karCkbxLeft with
+                                           | true  -> { m with KARCheckBoxLeftIsChecked = karCkbxLeft; SGCheckBoxIsEnabled = false; SGCheckBoxIsChecked = false; InfoTextBoxText = strCbx "čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none  
+                                           | false -> { m with KARCheckBoxLeftIsChecked = karCkbxLeft; SGCheckBoxIsEnabled = true; InfoTextBoxText = strCbx "čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none 
+        | KARCheckBoxRight karCkbxRight -> { m with KARCheckBoxRightIsChecked = karCkbxRight; InfoTextBoxText = strCbx "příslušného checkboxu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none                                              
+        | KARCheckBoxLeftE karCkbxLeftE -> { m with KARCheckBoxLeftIsEnabled = karCkbxLeftE; } |> updateSettings, Cmd.none   
+        | InfoTextBoxForeground         -> { m with InfoTextBoxForeground = Brushes.Black }, Cmd.none //tohle je barva, na kterou se to po pohybu mysi nebo po zvednuti klavesy zmeni
       
    
     let condInt y x =   //musim x a y prehodit, nebot hodnota pres piping je dosazena az nakonec vpravo   

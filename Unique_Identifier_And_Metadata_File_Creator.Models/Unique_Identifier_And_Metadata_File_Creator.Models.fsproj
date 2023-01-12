@@ -10,6 +10,7 @@
     <Resource Include="Resources\Graphicloads-Food-Drink-Teapot.ico" />
     <Compile Include="Settings\SettingsDG.fs" />
     <Compile Include="Settings\Settings.fs" />
+    <Compile Include="MyTypes\Strings.fs" />
     <Compile Include="MyTypes\PatternBuilders.fs" />
     <Compile Include="MyTypes\DiscriminatedUnions.fs" />
     <Compile Include="Auxiliaries\Errors.fs" />

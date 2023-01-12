@@ -218,7 +218,7 @@ module XElmishSettings =
                                 match value <= limit && value > 0 with 
                                 | true  -> value                                           
                                 | false -> limit                                                              
-                | None      -> y                
+                | None      ->  y                
 
            let myCopyOfSettings() =  //to je, co se ulozi
                {
@@ -330,8 +330,8 @@ module XElmishSettings =
                                      let message = "Kliknutím na \"Ano\" nebo \"Yes\" bude proveden návrat k defaultním hodnotám a navždy ztratíš nastavené hodnoty. Je to opravdu to, co chceš?"
                                      MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No)                
                                      |> function
-                                        | MessageBoxResult.Yes -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none 
-                                        | _                    -> m, Cmd.none    
+                                         | MessageBoxResult.Yes -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none 
+                                         | _                    -> m, Cmd.none    
 
             | FontTypeTextBox fontType   -> { m with FontTypeTextBoxText = fontType; InfoTextBoxText = str m.FontTypeLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
             | PrefixTextBox prefix       -> { m with PrefixTextBoxText = prefix; InfoTextBoxText = str m.PrefixLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
