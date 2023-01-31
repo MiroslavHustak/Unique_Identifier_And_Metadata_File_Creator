@@ -6,6 +6,7 @@ open System.Data
 open System.Linq
 
 open Errors
+open Strings
 open ROP_Functions
 
 module CreatingCSV =
@@ -20,15 +21,17 @@ module CreatingCSV =
                       | _    -> pathCSV
         let path = sprintf "%s\%s.csv" csvPath nameOfCVSFile
 
+        //TODO try with
         use sw1 = new StreamWriter(Path.GetFullPath(path))
                   |> Option.ofObj  
                   |> optionToGenerics2 "při zápisu pomocí StreamWriter()" (new StreamWriter(String.Empty)) //whatever of the particular type  
              
         //headers  
         //tady do in scope nelze dt, bo shadowing zpusobi vzani hodnoty z parametru
+        //TODO try with quli Seq.fold
         let strHeaders = 
             let columnNames = 
-                              dt.Columns.Cast<System.Data.DataColumn>()
+                              dt.Columns.Cast<System.Data.DataColumn>() //TODO try with
                               |> Option.ofObj 
                               |> optionToGenerics2 "při použití dt.Columns.Cast" (dt.Columns.Cast<System.Data.DataColumn>()) //whatever of the particular type  
                               |> Seq.map (fun item -> item.Caption)
@@ -43,10 +46,10 @@ module CreatingCSV =
                                     |> List.mapi (fun c _ -> 
                                                             dt.Rows[r][c] |> Option.ofObj                                                             
                                                             |> function
-                                                                | None when c = 0 -> string dt.Rows.[r].[c]                                                                                        
+                                                                | None when c = 0 -> (string dt.Rows.[r].[c])                                                                                        
                                                                 | _               -> (string dt.Rows.[r].[c]).Replace(';', ',')
                                                   )  
-                                let str = sprintf "%s%s" (String.concat <| ";" <| str) ";" 
+                                let str = sprintf "%s%s" (String.concat <| ";" <| str) ";" //TODO try with
                                 do sw1.WriteLine(str.Remove(str.Length - 1, 1)) //odstraneni posledniho znaku, coz je ";"     
                                 do sw1.Flush()  
                      )    
