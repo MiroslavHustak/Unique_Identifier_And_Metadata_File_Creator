@@ -23,7 +23,7 @@ module Helpers =
                     let buffer: byte[] = Array.zeroCreate <| 32
                     let timeout = 1000
                     let pingOptions: PingOptions = new PingOptions() // |> Option.ofObj                                                        
-                    //asi nevadi, ze parametr pingOptions by mohl byt null, kdyz Option.ofObj nefunguje 
+                    //asi nevadi, ze parametr pingOptions by mohl byt null, kdyz Option.ofObj tady nelze pouzit 
                     
                     myPing.Send(host, timeout, buffer, pingOptions)
                     |> Option.ofObj  

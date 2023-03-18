@@ -28,18 +28,26 @@ module XElmishSettings =
     open Helpers.Serialisation
     open Helpers.Deserialisation
 
-    let inline xor a b = (a || b) && not (a && b) //zatim nevyuzito
-
     let [<Literal>] limitGoogle = 0
     let [<Literal>] limitColumnStart = 12
     let [<Literal>] limitColumnEnd = 13
 
-     //pouze pro malo pravdepodobny pripad, kdyby nekdo v kodu nebo primo do json.xml/jsonBackup.xml zadal prazdne hodnoty
+    let inline xor a b = (a || b) && not (a && b) //zatim nevyuzito
+
+    //pouze pro malo pravdepodobny pripad, kdyby nekdo v kodu nebo primo do json.xml/jsonBackup.xml zadal prazdne hodnoty
     let private cond x y =           
         match String.IsNullOrWhiteSpace(string x) with
         | true  -> y     
         | false -> x
-      
+    
+    //typy pisma | Calibri | TimesNew Roman | Arial
+    let private condFontType x y =   
+        [ "C"; "T"; "A" ] 
+        |> List.contains x
+        |> function       
+            | true  -> x  
+            | false -> y  
+
     type Model =
         {
             FontTypeTextBoxText: string
@@ -205,13 +213,7 @@ module XElmishSettings =
                         let! _ = Directory.Exists(x), y  
                         return x
                     }
-               
-           let condFontType x y =   
-                let myList = [ "C"; "T"; "A" ]
-                match myList |> List.contains x with
-                | true  -> x  
-                | false -> y  
-             
+                                 
            let condInt x y limit = 
                 match Parsing.parseMeOption (string x) with
                 | Some value ->                                  
@@ -351,13 +353,8 @@ module XElmishSettings =
             | ColumnStartTextBox columnStart -> { m with ColumnStartTextBoxText = string columnStart; InfoTextBoxText = str m.ColumnStartLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
             | ColumnEndTextBox columnEnd     -> { m with ColumnEndTextBoxText = string columnEnd; InfoTextBoxText = str m.ColumnEndLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
             | InfoTextBoxForeground          -> { m with InfoTextBoxForeground = Brushes.Black }, Cmd.none //tohle je barva, na kterou se to po pohybu mysi nebo po zvednuti klavesy zmeni
-             
-    let condFontType x y =   
-        let myList = [ "C"; "T"; "A" ]
-        match myList |> List.contains x with
-        | true  -> x  
-        | false -> y  
-    
+            
+            
     let condInt y x =   //musim x a y prehodit, nebot hodnota pres piping je dosazena az nakonec vpravo    
         match Parsing.parseMeOption (string x) with
         | Some value -> 

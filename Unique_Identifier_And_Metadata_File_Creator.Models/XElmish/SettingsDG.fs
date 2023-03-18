@@ -27,10 +27,10 @@ module XElmishSettingsDG =
     open PatternBuilders
     open Helpers.Serialisation
     open Helpers.Deserialisation
-
-    let inline xor a b = (a || b) && not (a && b) //zatim nevyuzito
     
     let [<Literal>] limitNumberOfCharacters = 9
+
+    let inline xor a b = (a || b) && not (a && b) //zatim nevyuzito
     
     let private cond x y =           
         match String.IsNullOrWhiteSpace(string x) with
@@ -324,7 +324,7 @@ module XElmishSettingsDG =
                             | true  -> value                                           
                             | false -> limitNumberOfCharacters  //limitni hodnota v prislusnem textboxu
                         string result                              
-        | None      -> string y
+        | None       -> string y
          
 
     let condition x y = (cond x y) |> condInt y 
