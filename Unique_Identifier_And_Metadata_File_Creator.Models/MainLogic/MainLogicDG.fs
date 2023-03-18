@@ -130,7 +130,7 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
         let msg =  
             [ 0 .. abs (rowEnd - rowStart) ] 
             |> List.mapi (fun i item ->                 //Array.parallel tady nefungovalo s DataTable
-                                        Thread.Sleep(15) //aby to krasne vypadalo :-)
+                                        Thread.Sleep(15) //aby to krasne vypadalo, bo ten vypocet neni narocny :-)
                                         reportProgress(i)                                        
 
                                         [ 0 .. columnEnd - 1 ] |> List.iteri (fun j item -> dtGoogle.Rows.[i].[j] <- (myString dtGoogle.Rows.[i].[j])

@@ -130,7 +130,9 @@ module RightCalc =
                                                                             let reportProgress progressValue = dispatch (UpdateStatusRight progressValue)                                                               
                                                                             let! hardWork = Async.StartChild (async { return getUniqueIdentifier rowStart rowEnd startWithNumber reportProgress }) 
                                                                             let! result3 = hardWork 
+                                                                            do! Async.Sleep 1000
                                                                             let result = result3 
+
                                                                             dispatch (WorkIsCompleteRight result)
                                                                         }                                       
                                                                  Async.StartImmediate delayedDispatch                                                            

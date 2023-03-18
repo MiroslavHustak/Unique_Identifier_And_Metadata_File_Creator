@@ -30,7 +30,7 @@ let createMetadataFiles() =
         let title = "Upozornění"
         do closeSingleProcess message title processName    
         //a pro jistotu jeste.... 
-        do KillSingleProcess("XLSX_To_PDF", String.Empty, false) //"Excel" "AcroRd32" "FoxitPDFReader" "scalc"
+        do killSingleProcess("XLSX_To_PDF", String.Empty, false) //"Excel" "AcroRd32" "FoxitPDFReader" "scalc"
     tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor4 ()
              
     let deserialize =

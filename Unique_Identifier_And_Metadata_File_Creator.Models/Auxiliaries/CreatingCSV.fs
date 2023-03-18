@@ -40,18 +40,18 @@ module CreatingCSV =
 
         //rows
         [ 0 .. dt.Rows.Count - 1 ] //mohl by byt seq, array, atd.
-        |> List.iteri (fun r _ -> 
-                                let str =  
-                                    [ 0 .. dt.Columns.Count - 1 ]
-                                    |> List.mapi (fun c _ -> 
-                                                            dt.Rows[r][c] |> Option.ofObj                                                             
-                                                            |> function
-                                                                | None when c = 0 -> (string dt.Rows.[r].[c])                                                                                        
-                                                                | _               -> (string dt.Rows.[r].[c]).Replace(';', ',')
-                                                  )  
-                                let str = sprintf "%s%s" (String.concat <| ";" <| str) ";" //TODO try with
-                                do sw1.WriteLine(str.Remove(str.Length - 1, 1)) //odstraneni posledniho znaku, coz je ";"     
-                                do sw1.Flush()  
+        |> List.iter (fun r -> 
+                             let str =  
+                                 [ 0 .. dt.Columns.Count - 1 ]
+                                 |> List.map (fun c -> 
+                                                     dt.Rows[r][c] |> Option.ofObj                                                             
+                                                     |> function
+                                                         | None when c = 0 -> (string dt.Rows.[r].[c])                                                                                        
+                                                         | _               -> (string dt.Rows.[r].[c]).Replace(';', ',')
+                                             )  
+                             let str = sprintf "%s%s" (String.concat <| ";" <| str) ";" //TODO try with
+                             do sw1.WriteLine(str.Remove(str.Length - 1, 1)) //odstraneni posledniho znaku, coz je ";"     
+                             do sw1.Flush()  
                      )    
-    
+     
         "Převod hodnot z Google tabulky do csv souboru se zdařil."
