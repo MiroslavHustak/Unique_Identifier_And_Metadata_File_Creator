@@ -76,11 +76,11 @@ let createMetadataFiles() =
                                              let! _ = not (value = String.Empty), () 
                                              let! _ = not (isFileLocked value), () 
                                              let mySeq =                                                           
-                                                        let exampleString = deserialize.exampleString 
-                                                        let prefix = deserialize.prefix 
-                                                        let fontTypeCode = string deserialize.fontType 
-                                                        let columnRange = string deserialize.columnEnd 
-                                                        seq { value; jpgPath; pdfPath; exampleString; prefix; fontTypeCode; columnRange }     
+                                                 let exampleString = deserialize.exampleString 
+                                                 let prefix = deserialize.prefix 
+                                                 let fontTypeCode = string deserialize.fontType 
+                                                 let columnRange = string deserialize.columnEnd 
+                                                 seq { value; jpgPath; pdfPath; exampleString; prefix; fontTypeCode; columnRange }     
                                              let myBoolArray = [| deleteAllFilesInDir pdfPath; deleteAllFilesInDir jpgPath |]  
                                              let! _ = not (myBoolArray |> Array.contains true), ()   
                                              let proc = procFn @"Xlsx_To_Jpg_PDF\XLSX_To_PDF_JPG_forWPF.exe" mySeq
