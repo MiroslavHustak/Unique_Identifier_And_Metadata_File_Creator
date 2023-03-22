@@ -145,12 +145,12 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                                         dtGoogle.Rows.[i].[4] <- (myString dtGoogle.Rows.[i].[4]).Replace(" ", String.Empty)                                       
                                         let str = myString dtGoogle.Rows.[i].[4]
                                         let numberOfZeros = abs (nadTxb - String.length str)
-                                        let fnNAD = checkBoxFn (sprintf "%s%s" <| GetString(numberOfZeros, "0") <| str) nadCkbx  
+                                        let fnNAD = checkBoxFn (sprintf "%s%s" <| getString(numberOfZeros, "0") <| str) nadCkbx  
                                         
                                         dtGoogle.Rows.[i].[5] <- (myString dtGoogle.Rows.[i].[5]).Replace(" ", String.Empty)
                                         let str = myString dtGoogle.Rows.[i].[5]
                                         let numberOfZeros = abs (pomTxb - String.length str)
-                                        let fnCisloPomucky = checkBoxFn (sprintf "%s%s" <| GetString(numberOfZeros, "0") <| str) pomCkbx  
+                                        let fnCisloPomucky = checkBoxFn (sprintf "%s%s" <| getString(numberOfZeros, "0") <| str) pomCkbx  
                                        
                                         dtGoogle.Rows.[i].[6] <- (myString dtGoogle.Rows.[i].[6]).Replace(" ", String.Empty)                                                                                
                                         let fnInventarniCislo =                                      
@@ -163,7 +163,7 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                                                     let! _ = ((String.length str) <= 4), bckgProcess //max. 4 znaky pro inventarni cislo
                                                     let result = 
                                                         let numberOfZeros = abs (invTxb2 - String.length str)
-                                                        checkBoxFn (sprintf "%s%s%s" <| invTxb1 <| GetString(numberOfZeros, "0") <| str) invCkbxLeft                                                   
+                                                        checkBoxFn (sprintf "%s%s%s" <| invTxb1 <| getString(numberOfZeros, "0") <| str) invCkbxLeft                                                   
                                                     return result
                                                 }                                        
                                         
@@ -177,14 +177,14 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                                             | false -> checkBoxFn (sprintf "%s%s" <| karTxb1 <| (myString dtGoogle.Rows.[i].[8])) karCkbxLeft
                                             | true  -> let str = myString dtGoogle.Rows.[i].[8]
                                                        let numberOfZeros = abs (karTxb2 - String.length str)
-                                                       checkBoxFn (sprintf "%s%s%s" <| karTxb1 <| GetString(numberOfZeros, "0") <| str) karCkbxLeft  
+                                                       checkBoxFn (sprintf "%s%s%s" <| karTxb1 <| getString(numberOfZeros, "0") <| str) karCkbxLeft  
                                                                                                
                                         dtGoogle.Rows.[i].[11] <- (myString dtGoogle.Rows.[i].[11]).Replace(" ", String.Empty)
                                        
                                         let sum = string (i + startWithNumber) //quli tomu, ze int neni nullable
                                         
                                         let numberOfZeros = (exampleString |> String.length) - (myString sum |> String.length) - (prefix |> String.length)
-                                        dtGoogle.Rows.[i].[0] <- sprintf "%s%s%s" prefix (GetString(abs numberOfZeros, "0")) (myString sum)
+                                        dtGoogle.Rows.[i].[0] <- sprintf "%s%s%s" prefix (getString(abs numberOfZeros, "0")) (myString sum)
 
                                         let result = sprintf "%s-%s-%s-%s-%s-%s" 
                                                      <| fnDGset 
@@ -300,9 +300,9 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                      *)
                                                         
                     let du: TaskResults list = myTasks 
-                                            <| async { return MyString (csv()) } 
-                                            <| async { return MyBool (excel()) }
-                                            <| async { return MyUnit (google()) }
+                                               <| async { return MyString (csv()) } 
+                                               <| async { return MyBool (excel()) }
+                                               <| async { return MyUnit (google()) }
        
                     let myString = du |> List.item 0 |> whatIs                        
                                    |> function 
