@@ -355,6 +355,13 @@ module XElmishSettings =
             | InfoTextBoxForeground          -> { m with InfoTextBoxForeground = Brushes.Black }, Cmd.none //tohle je barva, na kterou se to po pohybu mysi nebo po zvednuti klavesy zmeni
             
 
+    let condInt y x =   //musim x a y prehodit, nebot hodnota pres piping je dosazena az nakonec vpravo
+        match Parsing.parseMeOption (string x) with
+        | Some value -> string value   
+        | None       -> string y       
+
+    let condition x y = (cond x y) |> condInt y 
+
     let bindings(): Binding<Model,Msg> list =
         [ 
           "CancelButton2"           |> Binding.cmd CancelButton2Event        
@@ -366,7 +373,7 @@ module XElmishSettings =
           "XlsxPathTextBox"         |> Binding.twoWay((fun m -> m.XlsxPathTextBoxText), (fun newVal m -> cond (string newVal) m.XlsxPathTextBoxText |> XlsxPathTextBox))
           "JpgPathTextBox"          |> Binding.twoWay((fun m -> m.JpgPathTextBoxText), (fun newVal m -> cond (string newVal) m.JpgPathTextBoxText |> JpgPathTextBox))
           "PdfPathTextBox"          |> Binding.twoWay((fun m -> m.PdfPathTextBoxText), (fun newVal m -> cond (string newVal) m.PdfPathTextBoxText |> PdfPathTextBox))
-          "NumOfRowsGoogleTextBox"  |> Binding.twoWay((fun m -> m.NumOfRowsGoogleTextBoxText), (fun newVal m -> cond newVal m.NumOfRowsGoogleTextBoxText |> NumOfRowsGoogleTextBox))
+          "NumOfRowsGoogleTextBox"  |> Binding.twoWay((fun m -> m.NumOfRowsGoogleTextBoxText), (fun newVal m -> condition newVal m.NumOfRowsGoogleTextBoxText |> NumOfRowsGoogleTextBox))
                      
           "FirstRowIsHeadersCheckBox" |> Binding.twoWay((fun m -> m.FirstRowIsHeadersCheckBoxIsChecked), (fun newVal -> newVal |> FirstRowIsHeadersCheckBox))
           
@@ -374,8 +381,8 @@ module XElmishSettings =
           "IdTextBox"              |> Binding.twoWay((fun m -> m.IdTextBoxText), (fun newVal m -> cond (string newVal) m.IdTextBoxText |> IdTextBox))           
           "SheetNameTextBox"       |> Binding.twoWay((fun m -> m.SheetNameTextBoxText), (fun newVal m -> cond (string newVal) m.SheetNameTextBoxText |> SheetNameTextBox))
           "SheetName6TextBox"      |> Binding.twoWay((fun m -> m.SheetName6TextBoxText), (fun newVal m -> cond (string newVal) m.SheetName6TextBoxText |> SheetName6TextBox))
-          "ColumnStartTextBox"     |> Binding.twoWay((fun m -> m.ColumnStartTextBoxText), (fun newVal m -> cond newVal m.ColumnStartTextBoxText |> ColumnStartTextBox))
-          "ColumnEndTextBox"       |> Binding.twoWay((fun m -> m.ColumnEndTextBoxText), (fun newVal m -> cond newVal m.ColumnEndTextBoxText |> ColumnEndTextBox))
+          "ColumnStartTextBox"     |> Binding.twoWay((fun m -> m.ColumnStartTextBoxText), (fun newVal m -> condition newVal m.ColumnStartTextBoxText |> ColumnStartTextBox))
+          "ColumnEndTextBox"       |> Binding.twoWay((fun m -> m.ColumnEndTextBoxText), (fun newVal m -> condition newVal m.ColumnEndTextBoxText |> ColumnEndTextBox))
 
           "TriggerEvent"           |> Binding.cmd InfoTextBoxForeground
 
