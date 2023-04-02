@@ -117,7 +117,8 @@ module RightCalc =
                                                              | true  ->  Seq.initInfinite (fun _ -> detectFileRunning "XLSX_To_PDF_JPG_forWPF") 
                                                                          |> Seq.takeWhile ((=) true) 
                                                                          |> Seq.iter      (fun _ -> myMsgBox() |> ignore
-                                                                                                    Thread.Sleep(1000)) //Ceka do doby, nez se dokonci tvorba pruvodek, necham testovat po vterine, at to chudak pocitac nekontroluje furt.                                                                                        
+                                                                                                    Thread.Sleep(1000)
+                                                                                          ) //Ceka do doby, nez se dokonci tvorba pruvodek, necham testovat po vterine, at to chudak pocitac nekontroluje furt.                                                                                        
                                                              | false -> failwith (sprintf "Soubor %A nenalezen" fInfodat)  
 
                                                              //failwith "Simulated exception2" 

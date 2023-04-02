@@ -179,8 +179,8 @@ module Helpers =
                 match list with 
                 | []        -> acc
                 | _ :: tail -> let finalString = (+) acc stringToAdd
-                               loop <| tail <| finalString <| stringToAdd
-            loop <| listRange <| initialString <| stringToAdd  
+                               loop tail finalString stringToAdd   //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984
+            loop listRange initialString stringToAdd  //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984
     
     //Vsechny serializace dat povinne do trywith bloku (a jeste overit Option.ofObj, kdyby nahodou tam byl nullable typ)
     module Serialisation = 
