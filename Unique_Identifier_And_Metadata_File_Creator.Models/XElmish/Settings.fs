@@ -364,46 +364,46 @@ module XElmishSettings =
 
     let bindings(): Binding<Model,Msg> list =
         [ 
-          "CancelButton2"           |> Binding.cmd CancelButton2Event        
-          "DefaultButton3"          |> Binding.cmd DefaultButton3Event      
-          "FontTypeTextBox"         |> Binding.twoWay((fun m -> m.FontTypeTextBoxText), (fun newVal m -> condFontType (string newVal) m.FontTypeTextBoxText |> FontTypeTextBox)) 
-          "PrefixTextBox"           |> Binding.twoWay((fun m -> m.PrefixTextBoxText), (fun newVal m -> cond (string newVal) m.PrefixTextBoxText |> PrefixTextBox))
-          "ExampleStringTextBox"    |> Binding.twoWay((fun m -> m.ExampleStringTextBoxText), (fun newVal m -> cond (string newVal) m.ExampleStringTextBoxText |> ExampleStringTextBox)) 
-          "CsvPathTextBox"          |> Binding.twoWay((fun m -> m.CsvPathTextBoxText), (fun newVal m -> cond (string newVal) m.CsvPathTextBoxText |> CsvPathTextBox))
-          "XlsxPathTextBox"         |> Binding.twoWay((fun m -> m.XlsxPathTextBoxText), (fun newVal m -> cond (string newVal) m.XlsxPathTextBoxText |> XlsxPathTextBox))
-          "JpgPathTextBox"          |> Binding.twoWay((fun m -> m.JpgPathTextBoxText), (fun newVal m -> cond (string newVal) m.JpgPathTextBoxText |> JpgPathTextBox))
-          "PdfPathTextBox"          |> Binding.twoWay((fun m -> m.PdfPathTextBoxText), (fun newVal m -> cond (string newVal) m.PdfPathTextBoxText |> PdfPathTextBox))
-          "NumOfRowsGoogleTextBox"  |> Binding.twoWay((fun m -> m.NumOfRowsGoogleTextBoxText), (fun newVal m -> condition newVal m.NumOfRowsGoogleTextBoxText |> NumOfRowsGoogleTextBox))
+            "CancelButton2"           |> Binding.cmd CancelButton2Event        
+            "DefaultButton3"          |> Binding.cmd DefaultButton3Event      
+            "FontTypeTextBox"         |> Binding.twoWay ((fun m -> m.FontTypeTextBoxText), (fun newVal m -> condFontType (string newVal) m.FontTypeTextBoxText |> FontTypeTextBox)) 
+            "PrefixTextBox"           |> Binding.twoWay ((fun m -> m.PrefixTextBoxText), (fun newVal m -> cond (string newVal) m.PrefixTextBoxText |> PrefixTextBox))
+            "ExampleStringTextBox"    |> Binding.twoWay ((fun m -> m.ExampleStringTextBoxText), (fun newVal m -> cond (string newVal) m.ExampleStringTextBoxText |> ExampleStringTextBox)) 
+            "CsvPathTextBox"          |> Binding.twoWay ((fun m -> m.CsvPathTextBoxText), (fun newVal m  -> cond (string newVal) m.CsvPathTextBoxText |> CsvPathTextBox))
+            "XlsxPathTextBox"         |> Binding.twoWay ((fun m -> m.XlsxPathTextBoxText), (fun newVal m -> cond (string newVal) m.XlsxPathTextBoxText |> XlsxPathTextBox))
+            "JpgPathTextBox"          |> Binding.twoWay ((fun m -> m.JpgPathTextBoxText), (fun newVal m  -> cond (string newVal) m.JpgPathTextBoxText |> JpgPathTextBox))
+            "PdfPathTextBox"          |> Binding.twoWay ((fun m -> m.PdfPathTextBoxText), (fun newVal m  -> cond (string newVal) m.PdfPathTextBoxText |> PdfPathTextBox))
+            "NumOfRowsGoogleTextBox"  |> Binding.twoWay ((fun m -> m.NumOfRowsGoogleTextBoxText), (fun newVal m -> condition newVal m.NumOfRowsGoogleTextBoxText |> NumOfRowsGoogleTextBox))
                      
-          "FirstRowIsHeadersCheckBox" |> Binding.twoWay((fun m -> m.FirstRowIsHeadersCheckBoxIsChecked), (fun newVal -> newVal |> FirstRowIsHeadersCheckBox))
+            "FirstRowIsHeadersCheckBox" |> Binding.twoWay ((fun m -> m.FirstRowIsHeadersCheckBoxIsChecked), (fun newVal -> newVal |> FirstRowIsHeadersCheckBox))
           
-          "JsonFileName1TextBox"   |> Binding.twoWay((fun m -> m.JsonFileName1TextBoxText), (fun newVal m -> cond (string newVal) m.JsonFileName1TextBoxText |> JsonFileName1TextBox))         
-          "IdTextBox"              |> Binding.twoWay((fun m -> m.IdTextBoxText), (fun newVal m -> cond (string newVal) m.IdTextBoxText |> IdTextBox))           
-          "SheetNameTextBox"       |> Binding.twoWay((fun m -> m.SheetNameTextBoxText), (fun newVal m -> cond (string newVal) m.SheetNameTextBoxText |> SheetNameTextBox))
-          "SheetName6TextBox"      |> Binding.twoWay((fun m -> m.SheetName6TextBoxText), (fun newVal m -> cond (string newVal) m.SheetName6TextBoxText |> SheetName6TextBox))
-          "ColumnStartTextBox"     |> Binding.twoWay((fun m -> m.ColumnStartTextBoxText), (fun newVal m -> condition newVal m.ColumnStartTextBoxText |> ColumnStartTextBox))
-          "ColumnEndTextBox"       |> Binding.twoWay((fun m -> m.ColumnEndTextBoxText), (fun newVal m -> condition newVal m.ColumnEndTextBoxText |> ColumnEndTextBox))
+            "JsonFileName1TextBox"   |> Binding.twoWay ((fun m -> m.JsonFileName1TextBoxText), (fun newVal m -> cond (string newVal) m.JsonFileName1TextBoxText |> JsonFileName1TextBox))         
+            "IdTextBox"              |> Binding.twoWay ((fun m -> m.IdTextBoxText), (fun newVal m -> cond (string newVal) m.IdTextBoxText |> IdTextBox))           
+            "SheetNameTextBox"       |> Binding.twoWay ((fun m -> m.SheetNameTextBoxText), (fun newVal m -> cond (string newVal) m.SheetNameTextBoxText |> SheetNameTextBox))
+            "SheetName6TextBox"      |> Binding.twoWay ((fun m -> m.SheetName6TextBoxText), (fun newVal m  -> cond (string newVal) m.SheetName6TextBoxText |> SheetName6TextBox))
+            "ColumnStartTextBox"     |> Binding.twoWay ((fun m -> m.ColumnStartTextBoxText), (fun newVal m -> condition newVal m.ColumnStartTextBoxText |> ColumnStartTextBox))
+            "ColumnEndTextBox"       |> Binding.twoWay ((fun m -> m.ColumnEndTextBoxText), (fun newVal m -> condition newVal m.ColumnEndTextBoxText |> ColumnEndTextBox))
 
-          "TriggerEvent"           |> Binding.cmd InfoTextBoxForeground
+            "TriggerEvent"           |> Binding.cmd InfoTextBoxForeground
 
-          "InfoTextBox"            |> Binding.oneWay(fun m -> m.InfoTextBoxText)
-          "InfoTextBoxForeground"  |> Binding.oneWay(fun m -> m.InfoTextBoxForeground)
+            "InfoTextBox"            |> Binding.oneWay (fun m -> m.InfoTextBoxText)
+            "InfoTextBoxForeground"  |> Binding.oneWay (fun m -> m.InfoTextBoxForeground)
           
-          "FontTypeLabel"          |> Binding.oneWay(fun m -> m.FontTypeLabel) 
-          "PrefixLabel"            |> Binding.oneWay(fun m -> m.PrefixLabel) 
-          "ExampleStringLabel"     |> Binding.oneWay(fun m -> m.ExampleStringLabel)  
-          "CsvPathLabel"           |> Binding.oneWay(fun m -> m.CsvPathLabel)
-          "XlsxPathLabel"          |> Binding.oneWay(fun m -> m.XlsxPathLabel)
-          "JpgPathLabel"           |> Binding.oneWay(fun m -> m.JpgPathLabel)
-          "PdfPathLabel"           |> Binding.oneWay(fun m -> m.PdfPathLabel)
-          "NumOfRowsGoogleLabel"   |> Binding.oneWay(fun m -> m.NumOfRowsGoogleLabel)
+            "FontTypeLabel"          |> Binding.oneWay (fun m -> m.FontTypeLabel) 
+            "PrefixLabel"            |> Binding.oneWay (fun m -> m.PrefixLabel) 
+            "ExampleStringLabel"     |> Binding.oneWay (fun m -> m.ExampleStringLabel)  
+            "CsvPathLabel"           |> Binding.oneWay (fun m -> m.CsvPathLabel)
+            "XlsxPathLabel"          |> Binding.oneWay (fun m -> m.XlsxPathLabel)
+            "JpgPathLabel"           |> Binding.oneWay (fun m -> m.JpgPathLabel)
+            "PdfPathLabel"           |> Binding.oneWay (fun m -> m.PdfPathLabel)
+            "NumOfRowsGoogleLabel"   |> Binding.oneWay (fun m -> m.NumOfRowsGoogleLabel)
                               
-          "FirstRowIsHeadersCheckBoxContent" |> Binding.oneWay(fun m -> m.FirstRowIsHeadersCheckBox)
+            "FirstRowIsHeadersCheckBoxContent" |> Binding.oneWay(fun m -> m.FirstRowIsHeadersCheckBox)
                    
-          "JsonFileName1Label"     |> Binding.oneWay(fun m -> m.JsonFileName1Label)
-          "IdLabel"                |> Binding.oneWay(fun m -> m.IdLabel)                    
-          "SheetNameLabel"         |> Binding.oneWay(fun m -> m.SheetNameLabel)
-          "SheetName6Label"        |> Binding.oneWay(fun m -> m.SheetName6Label)
-          "ColumnStartLabel"       |> Binding.oneWay(fun m -> m.ColumnStartLabel)
-          "ColumnEndLabel"         |> Binding.oneWay(fun m -> m.ColumnEndLabel)
+            "JsonFileName1Label"     |> Binding.oneWay (fun m -> m.JsonFileName1Label)
+            "IdLabel"                |> Binding.oneWay (fun m -> m.IdLabel)                    
+            "SheetNameLabel"         |> Binding.oneWay (fun m -> m.SheetNameLabel)
+            "SheetName6Label"        |> Binding.oneWay (fun m -> m.SheetName6Label)
+            "ColumnStartLabel"       |> Binding.oneWay (fun m -> m.ColumnStartLabel)
+            "ColumnEndLabel"         |> Binding.oneWay (fun m -> m.ColumnEndLabel)
         ]      

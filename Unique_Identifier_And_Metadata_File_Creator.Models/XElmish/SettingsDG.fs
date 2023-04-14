@@ -331,30 +331,30 @@ module XElmishSettingsDG =
 
     let bindings(): Binding<Model,Msg> list =
         [ 
-          "CancelButton"          |> Binding.cmd CancelButtonEvent        
-          "DefaultButton"         |> Binding.cmd DefaultButtonEvent      
-          "ArchiveCodeTextBox"    |> Binding.twoWay((fun m -> m.ArchiveCodeTextBoxText), (fun newVal m -> cond (string newVal) m.ArchiveCodeTextBoxText |> ArchiveCodeTextBox)) 
-          "ArchiveCodeCheckBox"   |> Binding.twoWay((fun m -> m.ArchiveCodeCheckBoxIsChecked), (fun newVal -> newVal |> ArchiveCodeCheckBox))
-          "NADTextBox"            |> Binding.twoWay((fun m -> m.NADTextBoxTextText), (fun newVal m -> condition (string newVal) m.NADTextBoxTextText |> NADTextBox)) 
-          "NADCheckBox"           |> Binding.twoWay((fun m -> m.NADCheckBoxIsChecked), (fun newVal -> newVal |> NADCheckBox))
-          "POMTextBox"            |> Binding.twoWay((fun m -> m.POMTextBoxTextText), (fun newVal m -> condition (string newVal) m.POMTextBoxTextText |> POMTextBox)) 
-          "POMCheckBox"           |> Binding.twoWay((fun m -> m.POMCheckBoxIsChecked), (fun newVal -> newVal |> POMCheckBox))
-          "INVTextBox1"           |> Binding.twoWay((fun m -> m.INVTextBox1TextText), (fun newVal m -> cond (string newVal) m.INVTextBox1TextText |> INVTextBox1))
-          "INVTextBox2"           |> Binding.twoWay((fun m -> m.INVTextBox2TextText), (fun newVal m -> condition (string newVal) m.INVTextBox2TextText |> INVTextBox2))
-          "INVCheckBoxLeft"       |> Binding.twoWay((fun m -> m.INVCheckBoxLeftIsChecked), (fun newVal -> newVal |> INVCheckBoxLeft))
-          "INVCheckBoxLeftE"      |> Binding.twoWay((fun m -> m.INVCheckBoxLeftIsEnabled), (fun newVal -> newVal |> INVCheckBoxLeftE))
-          "INVCheckBoxRight"      |> Binding.twoWay((fun m -> m.INVCheckBoxRightIsChecked), (fun newVal -> newVal |> INVCheckBoxRight))
-          "SGTextBox1"            |> Binding.twoWay((fun m -> m.SGTextBox1TextText), (fun newVal m -> cond (string newVal) m.SGTextBox1TextText |> SGTextBox1)) 
-          "SGTextBox2"            |> Binding.twoWay((fun m -> m.SGTextBox2TextText), (fun newVal m -> cond (string newVal) m.SGTextBox2TextText |> SGTextBox2)) 
-          "SGTextBox3"            |> Binding.twoWay((fun m -> m.SGTextBox3TextText), (fun newVal m -> cond (string newVal) m.SGTextBox3TextText |> SGTextBox3)) 
-          "SGCheckBox"            |> Binding.twoWay((fun m -> m.SGCheckBoxIsChecked), (fun newVal -> newVal |> SGCheckBox))   
-          "SGCheckBoxE"           |> Binding.twoWay((fun m -> m.SGCheckBoxIsEnabled), (fun newVal -> newVal |> SGCheckBoxE))   
-          "KARTextBox1"           |> Binding.twoWay((fun m -> m.KARTextBox1TextText), (fun newVal m -> cond (string newVal) m.KARTextBox1TextText |> KARTextBox1)) 
-          "KARTextBox2"           |> Binding.twoWay((fun m -> m.KARTextBox2TextText), (fun newVal m -> condition (string newVal) m.KARTextBox2TextText |> KARTextBox2)) 
-          "KARCheckBoxLeft"       |> Binding.twoWay((fun m -> m.KARCheckBoxLeftIsChecked), (fun newVal -> newVal |> KARCheckBoxLeft))
-          "KARCheckBoxLeftE"      |> Binding.twoWay((fun m -> m.KARCheckBoxLeftIsEnabled), (fun newVal -> newVal |> KARCheckBoxLeftE))
-          "KARCheckBoxRight"      |> Binding.twoWay((fun m -> m.KARCheckBoxRightIsChecked), (fun newVal -> newVal |> KARCheckBoxRight))
-          "TriggerEvent"          |> Binding.cmd InfoTextBoxForeground
-          "InfoTextBox"           |> Binding.oneWay(fun m -> m.InfoTextBoxText)
-          "InfoTextBoxForeground" |> Binding.oneWay(fun m -> m.InfoTextBoxForeground)
+            "CancelButton"          |> Binding.cmd CancelButtonEvent        
+            "DefaultButton"         |> Binding.cmd DefaultButtonEvent      
+            "ArchiveCodeTextBox"    |> Binding.twoWay ((fun m -> m.ArchiveCodeTextBoxText), (fun newVal m -> cond (string newVal) m.ArchiveCodeTextBoxText |> ArchiveCodeTextBox)) 
+            "ArchiveCodeCheckBox"   |> Binding.twoWay ((fun m -> m.ArchiveCodeCheckBoxIsChecked), (fun newVal -> newVal |> ArchiveCodeCheckBox))
+            "NADTextBox"            |> Binding.twoWay ((fun m -> m.NADTextBoxTextText), (fun newVal m  -> condition (string newVal) m.NADTextBoxTextText |> NADTextBox)) 
+            "NADCheckBox"           |> Binding.twoWay ((fun m -> m.NADCheckBoxIsChecked), (fun newVal  -> newVal |> NADCheckBox))
+            "POMTextBox"            |> Binding.twoWay ((fun m -> m.POMTextBoxTextText), (fun newVal m  -> condition (string newVal) m.POMTextBoxTextText |> POMTextBox)) 
+            "POMCheckBox"           |> Binding.twoWay ((fun m -> m.POMCheckBoxIsChecked), (fun newVal  -> newVal |> POMCheckBox))
+            "INVTextBox1"           |> Binding.twoWay ((fun m -> m.INVTextBox1TextText), (fun newVal m -> cond (string newVal) m.INVTextBox1TextText |> INVTextBox1))
+            "INVTextBox2"           |> Binding.twoWay ((fun m -> m.INVTextBox2TextText), (fun newVal m -> condition (string newVal) m.INVTextBox2TextText |> INVTextBox2))
+            "INVCheckBoxLeft"       |> Binding.twoWay ((fun m -> m.INVCheckBoxLeftIsChecked), (fun newVal  -> newVal |> INVCheckBoxLeft))
+            "INVCheckBoxLeftE"      |> Binding.twoWay ((fun m -> m.INVCheckBoxLeftIsEnabled), (fun newVal  -> newVal |> INVCheckBoxLeftE))
+            "INVCheckBoxRight"      |> Binding.twoWay ((fun m -> m.INVCheckBoxRightIsChecked), (fun newVal -> newVal |> INVCheckBoxRight))
+            "SGTextBox1"            |> Binding.twoWay ((fun m -> m.SGTextBox1TextText), (fun newVal m -> cond (string newVal) m.SGTextBox1TextText |> SGTextBox1)) 
+            "SGTextBox2"            |> Binding.twoWay ((fun m -> m.SGTextBox2TextText), (fun newVal m -> cond (string newVal) m.SGTextBox2TextText |> SGTextBox2)) 
+            "SGTextBox3"            |> Binding.twoWay ((fun m -> m.SGTextBox3TextText), (fun newVal m -> cond (string newVal) m.SGTextBox3TextText |> SGTextBox3)) 
+            "SGCheckBox"            |> Binding.twoWay ((fun m -> m.SGCheckBoxIsChecked), (fun newVal -> newVal |> SGCheckBox))   
+            "SGCheckBoxE"           |> Binding.twoWay ((fun m -> m.SGCheckBoxIsEnabled), (fun newVal -> newVal |> SGCheckBoxE))   
+            "KARTextBox1"           |> Binding.twoWay ((fun m -> m.KARTextBox1TextText), (fun newVal m -> cond (string newVal) m.KARTextBox1TextText |> KARTextBox1)) 
+            "KARTextBox2"           |> Binding.twoWay ((fun m -> m.KARTextBox2TextText), (fun newVal m -> condition (string newVal) m.KARTextBox2TextText |> KARTextBox2)) 
+            "KARCheckBoxLeft"       |> Binding.twoWay ((fun m -> m.KARCheckBoxLeftIsChecked), (fun newVal  -> newVal |> KARCheckBoxLeft))
+            "KARCheckBoxLeftE"      |> Binding.twoWay ((fun m -> m.KARCheckBoxLeftIsEnabled), (fun newVal  -> newVal |> KARCheckBoxLeftE))
+            "KARCheckBoxRight"      |> Binding.twoWay ((fun m -> m.KARCheckBoxRightIsChecked), (fun newVal -> newVal |> KARCheckBoxRight))
+            "TriggerEvent"          |> Binding.cmd InfoTextBoxForeground
+            "InfoTextBox"           |> Binding.oneWay (fun m -> m.InfoTextBoxText)
+            "InfoTextBoxForeground" |> Binding.oneWay (fun m -> m.InfoTextBoxForeground)
         ]      

@@ -110,11 +110,13 @@ module RightCalc =
                                                            error1 message title
                                                        try
                                                           try  
-                                                             let fInfodat = new FileInfo(@"Xlsx_To_Jpg_PDF\XLSX_To_PDF_JPG_forWPF.exe")
-                                                                            |> Option.ofObj  
-                                                                            |> optionToGenerics @"Xlsx_To_Jpg_PDF\XLSX_To_PDF_JPG_forWPF.exe" "FileInfo()"
+                                                             let fInfodat =
+                                                                new FileInfo(@"Xlsx_To_Jpg_PDF\XLSX_To_PDF_JPG_forWPF.exe")
+                                                                |> Option.ofObj  
+                                                                |> optionToGenerics @"Xlsx_To_Jpg_PDF\XLSX_To_PDF_JPG_forWPF.exe" "FileInfo()"
                                                              match fInfodat.Exists with 
-                                                             | true  ->  Seq.initInfinite (fun _ -> detectFileRunning "XLSX_To_PDF_JPG_forWPF") 
+                                                             | true  ->  
+                                                                         Seq.initInfinite (fun _ -> detectFileRunning "XLSX_To_PDF_JPG_forWPF") 
                                                                          |> Seq.takeWhile ((=) true) 
                                                                          |> Seq.iter      (fun _ -> myMsgBox() |> ignore
                                                                                                     Thread.Sleep(1000)
@@ -162,16 +164,16 @@ module RightCalc =
     //cmdIf disables the relevant button, cmd does not
     let bindings(): Binding<Model,Msg> list =
         [
-          "MainTextBoxText"                  |> Binding.oneWay(fun m -> m.MainTextBoxText)
-          "UniqueIdentifierButton"           |> Binding.cmdIf(CreateUniqueIdentifier, fun m -> match m.ProgressIndicatorRight with Idle -> true | _ -> false)  
-          "StartWithNumber"                  |> Binding.twoWay((fun m -> m.StartWithNumber), (fun newVal -> newVal |> StartWithNumberChanged))
-          "LowLimit"                         |> Binding.twoWay((fun m -> m.LowLimit), (fun newVal -> newVal |> LowLimitChanged))
-          "HighLimit"                        |> Binding.twoWay((fun m -> m.HighLimit), (fun newVal -> newVal |> HighLimitChanged))
-          "ProgressRightIndeter"             |> Binding.oneWay(fun m -> m.ProgressIndeterminateRight)  
-          "Prefix"                           |> Binding.oneWay(fun m -> m.Prefix)  
-          "ProgressRightBackg"               |> Binding.oneWay(fun m -> m.ProgressBackgroundRight) 
-          "ProgressRight"                    |> Binding.oneWay(fun m -> match m.ProgressIndicatorRight with Idle -> 0.0 | InProgress v -> float v)
+          "MainTextBoxText"                  |> Binding.oneWay (fun m -> m.MainTextBoxText)
+          "UniqueIdentifierButton"           |> Binding.cmdIf (CreateUniqueIdentifier, fun m -> match m.ProgressIndicatorRight with Idle -> true | _ -> false)  
+          "StartWithNumber"                  |> Binding.twoWay ((fun m -> m.StartWithNumber), (fun newVal -> newVal |> StartWithNumberChanged))
+          "LowLimit"                         |> Binding.twoWay ((fun m -> m.LowLimit), (fun newVal -> newVal |> LowLimitChanged))
+          "HighLimit"                        |> Binding.twoWay ((fun m -> m.HighLimit), (fun newVal -> newVal |> HighLimitChanged))
+          "ProgressRightIndeter"             |> Binding.oneWay (fun m -> m.ProgressIndeterminateRight)  
+          "Prefix"                           |> Binding.oneWay (fun m -> m.Prefix)  
+          "ProgressRightBackg"               |> Binding.oneWay (fun m -> m.ProgressBackgroundRight) 
+          "ProgressRight"                    |> Binding.oneWay (fun m -> match m.ProgressIndicatorRight with Idle -> 0.0 | InProgress v -> float v)
           "MetaDataButton"                   |> Binding.cmd CreateMetaDataFiles 
-          "UniqueIdentifierButtonIsEnabled"  |> Binding.oneWay(fun m -> m.UniqueIdentifierButtonIsEnabled)
-          "MetaDataButtonIsEnabled"          |> Binding.oneWay(fun m -> m.MetaDataButtonIsEnabled) 
+          "UniqueIdentifierButtonIsEnabled"  |> Binding.oneWay (fun m -> m.UniqueIdentifierButtonIsEnabled)
+          "MetaDataButtonIsEnabled"          |> Binding.oneWay (fun m -> m.MetaDataButtonIsEnabled) 
         ]

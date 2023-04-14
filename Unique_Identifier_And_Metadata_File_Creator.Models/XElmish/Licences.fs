@@ -17,12 +17,18 @@ module Licences =
 
     let initialModel = 
        
-        let str1 = "\r\n\nCode and/or software design in all files in the XElmish folder, file Converters.cs and file MainWindow.xaml.cs in the source code: MIT License, Copyright (c) 2021 Bent Tranberg, https://github.com/BentTranberg" 
-        let str2 = "\r\n\nFile GoogleSheetsHelper.cs in the source code: Except where noted, code in this file was taken from this publicly available source: https://www.hardworkingnerd.com/how-to-read-and-write-to-google-sheets-with-c. The website is owned by Ian Preston. No licence conditions specified - check the website for possible updates." 
-        let str3 = "\r\n\nFile CreateExcelFile.cs in the source code: MIT License, Copyright (c) 2016 Mike Gledhill, https://mikesknowledgebase.azurewebsites.net/pages/Home/index.htm"
+        let str1 = "\r\n\nCode and/or software design in all files in the XElmish folder, file Converters.cs and file MainWindow.xaml.cs in the source code:
+                     MIT License, Copyright (c) 2021 Bent Tranberg, https://github.com/BentTranberg" 
+        let str2 = "\r\n\nFile GoogleSheetsHelper.cs in the source code: Except where noted, code in this file was taken from this publicly available source:
+                    https://www.hardworkingnerd.com/how-to-read-and-write-to-google-sheets-with-c. The website is owned by Ian Preston. No licence conditions 
+                    specified - check the website for possible updates." 
+        let str3 = "\r\n\nFile CreateExcelFile.cs in the source code: MIT License, Copyright (c) 2016 Mike Gledhill, 
+                    https://mikesknowledgebase.azurewebsites.net/pages/Home/index.htm"
         let str4 = "\r\n\nConsole progress bar in XLSX_To_PDF_JPG_forWPF.exe: MIT License, Copyright (c) 2017 Daniel Wolf, https://gist.github.com/DanielSWolf"
-        let str5 = "\r\n\nPDF File Writer in XLSX_To_PDF_JPG_forWPF.exe: Code Project Open License (CPOL) 1.02, https://www.codeproject.com/Articles/570682/PDF-File-Writer-Csharp-Class-Library-Version-2-0-0"
-        let str6 = "\r\n\nSpire JPG Creator in XLSX_To_PDF_JPG_forWPF.exe: Free Spire.PDF for .NET is a Community Edition of the Spire.PDF for .NET, which is a totally free PDF API for commercial and personal use, see https://www.e-iceblue.com/Introduce/free-pdf-component.html#.YmMIflDP2Uk"
+        let str5 = "\r\n\nPDF File Writer in XLSX_To_PDF_JPG_forWPF.exe: Code Project Open License (CPOL) 1.02, 
+                    https://www.codeproject.com/Articles/570682/PDF-File-Writer-Csharp-Class-Library-Version-2-0-0"
+        let str6 = "\r\n\nSpire JPG Creator in XLSX_To_PDF_JPG_forWPF.exe: Free Spire.PDF for .NET is a Community Edition of the Spire.PDF for .NET, which is a totally 
+                    free PDF API for commercial and personal use, see https://www.e-iceblue.com/Introduce/free-pdf-component.html#.YmMIflDP2Uk"
         let str7 = "\r\n\nXLSX_To_PDF_JPG_forWPF.exe (with the aforementioned exceptions): Copyright (c) 2021 Miroslav Husťák, http://hustak.somee.com" 
         let str8 = "\r\n\nAll code in Unique_Identifier_And_Metadata_File_Creator.exe (with the aforementioned exceptions): Copyright (c) 2022 Miroslav Husťák, http://hustak.somee.com" 
         
@@ -42,7 +48,7 @@ module Licences =
 
     let bindings(): Binding<Model,Msg> list =
         [
-          "licencesTextBox0"  |> Binding.oneWay(fun m -> m.LicencesTextBox0)
-          "licencesTextBox1"  |> Binding.oneWay(fun m -> m.LicencesTextBox1) //pro pripadne budouci pouziti
+            "licencesTextBox0" |> Binding.oneWay(fun m -> m.LicencesTextBox0)
+            "licencesTextBox1" |> Binding.oneWay(fun m -> m.LicencesTextBox1) //pro pripadne budouci pouziti
         ]
   

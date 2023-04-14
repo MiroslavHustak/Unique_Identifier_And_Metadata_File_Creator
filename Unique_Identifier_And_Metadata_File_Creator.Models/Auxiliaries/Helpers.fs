@@ -65,9 +65,10 @@ module Helpers =
         let detectFileRunning processName =     
             
             let perform x =                                    
-                let getProcesses = Process.GetProcessesByName(processName)
-                                   |> Option.ofObj                                
-                                   |> optionToGenerics processName "GetProcessesByName()"   
+                let getProcesses = 
+                    Process.GetProcessesByName(processName)
+                    |> Option.ofObj                                
+                    |> optionToGenerics processName "GetProcessesByName()"   
                 getProcesses.Length > 0   
             tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor2 
 
@@ -77,12 +78,13 @@ module Helpers =
                 let message ex = sprintf "Vyskytla se následující chyba: %s. Klikni na \"OK\" pro restart této aplikace a vypni v Excelu soubor %s." ex path
                                                                       
                 let perform x =                                    
-                    let file = new FileInfo(path)
-                               |> Option.ofObj                                
-                               |> optionToGenerics path "FileInfo(path)"   
+                    let file = 
+                        new FileInfo(path)
+                        |> Option.ofObj                                
+                        |> optionToGenerics path "FileInfo(path)"   
                     match detectLockedFile file with
-                    | true   -> failwith (sprintf "Soubor %A je již používán jiným procesem." path)
-                                true // tohle true nevezme, proto viz nize                                                               
+                    | true  -> failwith (sprintf "Soubor %A je již používán jiným procesem." path)
+                               true // tohle true nevezme, proto viz nize                                                               
                     | false -> false                      
                 tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 title message true   
                         
@@ -93,30 +95,35 @@ module Helpers =
             let message ex = sprintf "Vyskytla se následující chyba při mazání adresáře: %s. Klikni na \"OK\" pro restart této aplikace a oveř adresář %s." ex path
                                                                        
             let perform x =                                    
-                let dirInfo = new DirectoryInfo(path)
-                              |> Option.ofObj                                
-                              |> optionToGenerics path "DirectoryInfo(path)"   
-                let fiArray = dirInfo.GetFiles("*", SearchOption.AllDirectories)
-                              |> Option.ofObj                                
-                              |> optionToGenerics path "GetFiles()"   
+                let dirInfo = 
+                    new DirectoryInfo(path)
+                    |> Option.ofObj                                
+                    |> optionToGenerics path "DirectoryInfo(path)"   
+                let fiArray =
+                    dirInfo.GetFiles("*", SearchOption.AllDirectories)
+                    |> Option.ofObj                                
+                    |> optionToGenerics path "GetFiles()"   
                 
-                fiArray |> Array.map(fun item -> 
+                fiArray |> Array.map (fun item -> 
                                                 match detectLockedFile item with
-                                                | false -> item.Delete()
+                                                | false -> 
+                                                           item.Delete()
                                                            false                                                                   
-                                                | true  -> failwith (sprintf "Soubor %A je používán jiným procesem a nelze jej smazat." item)
+                                                | true  -> 
+                                                           failwith (sprintf "Soubor %A je používán jiným procesem a nelze jej smazat." item)
                                                            true  //k tomuto true to nedojede, proto [| true; true |]                                                                                                                                
-                                    ) 
+                                     ) 
                 
             tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 title message [| true; true |] |> Array.contains true   
 
         let closeSingleProcess message title processName =        
 
-            Seq.initInfinite (fun _ -> let getProcesses = Process.GetProcessesByName(processName)
-                                                          |> Option.ofObj                                
-                                                          |> optionToGenerics processName "GetProcessesByName()"   
+            Seq.initInfinite (fun _ -> let getProcesses =
+                                           Process.GetProcessesByName(processName)
+                                           |> Option.ofObj                                
+                                           |> optionToGenerics processName "GetProcessesByName()"   
                                        getProcesses.Length > 0
-                              ) 
+                             ) 
             |> Seq.takeWhile ((=) true) 
             |> Seq.iter      (fun _ -> error1  <| message <| title)  
         
@@ -126,9 +133,10 @@ module Helpers =
 
            try          
               let iterateThroughProcess =
-                  let getProcesses = Process.GetProcessesByName(name)
-                                    |> Option.ofObj                                
-                                    |> optionToGenerics name "GetProcessesByName()"   
+                  let getProcesses = 
+                      Process.GetProcessesByName(name)
+                      |> Option.ofObj                                
+                      |> optionToGenerics name "GetProcessesByName()"   
                   getProcesses 
                   |> Array.toList 
                   |> List.map (fun item -> 
@@ -138,9 +146,9 @@ module Helpers =
                               )
               ()                                            
            with  
-           | ex when (consoleApp = true)  -> do printfn "%s: %s" <| errorNumber <| string ex.Message
-                                             let result = Console.ReadKey()
-                                             () 
+           | ex when (consoleApp = true)  -> 
+                                             do printfn "%s: %s" <| errorNumber <| string ex.Message
+                                             Console.ReadKey() |> ignore
            | ex when (consoleApp = false) -> error4 <| string ex.Message
            | _  when (consoleApp = false) -> ()
 
@@ -178,7 +186,8 @@ module Helpers =
             let rec loop list acc stringToAdd =
                 match list with 
                 | []        -> acc
-                | _ :: tail -> let finalString = (+) acc stringToAdd
+                | _ :: tail -> 
+                               let finalString = (+) acc stringToAdd
                                loop tail finalString stringToAdd   //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984
             loop listRange initialString stringToAdd  //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984
     
@@ -187,13 +196,16 @@ module Helpers =
          
          let serialize record xmlFile = 
             
-             let filepath = Path.GetFullPath(xmlFile) 
-                            |> Option.ofObj 
-                            |> optionToGenerics "čtení cesty k souboru json.xml" "Path.GetFullPath()"
+             let filepath = 
+                 Path.GetFullPath(xmlFile) 
+                 |> Option.ofObj 
+                 |> optionToGenerics "čtení cesty k souboru json.xml" "Path.GetFullPath()"
 
-             let xmlSerializer = new DataContractSerializer(typedefof<string>)          
-                                 |> Option.ofObj 
-                                 |> optionToGenerics "při tvorbě nové instance" "DataContractSerializer()"
+             let xmlSerializer =
+                 new DataContractSerializer(typedefof<string>)          
+                 |> Option.ofObj 
+                 |> optionToGenerics "při tvorbě nové instance" "DataContractSerializer()"
+
              use stream = File.Create(filepath)   
              xmlSerializer.WriteObject(stream, JsonConvert.SerializeObject(record))            
 
@@ -202,26 +214,35 @@ module Helpers =
               
        let deserialize xmlFile = 
            
-           let filepath = Path.GetFullPath(xmlFile) 
-                          |> Option.ofObj 
-                          |> optionToGenerics (sprintf "čtení cesty k souboru souboru %s" xmlFile) "Path.GetFullPath()"
-                          //za timto je trywith, kere by asi zrobilo NullReference Exception, tra se rozhodnut, esli chybu resit jako tady vypnutim, anebo ji nechat projit s nactenim defaultnich hodnot  
+           let filepath = 
+               Path.GetFullPath(xmlFile) 
+               |> Option.ofObj 
+               |> optionToGenerics (sprintf "čtení cesty k souboru souboru %s" xmlFile) "Path.GetFullPath()"
+               //za timto je trywith, kere by asi zrobilo NullReference Exception, tra se rozhodnut, esli chybu resit jako tady vypnutim, anebo ji nechat projit s nactenim defaultnich hodnot  
           
            let jsonString() = 
 
-               let xmlSerializer = new DataContractSerializer(typedefof<string>) 
-                                   |> Option.ofObj 
-                                   |> optionToGenerics "při tvorbě nové instance" "DataContractSerializer()"
-               let fileStream = File.ReadAllBytes(filepath)
-                                |> Option.ofObj 
-                                |> optionToGenerics (sprintf "čtení dat ze souboru %s" xmlFile) "File.ReadAllBytes()"
+               let xmlSerializer = 
+                   new DataContractSerializer(typedefof<string>) 
+                   |> Option.ofObj 
+                   |> optionToGenerics "při tvorbě nové instance" "DataContractSerializer()"
+
+               let fileStream =
+                   File.ReadAllBytes(filepath)
+                   |> Option.ofObj 
+                   |> optionToGenerics (sprintf "čtení dat ze souboru %s" xmlFile) "File.ReadAllBytes()"
+
                use memoryStream = new MemoryStream(fileStream) 
-               let resultObj = xmlSerializer.ReadObject(memoryStream)  
-                               |> Option.ofObj 
-                               |> optionToGenerics (sprintf "čtení dat ze souboru %s" xmlFile) "xmlSerializer.ReadObject()"      
+
+               let resultObj = 
+                   xmlSerializer.ReadObject(memoryStream)  
+                   |> Option.ofObj 
+                   |> optionToGenerics (sprintf "čtení dat ze souboru %s" xmlFile) "xmlSerializer.ReadObject()"  
+                   
                let resultString = unbox resultObj  
                                   |> Option.ofObj 
-                                  |> optionToGenerics "downcasting" "(unbox resultObj)"      
+                                  |> optionToGenerics "downcasting" "(unbox resultObj)"  
+                                  
                let jsonString = JsonConvert.DeserializeObject<'a>(resultString) 
                jsonString
            
@@ -235,12 +256,15 @@ module Helpers =
        let copyFiles source destination =
                                                                     
           let perform x =                                    
-              let sourceFilepath = Path.GetFullPath(source) 
-                                   |> Option.ofObj 
-                                   |> optionToGenerics (sprintf "čtení cesty k souboru %s" source)  "Path.GetFullPath()"
-              let destinFilepath = Path.GetFullPath(destination) 
-                                   |> Option.ofObj 
-                                   |> optionToGenerics (sprintf "čtení cesty k souboru %s" destination)  "Path.GetFullPath()"
+              let sourceFilepath = 
+                  Path.GetFullPath(source) 
+                  |> Option.ofObj 
+                  |> optionToGenerics (sprintf "čtení cesty k souboru %s" source)  "Path.GetFullPath()"
+              
+              let destinFilepath =
+                  Path.GetFullPath(destination) 
+                  |> Option.ofObj 
+                  |> optionToGenerics (sprintf "čtení cesty k souboru %s" destination)  "Path.GetFullPath()"
                     
               let fInfodat: FileInfo = new FileInfo(sourceFilepath)  
               match fInfodat.Exists with 

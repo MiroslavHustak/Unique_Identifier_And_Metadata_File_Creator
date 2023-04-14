@@ -39,9 +39,10 @@ let createMetadataFiles() =
         let perform x = deserialize "json.xml" 
         tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 title message Common_Settings.Default              
 
-    let openFileDialog() = new OpenFileDialog() 
-                           |> Option.ofObj
-                           |> optionToGenerics2 "OpenFileDialog()" (new OpenFileDialog())                           
+    let openFileDialog() = 
+        new OpenFileDialog() 
+        |> Option.ofObj
+        |> optionToGenerics2 "OpenFileDialog()" (new OpenFileDialog())                           
      
     let procFn (str1: string) (str2: seq<string>) =         
         System.Diagnostics.Process.Start(str1, str2)
@@ -67,7 +68,7 @@ let createMetadataFiles() =
         | true  -> openFileDialog.FileName
                    |> Option.ofObj                   
                    |> function 
-                      | Some value -> 
+                       | Some value -> 
                                       MyPatternBuilder    
                                           {     
                                              let jpgPath = deserialize.jpgPath 
@@ -87,7 +88,7 @@ let createMetadataFiles() =
                                                                                                   
                                              return proc |> ignore //.exe -> do binu (release) v C# projektu, bo tam se to spusta 
                                           }                                                             
-                      | None       -> procKill()   
+                       | None       -> procKill()   
         | false -> procKill()  
                 
     startMetadataFileCreation() 

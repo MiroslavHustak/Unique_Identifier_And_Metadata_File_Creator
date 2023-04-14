@@ -27,9 +27,9 @@ let private (++++++) a b c d e f g = a + b + c + d + e + f + g
 
 let private myTasks task1 task2 task3 =           
     [ 
-      task1 
-      task2 
-      task3 
+        task1 
+        task2 
+        task3 
     ] 
     |> Async.Parallel //viz strana 433 Isaac Abraham
     |> Async.Catch
@@ -41,7 +41,8 @@ let private myTasks task1 task2 task3 =
 let private whatIs(x: obj) =
     match x with
     | :? TaskResults as du -> du  //aby nedoslo k nerizene chybe behem runtime
-    | _                    -> error4 "error 4 - x :?> TaskResults"                              
+    | _                    -> 
+                              error4 "error 4 - x :?> TaskResults"                              
                               x :?> TaskResults
 
 
@@ -175,7 +176,8 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                                         let fnCisloKartonu = 
                                             match karCkbxRight with
                                             | false -> checkBoxFn (sprintf "%s%s" <| karTxb1 <| (myString dtGoogle.Rows.[i].[8])) karCkbxLeft
-                                            | true  -> let str = myString dtGoogle.Rows.[i].[8]
+                                            | true  -> 
+                                                       let str = myString dtGoogle.Rows.[i].[8]
                                                        let numberOfZeros = abs (karTxb2 - String.length str)
                                                        checkBoxFn (sprintf "%s%s%s" <| karTxb1 <| getString(numberOfZeros, "0") <| str) karCkbxLeft  
                                                                                                
@@ -200,7 +202,8 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                                         
                                         let result = 
                                             match lastCharacter with
-                                            | '-' -> let result = result.Remove(result.Length - 1, 1)
+                                            | '-' -> 
+                                                     let result = result.Remove(result.Length - 1, 1)
                                                      result  
                                             | _   -> result
                                         dtGoogle.Rows.[i].[1] <- result                                         
@@ -306,22 +309,25 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
        
                     let myString = du |> List.item 0 |> whatIs                        
                                    |> function 
-                                      | MyString value -> value                                                  
-                                      | _              -> error4 "error4 - MyString csv()"
-                                                          String.Empty //whatever           
+                                       | MyString value -> value                                                  
+                                       | _              -> 
+                                                           error4 "error4 - MyString csv()"
+                                                           String.Empty //whatever           
    
                     let myBool = du |> List.item 1 |> whatIs                         
                                  |> function 
-                                    | MyBool value -> value                                           
-                                    | _            -> error4 "error4 - MyBool excel()"
-                                                      false //whatever   
+                                     | MyBool value -> value                                           
+                                     | _            -> 
+                                                       error4 "error4 - MyBool excel()"
+                                                       false //whatever   
 
                     //jen quli error4, jinak nepotrebne
                     let myUnit = du |> List.item 2 |> whatIs                          
                                  |> function 
-                                    | MyUnit value -> value                                           
-                                    | _            -> error4 "error4 - MyUnit google()"
-                                                      ()   
+                                     | MyUnit value -> value                                           
+                                     | _            -> 
+                                                       error4 "error4 - MyUnit google()"
+                                                       ()   
                     
                     let myBool = 
                         match myBool with
