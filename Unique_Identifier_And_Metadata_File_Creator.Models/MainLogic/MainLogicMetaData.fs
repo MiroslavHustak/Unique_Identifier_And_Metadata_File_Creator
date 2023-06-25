@@ -47,7 +47,7 @@ let createMetadataFiles() =
     let procFn (str1: string) (str2: seq<string>) =         
         System.Diagnostics.Process.Start(str1, str2)
         |> Option.ofObj  
-        |> optionToGenerics2 "System.Diagnostics.Process.Start()" (new System.Diagnostics.Process()) 
+        |> optionToGenerics2 "System.Diagnostics.Process.Start()" (new System.Diagnostics.Process())                   
                                                     
     let procKill() =
         let proc = procFn String.Empty Seq.empty                              

@@ -19,11 +19,10 @@ open Helpers.Process
 open Helpers.MyString
 open DiscriminatedUnions
 open Helpers.Deserialisation
+open System.Threading.Tasks
 
 //***************************** auxiliary function definitions ***********************************
 let private myString (StringNonN s) = s 
-
-let private (++++++) a b c d e f g = a + b + c + d + e + f + g
 
 let private myTasks task1 task2 task3 =           
     [ 
@@ -292,7 +291,7 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                         let endIndex = deserializeCS.numOfRowsGoogle + 999 // vyznam 999 je uveden v GoogleSheetsHelper 
                         writingToGoogleSheets dtGoogle jsonFileName1 id sheetName endIndex // try catch je primo v GoogleSheets -> WriteToGoogleSheets (C#) 
 
-                    //z duvodu pouziti return bool a string nelze tasks od .NET, ktere vyzaduji stejny typ vsude
+                    //toto nelze
                     (*                   
                     let ts = [| 
                                 Task.Factory.StartNew(fun () -> csv())   
@@ -300,8 +299,17 @@ let private getUniqueIdentifierCsvXlsxGoogle rowStart rowEnd startWithNumber rep
                                 Task.Factory.StartNew(fun () -> google()) 
                              |]
                     Task.WaitAll(ts |> Seq.cast<Task> |> Array.ofSeq)
-                     *)
-                                                        
+                     *)     
+                                                           
+                    //jen z vyukovych duvodu (nadbytecna funkce)
+                    let myStringTask =
+                        async
+                            {
+                                let csvResult = csv()
+                                let myStringResult = MyString csvResult
+                                return myStringResult
+                            }
+                    
                     let du: TaskResults list = myTasks 
                                                <| async { return MyString (csv()) } 
                                                <| async { return MyBool (excel()) }
@@ -369,8 +377,9 @@ let getUniqueIdentifier rowStart rowEnd startWithNumber reportProgress =
                                msg2 = "Řetězec DG sady, csv soubor a excel soubor nebyly vytvořeny :-( ." 
                                msg3 = String.Empty 
                            }   
-                       myDG_Sada  
-        (++++++) 
+                       myDG_Sada         
+
+        sprintf "%s%s%s%s%s%s%s"
         <| result.msg1
         <| "\n"
         <| result.msg2
