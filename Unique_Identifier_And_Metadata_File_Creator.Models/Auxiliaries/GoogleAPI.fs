@@ -1,7 +1,12 @@
 ﻿namespace Auxiliaries
 
+open System
+open System.Data
+open System.Net.NetworkInformation
+
 open GoogleSheets
-open CheckingNetConn
+open CheckForNetConn
+open ROP_Functions
 
 module GoogleAPI =
 
@@ -9,9 +14,8 @@ module GoogleAPI =
 
     let private checkForNetConn() = 
 
-        //Seq.initInfinite (fun _ -> NetConn.CheckForNetConn()) //DLL C# //neni tam kontrola na null
-        Seq.initInfinite (fun _ -> Helpers.NetConn.checkForNetConn()) //F#    
-        |> Seq.takeWhile ((=) false) 
+        Seq.initInfinite (fun _ -> checkForNetConn()) //F#    
+        |> Seq.takeWhile ((=) None) 
         |> Seq.iter      (fun _ -> ())  
 
     //****************** main function definitions **********************
@@ -31,9 +35,7 @@ module GoogleAPI =
        
         do checkForNetConn()     
 
-        let writeToGoogleSheets = new WritingToGoogleSheets(dtGoogle);
+        let writeToGoogleSheets = new WritingToGoogleSheets(dtGoogle)
         do writeToGoogleSheets.WriteToGoogleSheets(jsonFileName1, id, sheetName6, endIndex) 
     
     
-       
-  

@@ -13,6 +13,8 @@
     <Compile Include="MyTypes\Strings.fs" />
     <Compile Include="MyTypes\PatternBuilders.fs" />
     <Compile Include="MyTypes\DiscriminatedUnions.fs" />
+    <Compile Include="Auxiliaries\ForLearningPurposes.fs" />
+    <Compile Include="Auxiliaries\CheckForNetConn.fs" />
     <Compile Include="Auxiliaries\Errors.fs" />
     <Compile Include="Auxiliaries\ROP_Functions.fs" />
     <Compile Include="Auxiliaries\Helpers.fs" />
@@ -35,6 +37,7 @@
     <PackageReference Include="FSharp.Collections.ParallelSeq" Version="1.2.0" />
     <PackageReference Include="FSharp.Control.AsyncSeq" Version="3.2.1" />
     <PackageReference Include="FSharp.Quotations.Evaluator" Version="2.1.0" />
+    <PackageReference Include="FsToolkit.ErrorHandling" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Serilog" Version="2.11.0-dev-01377" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
