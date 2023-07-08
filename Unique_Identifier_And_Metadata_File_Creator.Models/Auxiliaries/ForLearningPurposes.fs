@@ -9,8 +9,9 @@ open GoogleSheets
 module ForLearningPurposes =  
 
     //****************** For learning purposes *****************************************
+    //****************** Reading from and writing to Google Sheets via Google Sheets API *********************************************
     
-        //Now let's consider a hypothetical case where the Seq loop is not nedded 
+        //To simplify things, let's consider a hypothetical case where the Seq loop (used in the real-case scenario) is not needed  
     
         let checkForNetConn(): Result<_, string> = //Ok value not needed
             
@@ -43,7 +44,7 @@ module ForLearningPurposes =
             | Ok _      ->
                            try
                                try
-                                   //This C# custom-made library function does contain a try-catch block (I did not omit it as I had thought)
+                                   //This C# custom-made library function does contain a try-catch block (I did not omit it as I had previously thought)
                                    //but let's pretend for this moment that the C# try-catch block is not implemented 
                                    ReadingFromGoogleSheets.ReadFromGoogleSheets(
                                    jsonFileName, 
@@ -67,7 +68,7 @@ module ForLearningPurposes =
             | Ok _      ->
                            try
                                try
-                                   //This C# custom-made library function does contain a try-catch block (I did not omit it as I had thought)
+                                   //This C# custom-made library function does contain a try-catch block (I did not omit it as I had previously thought)
                                    //but let's pretend for this moment that the C# try-catch block is not implemented 
                                    let writeToGoogleSheets = new WritingToGoogleSheets(dtGoogle)
                                    Ok <| writeToGoogleSheets.WriteToGoogleSheets(jsonFileName1, id, sheetName6, endIndex) 
@@ -75,26 +76,23 @@ module ForLearningPurposes =
                                ()
                            with
                            | ex -> Error (string ex)
-            | Error err -> Error err          
-    
-    
-       
-    
-        //***************************** Now I'll try some refactoring *******************************************************************
+            | Error err -> Error err     
 
-        let mapResult f err : Result<'a, 'b> = 
-               f 
-               |> Option.ofObj            
+    
+        //***************************** Now I'll try to do some refactoring.... *******************************************************************
+
+        let optionToResult f err : Result<'a, 'b> = 
+               f                      
                |> function   
                    | Some value -> Ok value 
                    | None       -> Error err    
         
-        let tryWith f : Result<'a, string> =            
+        let tryWith f1 f2 : Result<'a, string> =            
             try
                 try                 
-                   f
+                    f2
                 finally
-                ()
+                    f1
             with
             | ex -> Error (string ex)
     
@@ -113,12 +111,9 @@ module ForLearningPurposes =
                                                 match pingReply.Status = IPStatus.Success with
                                                 | true  -> Some (pingReply |> ignore) //pingReply not needed
                                                 | false -> None 
-                               )
-                |> function
-                    | Some () -> Ok () 
-                    | None    -> Error "12029 Cannot Connect"
-                
-            tryWith f           
+                               )    
+
+            optionToResult f "12029 Cannot Connect" |> tryWith ()           
     
         let readingFromGoogleSheetsRF jsonFileName columnStart rowStart columnEnd rowEnd firstRowIsHeaders id sheetName6 : Result<DataTable, string> =
              
@@ -130,9 +125,9 @@ module ForLearningPurposes =
                                     id, 
                                     sheetName6,
                                     columnStart, rowStart, columnEnd, rowEnd, firstRowIsHeaders
-                                    ) 
+                                    ) |> Option.ofObj 
     
-                            tryWith <| mapResult f "Cannot Read Data From DataTable"
+                            optionToResult f "Cannot Read Data From DataTable" |> tryWith ()
     
             | Error err -> Error err  
                    
@@ -144,10 +139,12 @@ module ForLearningPurposes =
                                let writeToGoogleSheets = new WritingToGoogleSheets(dtGoogle)
                                Ok <| writeToGoogleSheets.WriteToGoogleSheets(jsonFileName1, id, sheetName6, endIndex)                 
                            
-                           tryWith f   
+                           tryWith () f
     
-            | Error err -> Error err    
+            | Error err -> Error err       
             
+
+        //************************** Now let's do something with the results... ************************************
 
         let doSomethingWithResult1() = 
            
