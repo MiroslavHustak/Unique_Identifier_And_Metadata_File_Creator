@@ -11,7 +11,7 @@ module ForLearningPurposes =
     //****************** For learning purposes *****************************************
     //****************** Reading from and writing to Google Sheets via Google Sheets API *********************************************
     
-        //To simplify things, let's consider a hypothetical case where the Seq loop (used in the real-case scenario) is not needed  
+        //To simplify things, let's consider a hypothetical case where the Seq loop (used in the real-case scenario in GoogleAPI.fs) is not needed  
     
         let checkForNetConn(): Result<_, string> = //Ok value not needed
             
@@ -96,7 +96,7 @@ module ForLearningPurposes =
             with
             | ex -> Error (string ex)
     
-        let checkForNetConnRF(): Result<_, string> = //Ok value not needed
+        let checkForNetConnRefactored(): Result<_, string> = //Ok value not needed
                 
             let f = 
                 use myPing = new Ping()
@@ -115,9 +115,9 @@ module ForLearningPurposes =
 
             optionToResult f "12029 Cannot Connect" |> tryWith ()           
     
-        let readingFromGoogleSheetsRF jsonFileName columnStart rowStart columnEnd rowEnd firstRowIsHeaders id sheetName6 : Result<DataTable, string> =
+        let readingFromGoogleSheetsRefactored jsonFileName columnStart rowStart columnEnd rowEnd firstRowIsHeaders id sheetName6 : Result<DataTable, string> =
              
-            match checkForNetConnRF() with
+            match checkForNetConnRefactored() with
             | Ok _      ->
                             let f = 
                                 ReadingFromGoogleSheets.ReadFromGoogleSheets(
@@ -131,9 +131,9 @@ module ForLearningPurposes =
     
             | Error err -> Error err  
                    
-        let writingToGoogleSheetsRF dtGoogle jsonFileName1 id sheetName6 endIndex : Result<unit, string> =
+        let writingToGoogleSheetsRefactored dtGoogle jsonFileName1 id sheetName6 endIndex : Result<unit, string> =
                  
-            match checkForNetConnRF() with
+            match checkForNetConnRefactored() with
             | Ok _      ->
                            let f = 
                                let writeToGoogleSheets = new WritingToGoogleSheets(dtGoogle)
@@ -150,7 +150,7 @@ module ForLearningPurposes =
            
             let emptyDataTable = new DataTable("Empty")
                    
-            match readingFromGoogleSheetsRF "" 1 1 1 1 true "" "" with
+            match readingFromGoogleSheetsRefactored "" 1 1 1 1 true "" "" with
             | Ok value  -> value, "Data from Google Sheets successfully read and loaded"
             | Error err -> emptyDataTable, err
                         
@@ -161,7 +161,7 @@ module ForLearningPurposes =
            
             let dummyDataTable = new DataTable("Dummy")
                       
-            match writingToGoogleSheetsRF dummyDataTable "" "" "" 1 with
+            match writingToGoogleSheetsRefactored dummyDataTable "" "" "" 1 with
             | Ok value  -> value, "Data successfully uploaded to Google Sheets"
             | Error err -> (), err
                       
