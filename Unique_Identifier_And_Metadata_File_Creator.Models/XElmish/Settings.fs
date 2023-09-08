@@ -233,7 +233,7 @@ module XElmishSettings =
                    pdfPath = condPathChar m.PdfPathTextBoxText Settings.Common_Settings.Default.pdfPath 
                    numOfRowsGoogle = condInt m.NumOfRowsGoogleTextBoxText Common_Settings.Default.numOfRowsGoogle limitGoogle 
        
-                   firstRowIsHeaders = unbox (m.FirstRowIsHeadersCheckBoxIsChecked)
+                   firstRowIsHeaders = (m.FirstRowIsHeadersCheckBoxIsChecked)
                    jsonFileName1 = condPathChar m.JsonFileName1TextBoxText Common_Settings.Default.jsonFileName1 
                    id = cond m.IdTextBoxText Common_Settings.Default.id
        
@@ -241,7 +241,7 @@ module XElmishSettings =
                    sheetName6 = cond m.SheetName6TextBoxText Common_Settings.Default.sheetName6
                    columnStart = condInt m.ColumnStartTextBoxText Common_Settings.Default.columnStart limitColumnStart
                    columnEnd = condInt m.ColumnEndTextBoxText Common_Settings.Default.columnEnd limitColumnEnd
-               }
+               }                         
            
            let myCopyOfModel() =  //to je, co se hned zobrazi
                {
@@ -252,9 +252,8 @@ module XElmishSettings =
                    XlsxPathTextBoxText = condPathChar m.XlsxPathTextBoxText Common_Settings.Default.xlsxPath 
                    JpgPathTextBoxText = condPathChar m.JpgPathTextBoxText Common_Settings.Default.jpgPath 
                    PdfPathTextBoxText = condPathChar m.PdfPathTextBoxText Common_Settings.Default.pdfPath 
-                   NumOfRowsGoogleTextBoxText = string (condInt m.NumOfRowsGoogleTextBoxText Common_Settings.Default.numOfRowsGoogle limitGoogle)
-                   
-                   FirstRowIsHeadersCheckBoxIsChecked = unbox (m.FirstRowIsHeadersCheckBoxIsChecked)
+                   NumOfRowsGoogleTextBoxText = string (condInt m.NumOfRowsGoogleTextBoxText Common_Settings.Default.numOfRowsGoogle limitGoogle)                  
+                   FirstRowIsHeadersCheckBoxIsChecked = (m.FirstRowIsHeadersCheckBoxIsChecked)
                    JsonFileName1TextBoxText = condPathChar m.JsonFileName1TextBoxText Common_Settings.Default.jsonFileName1 
                    IdTextBoxText = cond m.IdTextBoxText Common_Settings.Default.id
        

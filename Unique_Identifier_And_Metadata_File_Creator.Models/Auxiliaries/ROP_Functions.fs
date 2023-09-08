@@ -64,6 +64,13 @@ module ROP_Functions =
         | None       -> 
                         error4 str                                   
                         x //whatever of the particular type   
+
+module Casting = 
+    
+    let castAs<'a> (o: obj) : 'a option =    //the :? operator in F# is used for type testing     
+        match Option.ofObj o with
+        | Some (:? 'a as result) -> Some result
+        | _                      -> None
                                       
                     
 

@@ -208,14 +208,12 @@ module Helpers =
 
                use memoryStream = new MemoryStream(fileStream) 
 
-               let resultObj = 
+               let resultString = 
                    xmlSerializer.ReadObject(memoryStream)  
                    |> Option.ofObj 
                    |> optionToGenerics (sprintf "čtení dat ze souboru %s" xmlFile) "xmlSerializer.ReadObject()"  
-                   
-               let resultString = unbox resultObj  
-                                  |> Option.ofObj 
-                                  |> optionToGenerics "downcasting" "(unbox resultObj)"  
+                   |> Casting.castAs<string> 
+                   |> optionToGenerics "downcasting" "(Casting.castAs<string>)"  
                                   
                let jsonString = JsonConvert.DeserializeObject<'a>(resultString) 
                jsonString
