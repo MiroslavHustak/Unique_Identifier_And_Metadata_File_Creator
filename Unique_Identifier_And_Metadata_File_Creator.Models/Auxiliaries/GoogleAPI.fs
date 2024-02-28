@@ -16,7 +16,7 @@ module GoogleAPI =
 
         Seq.initInfinite (fun _ -> checkForNetConn()) //F#    
         |> Seq.takeWhile ((=) None) 
-        |> Seq.iter      (fun _ -> ())  
+        |> Seq.iter (fun _ -> ())  
 
     //****************** main function definitions **********************
 
@@ -24,12 +24,13 @@ module GoogleAPI =
    
         do checkForNetConn()     
 
-        ReadingFromGoogleSheets.ReadFromGoogleSheets(
-            jsonFileName, 
-            id, 
-            sheetName6,
-            columnStart, rowStart, columnEnd, rowEnd, firstRowIsHeaders
-        ) |> Option.ofObj //DLL C# 
+        ReadingFromGoogleSheets.ReadFromGoogleSheets
+            (
+                jsonFileName, 
+                id, 
+                sheetName6,
+                columnStart, rowStart, columnEnd, rowEnd, firstRowIsHeaders
+            ) |> Option.ofObj //DLL C# 
 
     let writingToGoogleSheets dtGoogle jsonFileName1 id sheetName6 endIndex =
        

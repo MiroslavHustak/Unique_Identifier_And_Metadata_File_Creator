@@ -17,11 +17,12 @@ module CheckForNetConn =
                      
                 myPing.Send(host, timeout, buffer, pingOptions)
                 |> Option.ofObj  
-                |> Option.bind (fun pingReply -> 
-                                                match pingReply.Status = IPStatus.Success with
-                                                | true  -> Some (pingReply |> ignore) 
-                                                | false -> None                     
-                               )
+                |> Option.bind 
+                    (fun pingReply -> 
+                                    match pingReply.Status = IPStatus.Success with
+                                    | true  -> Some (pingReply |> ignore) 
+                                    | false -> None                     
+                    )
             finally
                 ()
         with           

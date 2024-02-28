@@ -19,11 +19,12 @@ module Errors =
         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning)
         |> function  
            | MessageBoxResult.OK ->  
-                                     let currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName
-                                     Process.Start(currentExecutablePath) |> ignore //restart
-                                     Environment.Exit(1)  
-                                     f
-           | _                    -> f
+                                  let currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName
+                                  Process.Start(currentExecutablePath) |> ignore //restart
+                                  Environment.Exit(1)  
+                                  f
+           | _                   -> 
+                                  f
 
     //************************** main error functions ******************
 

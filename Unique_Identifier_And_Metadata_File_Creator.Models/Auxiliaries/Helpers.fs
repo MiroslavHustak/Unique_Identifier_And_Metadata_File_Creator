@@ -16,13 +16,13 @@ module Helpers =
         //ROP... 
         let detectLockedFile (file: FileInfo) =       
             
-                let perform x =  
-                   //zamerne nepouzivam use stream =  
-                   let stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None) 
-                   stream.Close()
-                   stream.Dispose()
-                   false             
-                tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor2 
+            let perform x =  
+                //zamerne nepouzivam use stream =  
+                let stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None) 
+                stream.Close()
+                stream.Dispose()
+                false             
+            tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor2 
          
         //... a pro porovnani normalni try with block (ale bez finaly, coz mam vyse)
         let detectLockedFileTryWith (file: FileInfo) = 
@@ -57,8 +57,9 @@ module Helpers =
                         |> Option.ofObj                                
                         |> optionToGenerics path "FileInfo(path)"   
                     match detectLockedFile file with
-                    | true  -> failwith (sprintf "Soubor %A je již používán jiným procesem." path)
-                               true // tohle true nevezme, proto viz nize                                                               
+                    | true  -> 
+                             failwith (sprintf "Soubor %A je již používán jiným procesem." path)
+                             true // tohle true nevezme, proto viz nize                                                               
                     | false -> false                      
                 tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 title message true   
                         
@@ -78,32 +79,36 @@ module Helpers =
                     |> Option.ofObj                                
                     |> optionToGenerics path "GetFiles()"   
                 
-                fiArray |> Array.map (fun item -> 
-                                                match detectLockedFile item with
-                                                | false -> 
-                                                           item.Delete()
-                                                           false                                                                   
-                                                | true  -> 
-                                                           failwith (sprintf "Soubor %A je používán jiným procesem a nelze jej smazat." item)
-                                                           true  //k tomuto true to nedojede, proto [| true; true |]                                                                                                                                
-                                     ) 
+                fiArray 
+                |> Array.map
+                    (fun item -> 
+                               match detectLockedFile item with
+                               | false -> 
+                                        item.Delete()
+                                        false                                                                   
+                               | true  -> 
+                                        failwith (sprintf "Soubor %A je používán jiným procesem a nelze jej smazat." item)
+                                        true  //k tomuto true to nedojede, proto [| true; true |]                                                                                                                                
+                        ) 
                 
             tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 title message [| true; true |] |> Array.contains true   
 
         let closeSingleProcess message title processName =        
 
-            Seq.initInfinite (fun _ -> let getProcesses =
-                                           Process.GetProcessesByName(processName)
-                                           |> Option.ofObj                                
-                                           |> optionToGenerics processName "GetProcessesByName()"   
-                                       getProcesses.Length > 0
-                             ) 
+            Seq.initInfinite
+                (fun _ -> 
+                        let getProcesses =
+                            Process.GetProcessesByName(processName)
+                            |> Option.ofObj                                
+                            |> optionToGenerics processName "GetProcessesByName()"   
+                        getProcesses.Length > 0
+                ) 
             |> Seq.takeWhile ((=) true) 
-            |> Seq.iter      (fun _ -> error1  <| message <| title)  
+            |> Seq.iter (fun _ -> error1  <| message <| title)  
         
         
         [<CompiledName "KillSingleProcess">] 
-        let killSingleProcess(name: string, errorNumber: string, consoleApp: bool): unit = 
+        let killSingleProcess (name: string, errorNumber: string, consoleApp: bool): unit = 
 
            try          
               let iterateThroughProcess =
@@ -113,18 +118,21 @@ module Helpers =
                       |> optionToGenerics name "GetProcessesByName()"   
                   getProcesses 
                   |> Array.toList 
-                  |> List.map (fun item -> 
-                                          match (item.ProcessName |> String.IsNullOrEmpty) with
-                                          | true  -> ()
-                                          | false -> item.Kill() 
-                              )
+                  |> List.map
+                      (fun item -> 
+                                 match (item.ProcessName |> String.IsNullOrEmpty) with
+                                 | true  -> ()
+                                 | false -> item.Kill() 
+                      )
               ()                                            
            with  
            | ex when (consoleApp = true)  -> 
-                                             do printfn "%s: %s" <| errorNumber <| string ex.Message
-                                             Console.ReadKey() |> ignore
-           | ex when (consoleApp = false) -> error4 <| string ex.Message
-           | _  when (consoleApp = false) -> ()
+                                           do printfn "%s: %s" <| errorNumber <| string ex.Message
+                                           Console.ReadKey() |> ignore
+           | ex when (consoleApp = false) ->
+                                           error4 <| string ex.Message
+           | _  when (consoleApp = false) ->
+                                           ()
 
     module private TryParserInt =
 
@@ -159,10 +167,11 @@ module Helpers =
             let listRange = [ 1 .. numberOfStrings ]
             let rec loop list acc stringToAdd =
                 match list with 
-                | []        -> acc
+                | []        -> 
+                             acc
                 | _ :: tail -> 
-                               let finalString = (+) acc stringToAdd
-                               loop tail finalString stringToAdd   //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984
+                             let finalString = (+) acc stringToAdd
+                             loop tail finalString stringToAdd   //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984
             loop listRange initialString stringToAdd  //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984
     
     //Vsechny serializace dat povinne do trywith bloku (a jeste overit Option.ofObj, kdyby nahodou tam byl nullable typ)

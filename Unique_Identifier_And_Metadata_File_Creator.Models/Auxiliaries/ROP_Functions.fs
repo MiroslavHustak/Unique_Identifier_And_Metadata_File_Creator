@@ -37,9 +37,11 @@ module ROP_Functions =
 
     let deconstructor4 y =  
         function
-        | Success x  -> x                                                   
-        | Failure ex -> error4 ex
-                        y
+        | Success x  -> 
+                      x                                                   
+        | Failure ex ->
+                      error4 ex
+                      y
     
     let optionToArraySort str1 str2 x = 
         function
@@ -53,17 +55,19 @@ module ROP_Functions =
 
     let optionToDirectoryInfo str (x: DirectoryInfo option) = 
         match x with 
-        | Some value -> value
+        | Some value ->
+                      value
         | None       -> 
-                        error4 str //ukonci program
-                        new DirectoryInfo(String.Empty) //whatever of DirectoryInfo type
+                      error4 str //ukonci program
+                      new DirectoryInfo(String.Empty) //whatever of DirectoryInfo type
 
     let optionToGenerics2 str x = 
         function
-        | Some value -> value
+        | Some value ->
+                      value
         | None       -> 
-                        error4 str                                   
-                        x //whatever of the particular type   
+                      error4 str                                   
+                      x //whatever of the particular type   
 
 module Casting = 
     
