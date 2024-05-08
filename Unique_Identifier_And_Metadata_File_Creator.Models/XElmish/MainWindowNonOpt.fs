@@ -111,21 +111,22 @@ module MainWindowNonOpt =
         match msg with
         | ButtonClick id ->
             match findButton id m with
-            | None               -> m, Cmd.none
+            | None               -> 
+                                  m, Cmd.none
             | Some clickedButton ->                                   
-                                    let m = 
-                                        match clickedButton.IsMarkable with
-                                        | true  -> { m with MarkedButton = id }
-                                        | false -> m                            
+                                  let m = 
+                                      match clickedButton.IsMarkable with
+                                      | true  -> { m with MarkedButton = id }
+                                      | false -> m                            
 
-                                    MyPatternBuilder    
-                                        {                                               
-                                            let! _ = not (clickedButton.Id = tbRightCalc), (m, Cmd.ofMsg ShowRightCalc) 
-                                            let! _ = not (clickedButton.Id = tbSettingsDG), (m, Cmd.ofMsg ShowSettingsDG)  
-                                            let! _ = not (clickedButton.Id = tbSettings), (m, Cmd.ofMsg ShowSettings)  
-                                            let! _ = not (clickedButton.Id = tbLicences), (m, Cmd.ofMsg ShowLicences)  
-                                            return m, Cmd.none 
-                                        }       
+                                  MyPatternBuilder    
+                                      {                                               
+                                          let! _ = not (clickedButton.Id = tbRightCalc), (m, Cmd.ofMsg ShowRightCalc) 
+                                          let! _ = not (clickedButton.Id = tbSettingsDG), (m, Cmd.ofMsg ShowSettingsDG)  
+                                          let! _ = not (clickedButton.Id = tbSettings), (m, Cmd.ofMsg ShowSettings)  
+                                          let! _ = not (clickedButton.Id = tbLicences), (m, Cmd.ofMsg ShowLicences)  
+                                          return m, Cmd.none 
+                                      }       
 
         | ShowRightCalc  -> { m with RightCalcPage = fst (RightCalc.init()) }, Cmd.none   
         | ShowSettingsDG -> { m with SettingsPageDG = fst (XElmishSettingsDG.init()) }, Cmd.none 

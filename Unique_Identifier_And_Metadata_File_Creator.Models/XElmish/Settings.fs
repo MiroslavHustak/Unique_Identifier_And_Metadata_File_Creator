@@ -325,14 +325,15 @@ module XElmishSettings =
             let strCbx = sprintf "Hodnota \"%s\" byla změněna."
 
             match msg with          
-            | CancelButton2Event  -> initialModel "jsonBackUp.xml" "Načteny hodnoty ze záložního souboru (hodnoty uložené před spuštěním programu). \n" |> updateSettings, Cmd.none                                   
+            | CancelButton2Event  -> 
+                                   initialModel "jsonBackUp.xml" "Načteny hodnoty ze záložního souboru (hodnoty uložené před spuštěním programu). \n" |> updateSettings, Cmd.none                                   
             | DefaultButton3Event -> 
-                                     let title = "Rozmysli si to !!!"
-                                     let message = "Kliknutím na \"Ano\" nebo \"Yes\" bude proveden návrat k defaultním hodnotám a navždy ztratíš nastavené hodnoty. Je to opravdu to, co chceš?"
-                                     MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No)                
-                                     |> function
-                                         | MessageBoxResult.Yes -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none 
-                                         | _                    -> m, Cmd.none    
+                                   let title = "Rozmysli si to !!!"
+                                   let message = "Kliknutím na \"Ano\" nebo \"Yes\" bude proveden návrat k defaultním hodnotám a navždy ztratíš nastavené hodnoty. Je to opravdu to, co chceš?"
+                                   MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No)                
+                                   |> function
+                                       | MessageBoxResult.Yes -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none 
+                                       | _                    -> m, Cmd.none    
 
             | FontTypeTextBox fontType   -> { m with FontTypeTextBoxText = fontType; InfoTextBoxText = str m.FontTypeLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
             | PrefixTextBox prefix       -> { m with PrefixTextBoxText = prefix; InfoTextBoxText = str m.PrefixLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none

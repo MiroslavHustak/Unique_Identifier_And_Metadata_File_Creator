@@ -276,14 +276,15 @@ module XElmishSettingsDG =
         let strCbx = sprintf "Status \"%s\" byl právě změněn."
 
         match msg with          
-        | CancelButtonEvent   -> initialModel "jsonDGBackUp.xml" "Načteny hodnoty ze záložního souboru (hodnoty uložené před spuštěním programu). \n" |> updateSettings, Cmd.none                                   
+        | CancelButtonEvent   -> 
+                               initialModel "jsonDGBackUp.xml" "Načteny hodnoty ze záložního souboru (hodnoty uložené před spuštěním programu). \n" |> updateSettings, Cmd.none                                   
         | DefaultButtonEvent  -> 
-                                 let title = "Rozmysli si to !!!"                                    
-                                 let message = "Kliknutím na \"Ano\" nebo \"Yes\" bude proveden návrat k defaultním hodnotám a navždy ztratíš nastavené hodnoty. Je to opravdu to, co chceš?"
-                                 MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No)                                     
-                                 |> function
-                                     | MessageBoxResult.Yes -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none 
-                                     | _                    -> m, Cmd.none                
+                               let title = "Rozmysli si to !!!"                                    
+                               let message = "Kliknutím na \"Ano\" nebo \"Yes\" bude proveden návrat k defaultním hodnotám a navždy ztratíš nastavené hodnoty. Je to opravdu to, co chceš?"
+                               MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No)                                     
+                               |> function
+                                   | MessageBoxResult.Yes -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none 
+                                   | _                    -> m, Cmd.none                
                                       
         | ArchiveCodeTextBox archiveCodeTxb   -> { m with ArchiveCodeTextBoxText = archiveCodeTxb; InfoTextBoxText = str "archivního kódu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
         | ArchiveCodeCheckBox archiveCodeCkbx -> { m with ArchiveCodeCheckBoxIsChecked = archiveCodeCkbx; InfoTextBoxText = strCbx "archivního kódu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none 
@@ -308,9 +309,9 @@ module XElmishSettingsDG =
         | KARTextBox1 karTxb1 -> { m with KARTextBox1TextText = karTxb1; InfoTextBoxText = str "předpony čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
         | KARTextBox2 karTxb2 -> { m with KARTextBox2TextText = karTxb2; InfoTextBoxText = str "počtu znaků čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
         | KARCheckBoxLeft karCkbxLeft   -> 
-                                           match karCkbxLeft with
-                                           | true  -> { m with KARCheckBoxLeftIsChecked = karCkbxLeft; SGCheckBoxIsEnabled = false; SGCheckBoxIsChecked = false; InfoTextBoxText = strCbx "čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none  
-                                           | false -> { m with KARCheckBoxLeftIsChecked = karCkbxLeft; SGCheckBoxIsEnabled = true; InfoTextBoxText = strCbx "čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none 
+                                         match karCkbxLeft with
+                                         | true  -> { m with KARCheckBoxLeftIsChecked = karCkbxLeft; SGCheckBoxIsEnabled = false; SGCheckBoxIsChecked = false; InfoTextBoxText = strCbx "čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none  
+                                         | false -> { m with KARCheckBoxLeftIsChecked = karCkbxLeft; SGCheckBoxIsEnabled = true; InfoTextBoxText = strCbx "čísla kartonu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none 
         | KARCheckBoxRight karCkbxRight -> { m with KARCheckBoxRightIsChecked = karCkbxRight; InfoTextBoxText = strCbx "příslušného checkboxu"; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none                                              
         | KARCheckBoxLeftE karCkbxLeftE -> { m with KARCheckBoxLeftIsEnabled = karCkbxLeftE; } |> updateSettings, Cmd.none   
         | InfoTextBoxForeground         -> { m with InfoTextBoxForeground = Brushes.Black }, Cmd.none //tohle je barva, na kterou se to po pohybu mysi nebo po zvednuti klavesy zmeni
@@ -319,12 +320,13 @@ module XElmishSettingsDG =
     let condInt y x =   //musim x a y prehodit, nebot hodnota pres piping je dosazena az nakonec vpravo   
         match Parsing.parseMeOption (string x) with
         | Some value -> 
-                        let result = 
-                            match value <= limitNumberOfCharacters && value > 0 with 
-                            | true  -> value                                           
-                            | false -> limitNumberOfCharacters  //limitni hodnota v prislusnem textboxu
-                        string result                              
-        | None       -> string y
+                      let result = 
+                          match value <= limitNumberOfCharacters && value > 0 with 
+                          | true  -> value                                           
+                          | false -> limitNumberOfCharacters  //limitni hodnota v prislusnem textboxu
+                      string result                              
+        | None       -> 
+                      string y
          
 
     let condition x y = (cond x y) |> condInt y 

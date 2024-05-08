@@ -85,14 +85,16 @@ module RightCalc =
         | CreateUniqueIdentifier     ->                                       
                                         let result = 
                                             let myOptionList = [ parseMeOption m.StartWithNumber; parseMeOption m.LowLimit; parseMeOption m.HighLimit ] 
-                                            myOptionList |> List.map (fun item -> 
-                                                                                match item with 
-                                                                                | Some value -> 
-                                                                                                match value <= 0 with 
-                                                                                                | true  -> 0  //prestoze parseMe take dava nulu, davam zde parseMeOption pro zobecneni 
-                                                                                                | false -> value
-                                                                                | None       -> 0   //prestoze parseMe take dava nulu, davam zde parseMeOption pro zobecneni                                           
-                                                                     )      
+                                            myOptionList
+                                            |> List.map
+                                                (fun item -> 
+                                                           match item with 
+                                                           | Some value -> 
+                                                                         match value <= 0 with 
+                                                                         | true  -> 0  //prestoze parseMe take dava nulu, davam zde parseMeOption pro zobecneni 
+                                                                         | false -> value
+                                                           | None       -> 0   //prestoze parseMe take dava nulu, davam zde parseMeOption pro zobecneni                                           
+                                                )      
                                         
                                         let maxNumberOfCharacters = 
                                             let deserialize: Common_Settings = deserializeMe <| "json.xml" <| Common_Settings.Default //nutno zadat explicitne typ quli generics <'a>  v deserialisation v Helpers 
@@ -116,11 +118,11 @@ module RightCalc =
                                                                 |> optionToGenerics @"Xlsx_To_Jpg_PDF\XLSX_To_PDF_JPG_forWPF.exe" "FileInfo()"
                                                              match fInfodat.Exists with 
                                                              | true  ->  
-                                                                         Seq.initInfinite (fun _ -> detectFileRunning "XLSX_To_PDF_JPG_forWPF") 
-                                                                         |> Seq.takeWhile ((=) true) 
-                                                                         |> Seq.iter      (fun _ -> myMsgBox() |> ignore
-                                                                                                    Thread.Sleep(1000)
-                                                                                          ) //Ceka do doby, nez se dokonci tvorba pruvodek, necham testovat po vterine, at to chudak pocitac nekontroluje furt.                                                                                        
+                                                                      Seq.initInfinite (fun _ -> detectFileRunning "XLSX_To_PDF_JPG_forWPF") 
+                                                                      |> Seq.takeWhile ((=) true) 
+                                                                      |> Seq.iter      (fun _ -> myMsgBox() |> ignore
+                                                                                                 Thread.Sleep(1000)
+                                                                                       ) //Ceka do doby, nez se dokonci tvorba pruvodek, necham testovat po vterine, at to chudak pocitac nekontroluje furt.                                                                                        
                                                              | false -> failwith (sprintf "Soubor %A nenalezen" fInfodat)  
 
                                                              //failwith "Simulated exception2" 
